@@ -1,0 +1,33 @@
+[submodule "nvim/bundle/vim-fugitive"]
+	path = nvim/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "nvim/bundle/vim-surround"]
+	path = nvim/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "nvim/bundle/vim-easy-align"]
+	path = nvim/bundle/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align
+[submodule "nvim/bundle/vim-commentary"]
+	path = nvim/bundle/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "nvim/bundle/vim-easymotion"]
+	path = nvim/bundle/vim-easymotion
+	url = https://github.com/easymotion/vim-easymotion
+[submodule "nvim/bundle/undotree"]
+	path = nvim/bundle/undotree
+	url = https://github.com/mbbill/undotree
+[submodule "nvim/bundle/vim-unimpaired"]
+	path = nvim/bundle/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired
+[submodule "nvim/bundle/vim-repeat"]
+	path = nvim/bundle/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "nvim/bundle/vim-startify"]
+	path = nvim/bundle/vim-startify
+	url = https://github.com/mhinz/vim-startify
+[submodule "nvim/bundle/goyo.vim"]
+	path = nvim/bundle/goyo.vim
+	url = https://github.com/junegunn/goyo.vim
+[submodule "nvim/bundle/rainbow_parentheses.vim"]
+	path = nvim/bundle/rainbow_parentheses.vim
+	url = https://github.com/junegunn/rainbow_parentheses.vim
