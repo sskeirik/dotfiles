@@ -1,0 +1,18 @@
+[alias]
+	st = status --short
+	co = checkout
+	ci = commit
+	b = branch
+	bb = branch --verbose
+	ba = branch --all
+	bba = branch --verbose --all
+	d = diff
+	dc = diff --cached
+	f = fetch
+	fa = fetch --all
+	pushf = push --force-with-lease
+[user]
+	name = Stephen Skeirik
+	email = skeirik2@illinois.edu
+[credential]
+	helper = cache --timeout=3600

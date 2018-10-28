@@ -1,0 +1,77 @@
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# load all of our environment variables
+. ~/.bash_env
+
+# startup tmux unless we don't need to
+if [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
+  # pretend we are xterm
+  export TERM=xterm-256color
+  # clear the terminal title
+  echo -ne "\033]0;\007"
+  exec tmux -f ~/.config/tmux/tmux.conf
+fi
+
+# color initialization when we aren't in emacs
+if [ -z $INSIDE_EMACS ]; then
+  # disable software control flow terminal shortcuts ctrl+S/ctrl+Q
+  # but allow internal libraries to use this mechanism if they wish
+  stty -ixon
+  
+  # setup colors
+  BASE16_SHELL="$HOME/.config/base16-shell"
+  [ -n "$PS1" ] && \
+      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+          eval "$("$BASE16_SHELL/profile_helper.sh")"
+  # base16_gruvbox-dark-pale
+  # $BASE16_SHELL/scripts/base16_onedark.sh
+  
+  # set dircolors
+  eval "$(dircolors -b ~/.config/dircolors/dircolors)"
+
+  # setup fancy prompt
+  # slow on DrvFS
+  # source ~/.config/bash/minimalist-bash-git-prompt.sh
+  PS1="\W \\$ "
+
+  # load fzf bindings (only makes sense under readline)
+  source ~/.config/fzf/completion.bash
+  source ~/.config/fzf/key-bindings.bash
+else
+  PS1="\W \\$ "
+fi
+
+
+# setup functions/aliases after defining environment
+alias wget="wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\""
+alias ls='ls --color=auto '
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias vi='nvim '
+alias vim='nvim '
+alias python='python3 '
+alias claer='clear '
+alias pypy='pypy3 '
+alias mux="PATH=$SAFEPATH tmuxinator "
+
+# run a command with elevated permissions
+elevate() {
+    pushd $(pwd)
+    cd /mnt/c/
+    powershell.exe -Command "Start-Process cmd -ArgumentList  \"/c\",\"$1 2>&1\" -Verb RunAs"
+    popd
+}
+
+# open a file
+open() { explorer.exe $1; }
+
+# create new github repo
+ghrepo() { curl -u 'skeirik2' https://api.github.com/user/repos -d '{"name":"$1"}'; }
+
+# find maude modules defined in code in given subdirectory
+mmods() { rg "^\S*^f?mod" * | cut -d' ' -f2; }
+
+# look-up files in a git repo with ext respecting ignore
+fbe() { rg --files -g '*'"$1"; }
