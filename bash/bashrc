@@ -16,13 +16,8 @@ if [ -z $INSIDE_EMACS ]; then
   # but allow internal libraries to use this mechanism if they wish
   stty -ixon
   
-  # setup colors
-  BASE16_SHELL="$HOME/.config/base16-shell"
-  [ -n "$PS1" ] && \
-      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-          eval "$("$BASE16_SHELL/profile_helper.sh")"
-  # base16_gruvbox-dark-pale
-  # $BASE16_SHELL/scripts/base16_onedark.sh
+  # setup colorscheme from base16 shell
+  source ~/.config/bash/base16-shell/scripts/base16_onedark.sh
   
   # set dircolors
   eval "$(dircolors -b ~/.config/dircolors/dircolors)"
