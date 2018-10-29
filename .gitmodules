@@ -46,3 +46,6 @@
 [submodule "nvim/bundle/maude.vim"]
 	path = nvim/bundle/maude.vim
 	url = https://github.com/vim-scripts/maude.vim
+[submodule "nvim/bundle/vim-matchup"]
+	path = nvim/bundle/vim-matchup
+	url = https://github.com/andymass/vim-matchup
