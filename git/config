@@ -11,6 +11,7 @@
 	f = fetch
 	fa = fetch --all
 	pushf = push --force-with-lease
+	last = log -n1
 [user]
 	name = Stephen Skeirik
 	email = skeirik2@illinois.edu
