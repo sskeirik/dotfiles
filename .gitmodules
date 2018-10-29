@@ -59,3 +59,6 @@
 [submodule "nvim/bundle/vim-gitgutter"]
 	path = nvim/bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
+[submodule "nvim/bundle/vim-searchindex"]
+	path = nvim/bundle/vim-searchindex
+	url = https://github.com/google/vim-searchindex.git
