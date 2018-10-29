@@ -56,3 +56,6 @@
 [submodule "nvim/bundle/flygrep.vim"]
 	path = nvim/bundle/flygrep.vim
 	url = https://github.com/wsdjeg/FlyGrep.vim
+[submodule "nvim/bundle/vim-gitgutter"]
+	path = nvim/bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
