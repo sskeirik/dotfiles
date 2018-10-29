@@ -17,7 +17,7 @@ if [ -z $INSIDE_EMACS ]; then
   stty -ixon
   
   # setup colorscheme from base16 shell
-  source ~/.config/bash/base16-shell/scripts/base16_onedark.sh
+  source ~/.config/bash/base16-shell/scripts/base16-onedark.sh
   
   # set dircolors
   eval "$(dircolors -b ~/.config/dircolors/dircolors)"
