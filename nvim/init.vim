@@ -11,7 +11,7 @@ let g:loaded_matchit = 1                                                        
 
 let g:mapleader = ','                                                           "Change leader to a comma
 
-set termguicolors
+set termguicolors                                                               "use nice colors
 set title                                                                       "change the terminal's title
 set number                                                                      "Line numbers are good
 " set relativenumber                                                              "Show numbers relative to current line
@@ -50,8 +50,14 @@ set grepprg=rg\ --vimgrep                                                       
 " set updatetime=500                                                              "Cursor hold timeout
 set synmaxcol=300                                                               "Use syntax highlighting only for 300 columns
 " set shortmess+=c                                                                "Disable completion menu messages in command line
-set undofile                                                                    "Keep undo history across sessions, by storing in file
 " set completeopt-=preview                                                        "Disable preview window for autocompletion
+
+set undofile                                                                    "Keep undo history across sessions, by storing in file
+let undo_path = expand('~/.cache/nvim/undo/')
+if !isdirectory(undo_path)
+  call system('mkdir -p ' . undo_path)
+endif
+let &undodir = undo_path
 
 filetype plugin indent on
 syntax on
