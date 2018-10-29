@@ -28,8 +28,8 @@ if [ -z $INSIDE_EMACS ]; then
   # PS1="\W \\$ "
 
   # load fzf bindings (only makes sense under readline)
-  source ~/.config/fzf/completion.bash
-  source ~/.config/fzf/key-bindings.bash
+  source ~/.config/bash/fzf/completion.bash
+  source ~/.config/bash/fzf/key-bindings.bash
 else
   PS1="\W \\$ "
 fi
