@@ -1,9 +1,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# load all of our environment variables
-. ~/.bash_env
-
 # startup tmux unless we don't need to
 if [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
   # pretend we are xterm
