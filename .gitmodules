@@ -49,6 +49,7 @@
 [submodule "nvim/bundle/vim-matchup"]
 	path = nvim/bundle/vim-matchup
 	url = https://github.com/andymass/vim-matchup
+	ignore = untracked
 [submodule "nvim/bundle/vim-polyglot"]
 	path = nvim/bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
