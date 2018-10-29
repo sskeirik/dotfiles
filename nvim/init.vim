@@ -1,5 +1,10 @@
 execute pathogen#infect()
 
+" TODO: consider org-mode/notetaking style plugin
+"       possibilities include:
+"       [1] vimwiki
+"       [2] vim-orgmode
+
 " Thanks to https://github.com/kristijanhusak/neovim-config
 " let g:loaded_netrwPlugin = 1                                                    "Do not load netrw
 let g:loaded_matchit = 1                                                        "Do not load matchit, use matchup plugin
