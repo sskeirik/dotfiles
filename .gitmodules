@@ -31,3 +31,9 @@
 [submodule "nvim/bundle/rainbow_parentheses.vim"]
 	path = nvim/bundle/rainbow_parentheses.vim
 	url = https://github.com/junegunn/rainbow_parentheses.vim
+[submodule "tmux/plugins/tmux-fingers"]
+	path = tmux/plugins/tmux-fingers
+	url = https://github.com/Morantron/tmux-fingers
+[submodule "tmux/plugins/tmux-onedark-theme"]
+	path = tmux/plugins/tmux-onedark-theme
+	url = https://github.com/odedlaz/tmux-onedark-theme
