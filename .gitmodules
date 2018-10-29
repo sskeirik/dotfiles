@@ -62,3 +62,6 @@
 [submodule "nvim/bundle/vim-searchindex"]
 	path = nvim/bundle/vim-searchindex
 	url = https://github.com/google/vim-searchindex.git
+[submodule "nvim/bundle/incsearch.vim"]
+	path = nvim/bundle/incsearch.vim
+	url = https://github.com/haya14busa/incsearch.vim

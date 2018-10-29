@@ -23,6 +23,7 @@ set guicursor=a:blinkon500-blinkwait500-blinkoff500                             
 set cursorline                                                                  "Highlight current line
 set smartcase                                                                   "Smart case search if there is uppercase
 set ignorecase                                                                  "case insensitive search
+set nohlsearch                                                                  "let incsearch handle highlighting
 set mouse=a                                                                     "Enable mouse usage
 set showmatch                                                                   "Highlight matching bracket
 " set nostartofline                                                               "Jump to first non-blank character
