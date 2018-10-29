@@ -24,8 +24,8 @@ if [ -z $INSIDE_EMACS ]; then
 
   # setup fancy prompt
   # slow on DrvFS
-  # source ~/.config/bash/minimalist-bash-git-prompt.sh
-  PS1="\W \\$ "
+  source ~/.config/bash/minimalist-git-prompt.sh
+  # PS1="\W \\$ "
 
   # load fzf bindings (only makes sense under readline)
   source ~/.config/fzf/completion.bash
