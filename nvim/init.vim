@@ -23,7 +23,6 @@ set guicursor=a:blinkon500-blinkwait500-blinkoff500                             
 set cursorline                                                                  "Highlight current line
 set smartcase                                                                   "Smart case search if there is uppercase
 set ignorecase                                                                  "case insensitive search
-set nohlsearch                                                                  "let incsearch handle highlighting
 set mouse=a                                                                     "Enable mouse usage
 set showmatch                                                                   "Highlight matching bracket
 " set nostartofline                                                               "Jump to first non-blank character
@@ -51,6 +50,12 @@ set grepprg=rg\ --vimgrep                                                       
 set synmaxcol=300                                                               "Use syntax highlighting only for 300 columns
 " set shortmess+=c                                                                "Disable completion menu messages in command line
 " set completeopt-=preview                                                        "Disable preview window for autocompletion
+
+" searching
+set hlsearch                                                                    "let incsearch handle highlighting
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 set undofile                                                                    "Keep undo history across sessions, by storing in file
 let undo_path = expand('~/.cache/nvim/undo/')
