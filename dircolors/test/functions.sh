@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
 CMD_DIRCOLORS=dircolors
-CMD_LS=ls
+# pick ls impl by ENV
+if [ -z $EXA ]; then
+  CMD_LS=ls
+  CMD_LS_ARGS="--color -AF"
+else
+  CMD_LS=exa
+  CMD_LS_ARGS="-a"
+fi
 
 function removeExampleDirs {
   if [ -d "$EXAMPLE_DIR" ]; then
@@ -61,7 +68,7 @@ function reloadDircolors {
 }
 
 function listDir {
-  $CMD_LS --color -AF $1
+  $CMD_LS $CMD_LS_ARGS $1
 }
 
 COLUMNS=`tput cols`
