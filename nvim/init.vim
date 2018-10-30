@@ -51,22 +51,21 @@ set synmaxcol=300                                                               
 " set completeopt-=preview                                                        "Disable preview window for autocompletion
 let g:netrw_home=expand('~/.cache/nvim/')                                       "Move netrwhistory file to cache
 
-" searching
-set hlsearch                                                                    "let incsearch handle highlighting
+" searching via incsearch
+set hlsearch
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-set undofile                                                                    "Keep undo history across sessions, by storing in file
+" move undo directory under cache
+set undofile
 let undo_path = expand('~/.cache/nvim/undo/')
 if !isdirectory(undo_path)
   call system('mkdir -p ' . undo_path)
 endif
 let &undodir = undo_path
 
+" set highligting and indentation
 filetype plugin indent on
 syntax on
 silent! colorscheme base16-onedark
-" Remove highlighting of Operator because it is reversed with cursorline enabled
-" hi! Operator guifg=NONE guibg=NONE
-" hi! SpellBad gui=underline
