@@ -60,8 +60,8 @@ IMAGE_FILES=(
   .mng .pcx .eps .CR2 .ico
 )
 
-# First clear the screen, then show current date
-clearScreenWithTime
+# First show time
+date
 
 # Remove old examples
 removeExampleDirs

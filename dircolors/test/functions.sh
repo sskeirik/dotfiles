@@ -1,17 +1,7 @@
 #!/usr/bin/env bash
 
-if which gdircolors >/dev/null; then
-  CMD_DIRCOLORS=gdircolors
-  CMD_LS=gls
-else
-  CMD_DIRCOLORS=dircolors
-  CMD_LS=ls
-fi
-
-function clearScreenWithTime {
-  clear
-  date
-}
+CMD_DIRCOLORS=dircolors
+CMD_LS=ls
 
 function removeExampleDirs {
   if [ -d "$EXAMPLE_DIR" ]; then
