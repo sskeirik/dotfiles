@@ -2,3 +2,6 @@
 
 rm ~/.config/dircolors/dircolors 2> /dev/null
 ln -s "$1" ~/.config/dircolors/dircolors
+echo "Executing:"
+echo "$(dircolors -b ~/.config/dircolors/dircolors)"
+eval "$(dircolors -b ~/.config/dircolors/dircolors)"
