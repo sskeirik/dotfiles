@@ -4,6 +4,15 @@
 # Uncomment to enable debugging mode
 # DEBUG=1
 
+# Setup our environment
+export EDITOR=nvim
+export XDG_CONFIG_HOME=~/.config
+export XDG_CACHE_HOME=~/.cache
+export XDG_DATA_HOME=~/.local/share
+export EXECIGNORE="$EXECIGNORE:*dll"
+LOCAL_BIN=~/.local/bin
+export PATH="$LOCAL_BIN:$PATH"
+
 # startup tmux unless we don't need to
 if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
   # pretend we are xterm
@@ -47,7 +56,7 @@ alias vim='nvim '
 alias python='python3 '
 alias claer='clear '
 alias pypy='pypy3 '
-alias mux="PATH=$SAFEPATH tmuxinator "
+# alias mux="PATH=$SAFEPATH tmuxinator "
 
 # run a command with elevated permissions
 elevate() {
