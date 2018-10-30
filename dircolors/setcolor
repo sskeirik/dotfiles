@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm ~/.config/dircolors/dircolors 2> /dev/null
+ln -s "$1" ~/.config/dircolors/dircolors
