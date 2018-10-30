@@ -55,7 +55,7 @@
 	url = https://github.com/sheerun/vim-polyglot
 [submodule "nvim/bundle/flygrep.vim"]
 	path = nvim/bundle/flygrep.vim
-	url = https://github.com/wsdjeg/FlyGrep.vim
+	url = https://github.com/skeirik2/flygrep.vim
 [submodule "nvim/bundle/vim-gitgutter"]
 	path = nvim/bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
