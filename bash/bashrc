@@ -15,12 +15,12 @@ if [ -z $INSIDE_EMACS ]; then
   # disable software control flow terminal shortcuts ctrl+S/ctrl+Q
   # but allow internal libraries to use this mechanism if they wish
   stty -ixon
-  
+
   # setup colorscheme from base16 shell
   source ~/.config/bash/base16-shell/scripts/base16-onedark.sh
-  
+
   # set dircolors
-  eval "$(dircolors -b ~/.config/dircolors/dircolors)"
+  # eval "$(dircolors -b ~/.config/dircolors/dircolors)"
 
   # setup fancy prompt
   # slow on DrvFS
