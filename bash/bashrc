@@ -1,8 +1,11 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Uncomment to enable debugging mode
+# DEBUG=1
+
 # startup tmux unless we don't need to
-if [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
+if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
   # pretend we are xterm
   export TERM=xterm-256color
   # clear the terminal title
@@ -11,7 +14,7 @@ if [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
 fi
 
 # color initialization when we aren't in emacs
-if [ -z $INSIDE_EMACS ]; then
+if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ]; then
   # disable software control flow terminal shortcuts ctrl+S/ctrl+Q
   # but allow internal libraries to use this mechanism if they wish
   stty -ixon
@@ -35,7 +38,6 @@ if [ -z $INSIDE_EMACS ]; then
 else
   PS1="\W \\$ "
 fi
-
 
 # setup functions/aliases after defining environment
 alias wget="wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\""
