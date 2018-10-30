@@ -4,7 +4,7 @@ $include /etc/inputrc
 # set show-all-if-unmodified on
 
 ## be colorful when completing
-# set colored-stats On
+set colored-stats On
 set visible-stats On
 set mark-symlinked-directories On
 set colored-completion-prefix On
