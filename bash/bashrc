@@ -20,7 +20,9 @@ if [ -z $INSIDE_EMACS ]; then
   source ~/.config/bash/base16-shell/scripts/base16-onedark.sh
 
   # set dircolors
-  # eval "$(dircolors -b ~/.config/dircolors/dircolors)"
+  if [ -f "~/.config/dircolors/dircolors" ]; then
+    eval "$(dircolors -b ~/.config/dircolors/dircolors)"
+  fi
 
   # setup fancy prompt
   # slow on DrvFS
