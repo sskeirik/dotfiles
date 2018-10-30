@@ -6,7 +6,6 @@ execute pathogen#infect()
 "       [2] vim-orgmode
 
 " Thanks to https://github.com/kristijanhusak/neovim-config
-" let g:loaded_netrwPlugin = 1                                                    "Do not load netrw
 let g:loaded_matchit = 1                                                        "Do not load matchit, use matchup plugin
 
 let g:mapleader = ','                                                           "Change leader to a comma
@@ -50,6 +49,7 @@ set grepprg=rg\ --vimgrep                                                       
 set synmaxcol=300                                                               "Use syntax highlighting only for 300 columns
 " set shortmess+=c                                                                "Disable completion menu messages in command line
 " set completeopt-=preview                                                        "Disable preview window for autocompletion
+let g:netrw_home=expand('~/.cache/nvim/')                                       "Move netrwhistory file to cache
 
 " searching
 set hlsearch                                                                    "let incsearch handle highlighting
