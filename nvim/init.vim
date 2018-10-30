@@ -69,3 +69,15 @@ let &undodir = undo_path
 filetype plugin indent on
 syntax on
 silent! colorscheme base16-onedark
+
+" disable ex mode
+nnoremap Q <Nop>
+
+" enable rainbow parentheses
+augroup Other
+  au! FileType * RainbowParentheses
+augroup END
+
+" mappings for Easy Align
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
