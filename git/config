@@ -1,19 +1,22 @@
-[alias]
-	st = status --short
-	co = checkout
-	ci = commit
-	b = branch
-	bb = branch --verbose
-	ba = branch --all
-	bba = branch --verbose --all
-	d = diff
-	dc = diff --cached
-	f = fetch
-	fa = fetch --all
-	pushf = push --force-with-lease
-	last = log -n1
 [user]
 	name = Stephen Skeirik
 	email = skeirik2@illinois.edu
+[alias]
+	ci = commit
+	co = checkout
+	d = diff
+	dc = diff --cached
+	st = status -sb
+	b = branch
+	bb = branch --verbose --verbose
+	ba = branch --all
+	bba = branch --verbose --verbose --all
+	f = fetch
+	fa = fetch --all
+	last = log -n 1
+	pushf = push --force-with-lease
+	hist = log --abbrev-commit --decorate --date=relative --graph --topo-order \
+	       --format=format:'%C(bold green)%h%C(reset) - %<(60)%C(green)%s%C(reset) - %C(blue)%an%C(reset)%C(bold yellow)%d%C(reset)'
+        l = log --first-parent
 [credential]
-	helper = cache --timeout=3600
+	helper = cache --timeout 3600
