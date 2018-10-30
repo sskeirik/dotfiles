@@ -39,10 +39,7 @@ fi
 
 # setup functions/aliases after defining environment
 alias wget="wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\""
-alias ls='ls --color=auto '
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ls='exa '
 alias vi='nvim '
 alias vim='nvim '
 alias python='python3 '
