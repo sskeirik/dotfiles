@@ -1,0 +1,25 @@
+# USING DIRCOLORS
+
+eval "$(dircolors -b <dircolors file>)"
+
+# DEBUGGING DIRCOLORS
+
+Apparently, dircolors files come in two flavors:
+- a legacy ANSI variant
+- a newer 256-color variant
+
+256 color variants are only supported by terminals that support 256 colors.
+To check for 256 color support, search for a terminal color test script online
+and run it. If you terminal does not support enough colors, that may be
+the issue. If your terminal does support colors, it may be a conflict be
+dircolors and other terminal colors. In that case, try disabling things.
+
+To isolate the problem, you can disable:
+
+1) Terminal externally configured colorschemes (e.g. iTerm, mintty, etc...)
+2) Terminal internally configured colorschemes --- scripts using escape codes
+   to change terminal colors
+3) Terminal multiplexer programs, e.g. tmux, screen
+
+After disabling something, you can try to load the colorscheme again and
+see if you obtain the desired result.
