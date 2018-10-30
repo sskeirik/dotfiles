@@ -20,8 +20,8 @@ if [ -z $INSIDE_EMACS ]; then
   source ~/.config/bash/base16-shell/scripts/base16-onedark.sh
 
   # set dircolors
-  if [ -f "~/.config/dircolors/dircolors" ]; then
-    eval "$(dircolors -b ~/.config/dircolors/dircolors)"
+  if [ -e "$HOME/.config/dircolors/dircolors" ] ; then
+    eval "$(dircolors -b $HOME/.config/dircolors/dircolors)"
   fi
 
   # setup fancy prompt
