@@ -1,0 +1,4 @@
+# TODOs
+
+1. Investigate asynchronous prompts (so git status check doesn't slow us down)
+2. Write a small wrapper for entr to give it directory semantics à la watchexec
