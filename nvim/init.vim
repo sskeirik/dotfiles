@@ -73,9 +73,16 @@ silent! colorscheme base16-onedark
 " disable ex mode
 nnoremap Q <Nop>
 
-" enable rainbow parentheses
-augroup Other
-  au! FileType * RainbowParentheses
+" setup autocommands
+augroup MyCommands
+  au!
+  " in the Command Window, on <F5> run line and reopen window on current line
+  au CmdwinEnter  * nnoremap <buffer> <F5> :let g:CmdWindowLineMark=line(".")<CR><CR>q::<C-R>=CmdWindowLineMark<CR><CR>
+  " run gitgutter update when saving any file (we disable the realtime update
+  " elsewhere
+  au BufWritePost * GitGutter
+  " enable rainbow parentheses when a filetype is detected
+  au FileType     * RainbowParentheses
 augroup END
 
 " mappings for Easy Align
