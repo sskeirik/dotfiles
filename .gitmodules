@@ -68,3 +68,6 @@
 [submodule "tmux/plugins/tmux-copycat"]
 	path = tmux/plugins/tmux-copycat
 	url = https://github.com/tmux-plugins/tmux-copycat
+[submodule "nvim/bundle/vim-highlightedyank"]
+	path = nvim/bundle/vim-highlightedyank
+	url = https://github.com/machakann/vim-highlightedyank
