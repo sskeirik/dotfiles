@@ -14,7 +14,7 @@ LOCAL_BIN=~/.local/bin
 export PATH="$LOCAL_BIN:$PATH"
 
 # startup tmux unless we don't need to
-if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
+if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
   # pretend we are xterm
   export TERM=xterm-256color
   # clear the terminal title
@@ -22,8 +22,8 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
   exec tmux -f ~/.config/tmux/tmux.conf
 fi
 
-# color initialization when we aren't in emacs
-if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ]; then
+# color initialization when we aren't in a primitive terminal
+if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ $TERM != "linux" ]; then
   # disable software control flow terminal shortcuts ctrl+S/ctrl+Q
   # but allow internal libraries to use this mechanism if they wish
   stty -ixon
