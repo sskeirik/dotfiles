@@ -1,1 +1,0 @@
-au! gitgutter CursorHold,CursorHoldI

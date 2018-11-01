@@ -27,8 +27,9 @@ set showmatch                                                                   
 " set nostartofline                                                               "Jump to first non-blank character
 set timeoutlen=1000 ttimeoutlen=0                                               "Reduce Command timeout for faster escape and O
 set fileencoding=utf-8                                                          "Set utf-8 encoding on write
-set wrap                                                                        "Enable word wrap
-set linebreak                                                                   "Wrap lines at convenient points
+set nowrap                                                                      "Word wrap setting
+"set linebreak                                                                   "Wrap lines at convenient points
+set showbreak=‥
 set listchars=tab:\ \ ,trail:·                                                  "Set trails for tabs and spaces
 set list                                                                        "Enable listchars
 set lazyredraw                                                                  "Do not redraw on registers and macros
@@ -78,9 +79,6 @@ augroup MyCommands
   au!
   " in the Command Window, on <F5> run line and reopen window on current line
   au CmdwinEnter  * nnoremap <buffer> <F5> :let g:CmdWindowLineMark=line(".")<CR><CR>q::<C-R>=CmdWindowLineMark<CR><CR>
-  " run gitgutter update when saving any file (we disable the realtime update
-  " elsewhere
-  au BufWritePost * GitGutter
   " enable rainbow parentheses when a filetype is detected
   au FileType     * RainbowParentheses
 augroup END
