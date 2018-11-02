@@ -10,8 +10,9 @@ export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache
 export XDG_DATA_HOME=~/.local/share
 export EXECIGNORE="$EXECIGNORE:*dll"
-LOCAL_BIN=~/.local/bin
+export LOCAL_BIN=~/.local/bin
 export PATH="$LOCAL_BIN:$PATH"
+export LESS="-FRXK"
 
 # startup tmux unless we don't need to
 if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
