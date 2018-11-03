@@ -4,6 +4,9 @@ execute pathogen#infect()
 "       possibilities include:
 "       [1] vimwiki
 "       [2] vim-orgmode
+"
+"       investigate ninja-feet plugin for movement to
+"       beginning/end of text objects
 
 " Thanks to https://github.com/kristijanhusak/neovim-config
 let g:loaded_matchit = 1                                                        "Do not load matchit, use matchup plugin
@@ -16,7 +19,7 @@ set number                                                                      
 " set relativenumber                                                              "Show numbers relative to current line
 set history=500                                                                 "Store lots of :cmdline history
 set showcmd                                                                     "Show incomplete cmds down the bottom
-set noshowmode                                                                  "Hide showmode because of the powerline plugin
+set showmode                                                                    "Show vim's mode
 " set gdefault                                                                    "Set global flag for search and replace
 set guicursor=a:blinkon500-blinkwait500-blinkoff500                             "Set cursor blinking rate
 set cursorline                                                                  "Highlight current line
