@@ -77,3 +77,6 @@
 [submodule "nvim/bundle/targets.vim"]
 	path = nvim/bundle/targets.vim
 	url = https://github.com/wellle/targets.vim
+[submodule "nvim/bundle/vim-abolish"]
+	path = nvim/bundle/vim-abolish
+	url = https://github.com/tpope/vim-abolish
