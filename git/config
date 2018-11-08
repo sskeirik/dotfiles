@@ -4,8 +4,8 @@
 [alias]
 	ci = commit
 	co = checkout
-	d = diff
-	dc = diff --cached
+	d = diff --word-diff=color --color-moved=dimmed_zebra
+	dc = diff --cached --word-diff=color --color-moved=dimmed_zebra
 	st = status -sb
 	b = branch
 	bb = branch --verbose --verbose
