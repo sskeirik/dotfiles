@@ -93,6 +93,7 @@ xmap ga <Plug>(EasyAlign)
 
 " add some fun digraphs
 "
+" digraphs for subscript letters
 execute "digraphs as " . 0x2090
 execute "digraphs es " . 0x2091
 execute "digraphs hs " . 0x2095
@@ -109,3 +110,5 @@ execute "digraphs ts " . 0x209C
 execute "digraphs us " . 0x1D64
 execute "digraphs vs " . 0x1D65
 execute "digraphs xs " . 0x2093
+" digraph for logical true
+execute "digraphs +T " . 0x22A4
