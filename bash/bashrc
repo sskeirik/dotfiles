@@ -10,17 +10,22 @@ export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache
 export XDG_DATA_HOME=~/.local/share
 export EXECIGNORE="$EXECIGNORE:*dll"
-export LOCAL_BIN=~/.local/bin
-export PATH="$LOCAL_BIN:$PATH"
 export LESS="-FRXK"
 
+# Setup path
+export LOCAL_BUILD_BIN=~/.config/local/build/local/bin
+export LOCAL_BIN=~/.local/bin
+export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$PATH"
+
 # startup tmux unless we don't need to
-if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ]; then
+if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
   # pretend we are xterm
   export TERM=xterm-256color
   # clear the terminal title
   echo -ne "\033]0;\007"
   exec tmux -f ~/.config/tmux/tmux.conf
+else
+  export TERM=xterm-256color
 fi
 
 # color initialization when we aren't in a primitive terminal
