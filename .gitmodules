@@ -86,3 +86,6 @@
 [submodule "nvim/bundle/vim-pencil"]
 	path = nvim/bundle/vim-pencil
 	url = https://github.com/reedes/vim-pencil
+[submodule "local/build"]
+	path = local/build
+	url = https://github.com/skeirik2/toolchain
