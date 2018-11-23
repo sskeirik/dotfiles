@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# run the configure script in the current directory
+# with proper settings to build the executables we want
+# on servers that we do not have admin privileges for
+
+# NOTE: This is not a panacea; projects may use other build systems, e.g.
+#       plain makefiles, cmake, etc...
+#       However, it still provides useful documentation about compiler options.
+
+SCRIPT="$(readlink -f "$1")"
+if [ ! -f "$SCRIPT" ]; then
+  echo "first argument: '$1' is not a script"
+  exit 1
+fi
+shift
+
+# load path definition for local builds
+. "$HOME/.config/meta/set-local-buildpath"
+
+# setup basic variables
+BUILD_ROOT="$HOME/.config/local/build"
+INSTALL_ROOT="$BUILD_ROOT/local"
+LINKER_PATH="$BUILD_ROOT/lib/libc.so"
+
+# setup flag variables
+DYNLINK="-Wl,--dynamic-linker=$LINKER_PATH"
+LOCAL_LIB="-L$INSTALL_ROOT/lib"
+
+# set program flags/paths
+export CFLAGS="$DYNLINK $LOCAL_LIB $CFLAGS"
+export CXXFLAGS="$DYNLINK $LOCAL_LIB $CXXFLAGS"
+export LDFLAGS="$DYNLINK $LOCAL_LIB $LDFLAGS"
+export PKG_CONFIG_LIBDIR="$INSTALL_ROOT/lib/pkgconfig"
+
+# run build script
+$SCRIPT --prefix="$INSTALL_ROOT" "$@"
