@@ -102,12 +102,13 @@ ts() {
     command="$1" ; shift
     session="$1"
     case "$command" in
-        new)    tmux -s "$session" ;;
-	attach) [ "$session" == "" ] && { echo "Usage: ts attach <session>"; return 1; } || tmux attach -t "$session" ;;
-	kill)   [ "$session" == "" ] && { echo "Usage: ts kill <session>"; return 1; } || tmux kill-session  -t "$session" ;;
-        ls)     tmux list-sessions ;;
-	'')     tmux list-sessions ;;
-        *)      echo "Unrecognized 'ts' command: '$command'" >&2
-                return 1 ;;
+        n|new)    tmux -s "$session" ;;
+	a|attach) [ "$session" == "" ] && { echo "Usage: ts attach <session>"; return 1; } || tmux attach -t "$session" ;;
+	d|detach) tmux detach;;
+	k|kill)   [ "$session" == "" ] && { echo "Usage: ts kill <session>"; return 1; } || tmux kill-session  -t "$session" ;;
+        l|ls)     tmux list-sessions ;;
+	'')       tmux list-sessions ;;
+        *)        echo "Unrecognized 'ts' command: '$command'" >&2
+                  return 1 ;;
     esac
 }
