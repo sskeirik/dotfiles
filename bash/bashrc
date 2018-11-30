@@ -57,8 +57,14 @@ else
   PS1="\W \\$ "
 fi
 
-# disable ask pass nonsense over SSH
-[ -n "$SSH_CLIENT" ] && { unset SSH_ASKPASS; export GIT_ASKPASS= ; }
+# do extra setup on remote sessions
+if [ -n "$SSH_CLIENT" ]; then
+  # do not ask for passwords via guis
+  unset SSH_ASKPASS
+  export GIT_ASKPASS=
+  # let's be explicit about logging out
+  export IGNOREEOF=5
+fi
 
 # setup functions/aliases after defining environment
 alias wget="wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\""
