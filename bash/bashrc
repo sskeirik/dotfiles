@@ -54,6 +54,9 @@ else
   PS1="\W \\$ "
 fi
 
+# disable ask pass nonsense over SSH
+[ -n "$SSH_CLIENT" ] && { unset SSH_ASKPASS; export GIT_ASKPASS= ; }
+
 # setup functions/aliases after defining environment
 alias wget="wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\""
 # alias ls='exa ' # let's wait until the bugs are worked out more
