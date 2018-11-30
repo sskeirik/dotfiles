@@ -24,7 +24,7 @@ if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ]
   # clear the terminal title
   echo -ne "\033]0;\007"
   # set session name
-  [ -z $SSH_CLIENT ] && session="main" || session="remote";
+  [ -z "$SSH_CLIENT" ] && session="main" || session="remote";
   # start the session
   exec tmux -f ~/.config/tmux/tmux.conf new-session -A -s $session
 else
