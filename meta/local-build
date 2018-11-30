@@ -1,8 +1,23 @@
 #!/bin/bash
 
-# run the configure script in the current directory
+# run a configure script/build tool passed as the first argument
 # with proper settings to build the executables we want
 # on servers that we do not have admin privileges for
+
+# Here are thoughts about how to pass arguments in:
+# 1) environment variables
+#    Supported tools:
+#      configure script
+#      makefile (variable unassigned or assignment of form var ?= value)
+#      cmake
+# 2) var=value
+#    Supported tools:
+#      configure script
+#      makefile (variable assigned without override)
+# 3) -Dvar=value
+#    Supported tools:
+#      GNU C Preprocessor
+#      cmake
 
 # NOTE: This is not a panacea; projects may use other build systems, e.g.
 #       plain makefiles, cmake, etc...
