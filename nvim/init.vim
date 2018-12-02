@@ -85,6 +85,8 @@ augroup MyCommands
   au CmdwinEnter  * nnoremap <buffer> <F5> :let g:CmdWindowLineMark=line(".")<CR><CR>q::<C-R>=CmdWindowLineMark<CR><CR>
   " enable rainbow parentheses when a filetype is detected
   au FileType     * RainbowParentheses
+  " jump to last remembered position in file
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup END
 
 " mappings for Easy Align
