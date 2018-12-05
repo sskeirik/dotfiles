@@ -4,7 +4,7 @@
 [alias]
 	ci = commit
 	co = checkout
-	d = diff --word-diff=color --color-moved=dimmed_zebra
+	d = diff --color-moved=blocks
 	dc = diff --cached --word-diff=color --color-moved=dimmed_zebra
 	st = status -sb
 	b = branch
@@ -19,5 +19,6 @@
 	       --format=format:'%C(bold green)%h%C(reset) - %<(60)%C(green)%s%C(reset) - %C(blue)%an%C(reset)%C(bold yellow)%d%C(reset)'
         l = log --first-parent
 	ls = ls-files
+	wd = diff --color-words
 [credential]
 	helper = cache --timeout 3600
