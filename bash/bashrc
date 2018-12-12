@@ -76,6 +76,7 @@ alias python='python3 '
 alias claer='clear '
 alias pypy='pypy3 '
 alias diff='git diff --color-moved=blocks --no-index'
+alias g='git '
 # alias mux="PATH=$SAFEPATH tmuxinator "
 
 # run a command with elevated permissions
