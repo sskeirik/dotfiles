@@ -112,3 +112,4 @@ execute "digraphs vs " . 0x1D65
 execute "digraphs xs " . 0x2093
 " digraph for logical true
 execute "digraphs +T " . 0x22A4
+execute "digraphs rt " . 0x22A2
