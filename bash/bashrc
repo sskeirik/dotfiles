@@ -104,7 +104,7 @@ ts() {
     command="$1" ; shift
     session="$1"
     case "$command" in
-        n|new)    tmux -s "$session" ;;
+        n|new)    tmux new-session -s "$session" ;;
 	a|attach) [ "$session" == "" ] && { echo "Usage: ts attach <session>"; return 1; } || tmux attach -t "$session" ;;
 	d|detach) tmux detach;;
 	k|kill)   [ "$session" == "" ] && { echo "Usage: ts kill <session>"; return 1; } || tmux kill-session  -t "$session" ;;
