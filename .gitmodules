@@ -77,3 +77,6 @@
 [submodule "nvim/bundle/vim-abolish"]
 	path = nvim/bundle/vim-abolish
 	url = https://github.com/tpope/vim-abolish
+[submodule "nvim/bundle/vstar.vim"]
+	path = nvim/bundle/vstar.vim
+	url = https://github.com/TheDerkus/vstar.vim
