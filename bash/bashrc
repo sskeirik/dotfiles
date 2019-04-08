@@ -45,16 +45,22 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ $TERM != "linux" ]; then
     eval "$(dircolors -b $HOME/.config/dircolors/dircolors)"
   fi
 
-  # setup fancy prompt
-  # slow on DrvFS
-  source ~/.config/bash/minimalist-git-prompt.sh
-  # PS1="\W \\$ "
+  # shell specific stuff
+  if [ $SHELL = "/bin/bash" ]; then
+    # setup fancy prompt
+    # slow on DrvFS
+    source ~/.config/bash/minimalist-git-prompt.sh
+    # PS1="\W \\$ "
 
-  # load fzf bindings (only makes sense under readline)
-  source ~/.config/bash/fzf/completion.bash
-  source ~/.config/bash/fzf/key-bindings.bash
+    # load fzf bindings (only makes sense under readline)
+    source ~/.config/bash/fzf/completion.bash
+    source ~/.config/bash/fzf/key-bindings.bash
+  elif [ $SHELL = "/bin/zsh" ]; then
+    PROMPT="%1~ %(!.#.$) "
+  fi
 else
   PS1="\W \\$ "
+  PROMPT="%1~ %(!.#.$) "
 fi
 
 # do extra setup on remote sessions
@@ -80,7 +86,7 @@ alias g='git '
 # alias mux="PATH=$SAFEPATH tmuxinator "
 
 # run a command with elevated permissions
-elevate() {
+function elevate() {
     pushd $(pwd)
     cd /mnt/c/
     powershell.exe -Command "Start-Process cmd -ArgumentList  \"/c\",\"$1 2>&1\" -Verb RunAs"
@@ -88,19 +94,19 @@ elevate() {
 }
 
 # open a file
-open() { explorer.exe $1; }
+function open() { explorer.exe $1; }
 
 # create new github repo
-ghrepo() { curl -u 'skeirik2' https://api.github.com/user/repos -d '{"name":"$1"}'; }
+function ghrepo() { curl -u 'skeirik2' https://api.github.com/user/repos -d '{"name":"$1"}'; }
 
 # find maude modules defined in code in given subdirectory
-mmods() { rg "^\S*^f?mod" * | cut -d' ' -f2; }
+function mmods() { rg "^\S*^f?mod" * | cut -d' ' -f2; }
 
 # look-up files in a git repo with ext respecting ignore
-fbe() { rg --files -g '*'"$1"; }
+function fbe() { rg --files -g '*'"$1"; }
 
 # tmux session shortcut from Everett
-ts() {
+function ts() {
     command="$1" ; shift
     session="$1"
     case "$command" in
