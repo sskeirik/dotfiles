@@ -17,6 +17,9 @@ export LOCAL_BUILD_BIN=~/.config/local/build/local/bin
 export LOCAL_BIN=~/.local/bin
 export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$PATH"
 
+# handle a stupid bug in wslbridge
+[ -z "$ZSH_VERSION" ] || export SHELL="/bin/zsh"
+
 # startup tmux unless we don't need to
 if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
   # pretend we are xterm
