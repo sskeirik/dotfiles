@@ -38,7 +38,7 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ $TERM != "linux" ]; then
   stty -ixon
 
   # setup colorscheme from base16 shell
-  source ~/.config/bash/base16-shell/scripts/base16-onedark.sh
+  source ~/.config/shell/base16-shell/scripts/base16-onedark.sh
 
   # set dircolors
   if [ -e "$HOME/.config/dircolors/dircolors" ] ; then
@@ -49,12 +49,12 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ $TERM != "linux" ]; then
   if [ $SHELL = "/bin/bash" ]; then
     # setup fancy prompt
     # slow on DrvFS
-    source ~/.config/bash/minimalist-git-prompt.sh
+    source ~/.config/shell/minimalist-git-prompt.sh
     # PS1="\W \\$ "
 
     # load fzf bindings (only makes sense under readline)
-    source ~/.config/bash/fzf/completion.bash
-    source ~/.config/bash/fzf/key-bindings.bash
+    source ~/.config/shell/fzf/completion.bash
+    source ~/.config/shell/fzf/key-bindings.bash
   elif [ $SHELL = "/bin/zsh" ]; then
     PROMPT="%1~ %(!.#.$) "
   fi
