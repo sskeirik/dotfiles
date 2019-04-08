@@ -56,7 +56,9 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ $TERM != "linux" ]; then
     source ~/.config/shell/fzf/completion.bash
     source ~/.config/shell/fzf/key-bindings.bash
   elif [ $SHELL = "/bin/zsh" ]; then
-    PROMPT="%1~ %(!.#.$) "
+    # load powerlevel10k
+    source ~/.config/shell/zsh/powerlevel10k/powerlevel10k.zsh-theme
+    source ~/.config/shell/zsh/powerlevel10k-config.zsh
   fi
 else
   PS1="\W \\$ "
