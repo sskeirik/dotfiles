@@ -80,3 +80,6 @@
 [submodule "nvim/bundle/vstar.vim"]
 	path = nvim/bundle/vstar.vim
 	url = https://github.com/TheDerkus/vstar.vim
+[submodule "shell/zsh/powerlevel10k"]
+	path = shell/zsh/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k
