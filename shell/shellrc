@@ -62,6 +62,8 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ $TERM != "linux" ]; then
     # load powerlevel10k
     source ~/.config/shell/zsh/powerlevel10k/powerlevel10k.zsh-theme
     source ~/.config/shell/zsh/powerlevel10k-config.zsh
+    # force cursor blink
+    echo -e -n "\x1b[\x31 q"
     # make completions ignore stuff
     # FIXME: figure out how to make this work...
   fi
