@@ -15,7 +15,8 @@ export LESS="-FRXK"
 # Setup path
 export LOCAL_BUILD_BIN=~/.config/local/build/local/bin
 export LOCAL_BIN=~/.local/bin
-export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$PATH"
+export WINDOWS_BIN=/mnt/c/bin
+export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$WINDOWS_BIN:$PATH"
 
 # handle a stupid bug in wslbridge
 [ -z "$ZSH_VERSION" ] || export SHELL="/bin/zsh"
