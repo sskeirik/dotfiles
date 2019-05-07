@@ -22,7 +22,7 @@ export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$WINDOWS_BIN:$PATH"
 [ -z "$ZSH_VERSION" ] || export SHELL="/bin/zsh"
 
 # startup tmux unless we don't need to
-if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
+if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
   # pretend we are xterm
   export TERM=xterm-256color
   # clear the terminal title
@@ -36,7 +36,7 @@ else
 fi
 
 # color initialization when we aren't in a primitive terminal
-if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ $TERM != "linux" ]; then
+if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TERM != "linux" ]; then
   # disable software control flow terminal shortcuts ctrl+S/ctrl+Q
   # but allow internal libraries to use this mechanism if they wish
   stty -ixon
