@@ -86,3 +86,6 @@
 [submodule "nvim/bundle/vimtex"]
 	path = nvim/bundle/vimtex
 	url = https://github.com/lervag/vimtex.git
+[submodule "nvim/bundle/vim-pencil"]
+	path = nvim/bundle/vim-pencil
+	url = https://github.com/reedes/vim-pencil
