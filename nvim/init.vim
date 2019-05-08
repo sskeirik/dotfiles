@@ -1,5 +1,7 @@
 execute pathogen#infect()
 
+" NB: If help isn't working, run :Helptags
+
 " TODO: consider org-mode/notetaking style plugin
 "       possibilities include:
 "       [1] vimwiki
