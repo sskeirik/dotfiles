@@ -83,3 +83,6 @@
 [submodule "shell/zsh/powerlevel10k"]
 	path = shell/zsh/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k
+[submodule "nvim/bundle/vimtex"]
+	path = nvim/bundle/vimtex
+	url = https://github.com/lervag/vimtex.git
