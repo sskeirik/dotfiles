@@ -22,9 +22,6 @@
 [submodule "nvim/bundle/vim-repeat"]
 	path = nvim/bundle/vim-repeat
 	url = https://github.com/tpope/vim-repeat
-[submodule "nvim/bundle/vim-startify"]
-	path = nvim/bundle/vim-startify
-	url = https://github.com/mhinz/vim-startify
 [submodule "nvim/bundle/goyo.vim"]
 	path = nvim/bundle/goyo.vim
 	url = https://github.com/junegunn/goyo.vim
