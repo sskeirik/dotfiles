@@ -79,6 +79,20 @@ silent! colorscheme base16-onedark
 " disable ex mode
 nnoremap Q <Nop>
 
+" configure vimtex for Windows: SumatraPDF and git-bash
+if has("win32")
+  let g:vimtex_view_method = 'general'
+  let g:vimtex_view_general_viewer = 'C:\bin\SumatraPDF.exe'
+  let g:vimtex_view_general_options
+      \ = '-reuse-instance -forward-search @tex @line @pdf'
+      \ . ' -inverse-search "nvr --servername ' . v:servername
+      \ . ' --remote-send \"^<C-\^>^<C-n^>'
+      \ . ':drop \%f^<CR^>:\%l^<CR^>:normal\! zzzv^<CR^>'
+      \ . ':execute ''drop '' . fnameescape(''\%f'')^<CR^>'
+      \ . ':\%l^<CR^>:normal\! zzzv'
+      \ . ':call remote_foreground('''.v:servername.''')^<CR^>^<CR^>\""'
+endif
+
 " setup autocommands
 augroup MyCommands
   au!
