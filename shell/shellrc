@@ -131,3 +131,8 @@ function ts() {
                   return 1 ;;
     esac
 }
+
+# setx wrapper for setting environment variables
+# function setx() {
+# TODO: finish me
+# }
