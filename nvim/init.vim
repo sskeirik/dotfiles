@@ -90,10 +90,18 @@ else
   :nnoremap <Leader>c :tabnew<CR>:term<CR>i
 endif
 
-" configure vimtex for Windows: SumatraPDF and git-bash
+" general vimtex configuration
+" set to nvr for neovim (should be in PATH)
+let g:vimtex_compiler_progname = 'nvr'
+" 0 never auto-open, 1 auto-open on error, 2 auto-open on warning
+let g:vimtex_quickfix_mode = 0
+" 0 never auto-close, or auto-close afte n events
+let g:vimtex_quickfix_autoclose_after_keystrokes = 0
+" configure vimtex for windows with 64-bit SumatraPDF
 if has("win32")
   let g:vimtex_view_method = 'general'
-  let g:vimtex_view_general_viewer = 'C:\bin\SumatraPDF.exe'
+  let g:vimtex_view_general_viewer = 'C:\Progra~1\SumatraPDF\SumatraPDF.exe'
+  let g:vimtex_view_general_options_latexmk = '-reuse-instance'
   let g:vimtex_view_general_options
       \ = '-reuse-instance -forward-search @tex @line @pdf'
       \ . ' -inverse-search "nvr --servername ' . v:servername
