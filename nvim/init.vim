@@ -81,10 +81,11 @@ nnoremap Q <Nop>
 
 " configure terminal mode and external command execution
 :tnoremap <C-[> <C-\><C-n>
+" configure for windows with 64-bit git-bash
 if has("win32")
-  :nnoremap <Leader>c :tabnew<CR>:term C:\Progra~1\Git\bin\bash.exe -i<CR>i
+  :nnoremap <Leader>c :tabnew<CR>:term C:\Progra~1\Git\bin\bash<CR>i
   let shell='cmd.exe'
-  let shellcmdflag='/c "C:\Progra~2\Git\bin\bash.exe -c"'
+  let shellcmdflag='/c "C:\Progra~1\Git\bin\bash -c"'
 else
   :nnoremap <Leader>c :tabnew<CR>:term<CR>i
 endif
