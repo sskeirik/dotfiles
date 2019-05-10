@@ -55,7 +55,7 @@ set synmaxcol=300                                            "Use syntax highlig
 " set shortmess+=c                                             "Disable completion menu messages in command line
 " set completeopt-=preview                                     "Disable preview window for autocompletion
 let g:netrw_home=expand('~/.cache/nvim/')                    "Move netrwhistory file to cache
-let g:polyglot_disabled = ['tex']                            "Disable polyglot latex plugin
+let g:polyglot_disabled = ['latex']                          "Disable polyglot latex plugin
 
 " searching via incsearch
 set hlsearch
