@@ -79,6 +79,16 @@ silent! colorscheme base16-onedark
 " disable ex mode
 nnoremap Q <Nop>
 
+" configure terminal mode and external command execution
+:tnoremap <C-[> <C-\><C-n>
+if has("win32")
+  :nnoremap <Leader>c :tabnew<CR>:term C:\Progra~1\Git\bin\bash.exe -i<CR>i
+  let shell='cmd.exe'
+  let shellcmdflag='/c "C:\Progra~2\Git\bin\bash.exe -c"'
+else
+  :nnoremap <Leader>c :tabnew<CR>:term<CR>i
+endif
+
 " configure vimtex for Windows: SumatraPDF and git-bash
 if has("win32")
   let g:vimtex_view_method = 'general'
