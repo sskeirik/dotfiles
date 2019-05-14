@@ -8,3 +8,12 @@ if [ -z "$ZSH_VERSION" ]; then
 else
   ln -s $HOME/.config/shell/shellrc  $HOME/.zshrc
 fi
+
+# if full Linux installation is requested
+if [ "$1" = "full" ]; then
+  ln -s $HOME/.config/sound/default-asoundrc $HOME/.asoundrc
+else
+  echo "Console installations will not link graphics/sound config files"
+  echo "For full installation, re-run with as:"
+  echo "$ link.sh full"
+fi
