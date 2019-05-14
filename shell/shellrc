@@ -27,10 +27,14 @@ if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE
   export TERM=xterm-256color
   # clear the terminal title
   echo -ne "\033]0;\007"
-  # set session name
-  [ -z "$SSH_CLIENT" ] && session="main" || session="remote";
-  # start the session
-  exec tmux -f ~/.config/tmux/tmux.conf new-session -A -s $session
+  # start the session/session group
+  if [ -z "$SSH_CLIENT" ]; then
+    # here, if we open multiple instances, they are linked to the same window set but with independent current window
+    tmux -f ~/.config/tmux/tmux.conf new-session -d -s main; exec tmux -f ~/.config/tmux/tmux.conf new-session -t main \; set-option destroy-unattached
+  else
+    # here, if we open multiple instances, they all run identically (don't want to accidentally leave sessions open on the server)
+    exec tmux -f ~/.config/tmux/tmux.conf new-session -A -s remote
+  fi
 fi
 
 # color initialization when we aren't in a primitive terminal
