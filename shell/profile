@@ -3,3 +3,6 @@ export LANG=en_US.UTF-8
 # source rc file
 [ -z $BASH_VERSION ] && [ -f ~/.bashrc ] && . ~/.bashrc
 [ -z $ZSH_VERSION  ] && [ -f ~/.zshrc  ] && . ~/.zshrc
+# if we are on tty1 and x11 and wm available, start it
+WM=i3
+[ "$(command -v tty)" ] && [ "$(tty)" = /dev/tty1 ] && [ "$(command -v startx)" ] && [ "$(command -v $WM)" ] && [ -f ~/.xinitrc ] && exec startx
