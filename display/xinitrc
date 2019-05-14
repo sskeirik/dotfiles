@@ -1,0 +1,8 @@
+# input config
+xinput --set-prop 10 'libinput Accel Speed' 1
+# background
+~/.fehbg &
+# IME
+fcitx & # ibus-daemon -drx &
+# window manager
+exec i3

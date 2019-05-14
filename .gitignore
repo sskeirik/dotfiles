@@ -1,4 +1,5 @@
 fcitx/**
 chromium/**
+chromium-flags.conf
 htop/**
 local/bin/**
