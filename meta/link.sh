@@ -4,9 +4,11 @@
 if [ -z "$ZSH_VERSION" ]; then
   ln -s $HOME/.config/shell/shellrc  $HOME/.bashrc
   ln -s $HOME/.config/shell/inputrc  $HOME/.inputrc
+  ln -s $HOME/.config/shell/profile  $HOME/.bash_profile
 # otherwise, ZSH
 else
   ln -s $HOME/.config/shell/shellrc  $HOME/.zshrc
+  ln -s $HOME/.config/shell/profile  $HOME/.zprofile
 fi
 
 # if full Linux installation is requested
