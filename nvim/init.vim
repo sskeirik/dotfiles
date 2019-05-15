@@ -54,6 +54,8 @@ set grepprg=rg\ --vimgrep                                    "Use ripgrep for gr
 set synmaxcol=300                                            "Use syntax highlighting only for 300 columns
 " set shortmess+=c                                             "Disable completion menu messages in command line
 " set completeopt-=preview                                     "Disable preview window for autocompletion
+set wildmode=longest,list,full                               "Make tab completion nicer
+set wildmenu
 let g:netrw_home=expand('~/.cache/nvim/')                    "Move netrwhistory file to cache
 let g:polyglot_disabled = ['latex']                          "Disable polyglot latex plugin
 
