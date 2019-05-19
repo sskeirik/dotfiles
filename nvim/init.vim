@@ -74,7 +74,12 @@ let &undodir = undo_path
 " set highligting and indentation
 filetype plugin indent on
 syntax on
-silent! colorscheme base16-onedark
+
+" source colorscheme file
+if filereadable(expand("~/.vimrc_background"))
+  " let base16colorspace=256
+  source ~/.vimrc_background
+endif
 
 " disable ex mode
 nnoremap Q <Nop>
