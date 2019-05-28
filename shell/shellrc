@@ -65,6 +65,9 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     source ~/.config/shell/fzf/completion.bash
     source ~/.config/shell/fzf/key-bindings.bash
   elif [ $SHELL = "/bin/zsh" ]; then
+    # setup shell completions
+    fpath=(~/.config/shell/zsh $fpath)
+    autoload -U compinit && compinit
     # load powerlevel10k
     source ~/.config/shell/theme/zsh/powerlevel10k/powerlevel10k.zsh-theme
     source ~/.config/shell/theme/zsh/powerlevel10k-config.zsh
