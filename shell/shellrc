@@ -9,8 +9,9 @@ export EDITOR=nvim
 export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache
 export XDG_DATA_HOME=~/.local/share
-export EXECIGNORE="$EXECIGNORE:*dll"
 export LESS="-FRXK"
+[ -z "$BASH_VERSION" ] || export EXECIGNORE="$EXECIGNORE:*dll"
+[ -z "$ZSH_VERSION"  ] || export fignore=(dll $fignore)
 
 # Setup path
 export LOCAL_BUILD_BIN=~/.config/local/build/local/bin
