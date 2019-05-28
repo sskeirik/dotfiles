@@ -44,7 +44,7 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
   stty -ixon
 
   # setup colorscheme from base16 shell
-  BASE16_SHELL="$HOME/.config/shell/base16-shell/"
+  BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
   [[ $- == *i* ]] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
@@ -66,8 +66,8 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     source ~/.config/shell/fzf/key-bindings.bash
   elif [ $SHELL = "/bin/zsh" ]; then
     # load powerlevel10k
-    source ~/.config/shell/zsh/powerlevel10k/powerlevel10k.zsh-theme
-    source ~/.config/shell/zsh/powerlevel10k-config.zsh
+    source ~/.config/shell/theme/zsh/powerlevel10k/powerlevel10k.zsh-theme
+    source ~/.config/shell/theme/zsh/powerlevel10k-config.zsh
     # force cursor blink
     echo -e -n "\x1b[\x31 q"
     # make completions ignore stuff

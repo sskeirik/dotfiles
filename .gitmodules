@@ -35,7 +35,7 @@
 	path = tmux/plugins/tmux-onedark-theme
 	url = https://github.com/odedlaz/tmux-onedark-theme
 [submodule "bash/base16-shell"]
-	path = shell/base16-shell
+	path = shell/theme/base16-shell
 	url = https://github.com/chriskempson/base16-shell
 [submodule "nvim/bundle/base16-vim"]
 	path = nvim/bundle/base16-vim
@@ -78,7 +78,7 @@
 	path = nvim/bundle/vstar.vim
 	url = https://github.com/TheDerkus/vstar.vim
 [submodule "shell/zsh/powerlevel10k"]
-	path = shell/zsh/powerlevel10k
+	path = shell/theme/zsh/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k
 [submodule "nvim/bundle/vimtex"]
 	path = nvim/bundle/vimtex
