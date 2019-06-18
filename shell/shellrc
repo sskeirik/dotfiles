@@ -22,6 +22,18 @@ export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$WINDOWS_BIN:$PATH"
 # handle a stupid bug in wslbridge
 [ -z "$ZSH_VERSION" ] || export SHELL="/bin/zsh"
 
+# Setup history for bash/zsh
+export HISTFILE="$XDG_CACHE_HOME/shell_history"
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTCONTROL=ignoredups
+[ -z "$ZSH_VERSION" ] || setopt -h
+setopt HIST_IGNORE_DUPS
+if [ ! -f "$HISTFILE" ]; then
+  echo "Initializing history file..."
+  touch "$HISTFILE"
+fi
+
 # startup tmux unless we don't need to
 if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
   # pretend we are xterm
