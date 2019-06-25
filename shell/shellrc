@@ -82,6 +82,7 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     fpath=(~/.config/shell/zsh $fpath)
     autoload -U compinit && compinit
     # load powerlevel10k
+    PURE_POWER_MODE=portable
     source ~/.config/shell/theme/zsh/powerlevel10k/powerlevel10k.zsh-theme
     source ~/.config/shell/theme/zsh/powerlevel10k-config.zsh
     # force cursor blink
