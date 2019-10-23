@@ -40,6 +40,9 @@ if [ ! -f "$HISTFILE" ]; then
   touch "$HISTFILE"
 fi
 
+# fix delete key on mac (must be combined with terminal app mapping delete key to same code)
+[[ "$OSTYPE" != "darwin"* ]] || [[ -n $TMUX ]] || stty erase '^?'
+
 # startup tmux unless we don't need to
 if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
   # pretend we are xterm
