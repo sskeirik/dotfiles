@@ -16,8 +16,14 @@ export LESS="-FRXK"
 # Setup path
 export LOCAL_BUILD_BIN=~/.config/local/build/local/bin
 export LOCAL_BIN=~/.local/bin
-export WINDOWS_BIN=/mnt/c/bin
-export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$WINDOWS_BIN:$PATH"
+WINDOWS_BIN=/mnt/c/bin
+MACPORTS=/opt/local/bin:/opt/local/sbin
+if [[ $(uname -r)] == ^*Microsoft$ ]]; then
+  PATH="$WINDOWS_BIN:$PATH"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  PATH="$MACPORTS:$PATH"
+fi
+export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$PATH"
 
 # handle a stupid bug in wslbridge
 [ -z "$ZSH_VERSION" ] || export SHELL="/bin/zsh"
@@ -107,7 +113,11 @@ fi
 # setup functions/aliases after defining environment
 alias wget="wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\""
 # alias ls='exa ' # let's wait until the bugs are worked out more
-alias ls='ls --color=auto'
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  alias ls='ls --color=auto'
+else
+  export CLICOLOR=1
+fi
 alias sl='ls'
 alias vi='nvim '
 alias vim='nvim '
