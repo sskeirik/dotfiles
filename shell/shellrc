@@ -21,7 +21,7 @@ MACPORTS=/opt/local/bin:/opt/local/sbin
 if [[ $(uname -r)] == ^*Microsoft$ ]]; then
   PATH="$WINDOWS_BIN:$PATH"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-  PATH="$MACPORTS:$PATH"
+  PATH="/usr/local/bin/:$MACPORTS:$PATH"
 fi
 export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$PATH"
 
