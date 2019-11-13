@@ -118,6 +118,13 @@ if has("win32")
       \ . ':\%l^<CR^>:normal\! zzzv'
       \ . ':call remote_foreground('''.v:servername.''')^<CR^>^<CR^>\""'
 endif
+" configure vimtex for OSX
+if has("unix")
+  let s:uname = system("uname")
+  if s:uname == "Darwin\n"
+    let g:vimtex_view_method = 'skim'
+  endif
+endif
 
 " setup autocommands
 augroup MyCommands
