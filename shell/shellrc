@@ -140,7 +140,9 @@ function elevate() {
 }
 
 # open a file
-function open() { explorer.exe $1; }
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  function open() { explorer.exe $1; }
+fi
 
 # create new github repo
 function ghrepo() { curl -u 'skeirik2' https://api.github.com/user/repos -d '{"name":"$1"}'; }
