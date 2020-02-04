@@ -177,7 +177,7 @@ function ts() {
 # this command will build a K project with local copy of mainline dependencies
 function skmake() {
   # set env variables
-  ROOT="~/work"
+  ROOT="$HOME/work"
   K_SUBMODULE="$ROOT/kframework/master"
   K_RELEASE="$K_SUBMODULE/k-distribution/target/release/k"
   PANDOC_TANGLE_SUBMODULE="$ROOT/pandoc-tangle"
@@ -191,7 +191,7 @@ function skmake() {
   wasm_submodule="$WASM_SUBMODULE"
 
   # call make with environment set and variables set
-  make \
+  /usr/bin/make \
   K_SUBMODULE="$K_SUBMODULE" \
   k_submodule="$K_SUBMODULE" \
   K_RELEASE="$K_RELEASE" \
@@ -203,4 +203,12 @@ function skmake() {
   TANGLER="$TANGLER" \
   tangler="$TANGLER" \
   "$@"
+}
+
+function enable_skmake() {
+  function make() { skmake "$@"; }
+}
+
+function disable_skmake() {
+  unset -f make
 }
