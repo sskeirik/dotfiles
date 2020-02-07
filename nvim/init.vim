@@ -122,7 +122,7 @@ endif
 if has("unix")
   let s:uname = system("uname")
   if s:uname == "Darwin\n"
-    let g:vimtex_view_method = 'skim'
+    let g:vimtex_view_method = 'general'
   endif
 endif
 
