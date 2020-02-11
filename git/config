@@ -1,6 +1,6 @@
 [user]
 	name = Stephen Skeirik
-	email = skeirik2@illinois.edu
+	email = stephen.skeirik@runtimeverification.com
 [alias]
 	ci = commit
 	co = checkout
