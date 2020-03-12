@@ -41,6 +41,8 @@ fi
 
 # fix delete key on mac (must be combined with terminal app mapping delete key to same code)
 [[ "$OSTYPE" != "darwin"* ]] || [[ -n $TMUX ]] || stty erase '^?'
+# fix locale on OSX
+[[ "$OSTYPE" != "darwin"* ]] || export LANG="en_US.UTF-8"
 
 # startup tmux unless we don't need to
 if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
