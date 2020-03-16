@@ -12,7 +12,8 @@ set menu-complete-display-prefix On
 
 ## be like vi
 set editing-mode vi
-set show-mode-in-prompt on
+# show-mode doesn't work well with a multi-line prompt in bash
+# set show-mode-in-prompt on
 
 $if term=linux
   set vi-ins-mode-string \1\e[?0c\2
