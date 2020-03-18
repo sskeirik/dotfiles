@@ -32,8 +32,7 @@ export HISTFILE="$XDG_CACHE_HOME/shell_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTCONTROL=ignoredups
-[ -z "$ZSH_VERSION" ] || setopt -h
-setopt HIST_IGNORE_DUPS
+[ -z "$ZSH_VERSION" ] || { setopt -h ; setopt HIST_IGNORE_DUPS ; }
 if [ ! -f "$HISTFILE" ]; then
   echo "Initializing history file..."
   touch "$HISTFILE"
