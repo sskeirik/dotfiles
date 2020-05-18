@@ -9,15 +9,14 @@
 
 # Setup PATH so we can find bins
 # ##############################
-export LOCAL_BUILD_BIN=~/.config/local/build/local/bin
-export LOCAL_BIN=~/.local/bin
+LOCAL_BIN=~/.local/bin
 WINDOWS_BIN=/mnt/c/bin
 if [[ $(uname -r)] == ^*Microsoft$ ]]; then
   PATH="$WINDOWS_BIN:$PATH"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   PATH="/usr/local/bin/:$PATH"
 fi
-export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$PATH"
+export PATH="$LOCAL_BIN:$PATH"
 
 # Load TMUX session as soon as possible
 # #####################################
