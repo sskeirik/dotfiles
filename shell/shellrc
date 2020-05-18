@@ -68,8 +68,15 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     source ~/.config/shell/fzf/completion.bash
     source ~/.config/shell/fzf/key-bindings.bash
   elif [ $SHELL = "/bin/zsh" ]; then
+
+    # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+    # Initialization code that may require console input (password prompts, [y/n]
+    # confirmations, etc.) must go above this block; everything else may go below.
+    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+      source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    fi
+
     # load powerlevel10k
-    PURE_POWER_MODE=portable
     source ~/.config/shell/theme/zsh/powerlevel10k/powerlevel10k.zsh-theme
     source ~/.config/shell/theme/zsh/powerlevel10k-config.zsh
     # force cursor blink
