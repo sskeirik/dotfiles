@@ -1,19 +1,14 @@
 # If not running interactively, don't do anything
+# ###############################################
+
 [[ $- != *i* ]] && return
 
 # Uncomment to enable debugging mode
+# ##################################
 # DEBUG=1
 
-# Setup our environment
-export EDITOR=nvim
-export XDG_CONFIG_HOME=~/.config
-export XDG_CACHE_HOME=~/.cache
-export XDG_DATA_HOME=~/.local/share
-export LESS="-FRXK"
-[ -z "$BASH_VERSION" ] || export EXECIGNORE="$EXECIGNORE:*dll"
-[ -z "$ZSH_VERSION"  ] || export fignore=(dll $fignore)
-
-# Setup path
+# Setup PATH so we can find bins
+# ##############################
 export LOCAL_BUILD_BIN=~/.config/local/build/local/bin
 export LOCAL_BIN=~/.local/bin
 WINDOWS_BIN=/mnt/c/bin
@@ -24,22 +19,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$PATH"
 
-
-# Setup history for bash/zsh
-export HISTFILE="$XDG_CACHE_HOME/shell_history"
-export HISTSIZE=10000
-export SAVEHIST=10000
-export HISTCONTROL=ignoredups
-[ -z "$ZSH_VERSION" ] || { setopt -h ; setopt HIST_IGNORE_DUPS ; }
-if [ ! -f "$HISTFILE" ]; then
-  echo "Initializing history file..."
-  touch "$HISTFILE"
-fi
-
-# fix delete key on mac (must be combined with terminal app mapping delete key to same code)
-[[ "$OSTYPE" != "darwin"* ]] || [[ -n $TMUX ]] || stty erase '^?'
-# fix locale on OSX
-[[ "$OSTYPE" != "darwin"* ]] || export LANG="en_US.UTF-8"
+# Load TMUX session as soon as possible
+# #####################################
 
 # startup tmux unless we don't need to
 if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
@@ -57,7 +38,9 @@ if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE
   fi
 fi
 
-# color initialization when we aren't in a primitive terminal
+# initialize pretty shell colors (when in a compatible terminal)
+# ##############################################################
+
 if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TERM != "linux" ]; then
   # disable software control flow terminal shortcuts ctrl+S/ctrl+Q
   # but allow internal libraries to use this mechanism if they wish
@@ -85,16 +68,17 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     source ~/.config/shell/fzf/completion.bash
     source ~/.config/shell/fzf/key-bindings.bash
   elif [ $SHELL = "/bin/zsh" ]; then
-    # setup shell completions
-    zstyle ':completion:*:*:git:*' script ~/.config/shell/bash/git-completion.bash
-    fpath=(~/.config/shell/zsh $fpath)
-    autoload -U compinit && compinit
     # load powerlevel10k
     PURE_POWER_MODE=portable
     source ~/.config/shell/theme/zsh/powerlevel10k/powerlevel10k.zsh-theme
     source ~/.config/shell/theme/zsh/powerlevel10k-config.zsh
     # force cursor blink
     echo -e -n "\x1b[\x31 q"
+
+    # setup shell completions
+    zstyle ':completion:*:*:git:*' script ~/.config/shell/bash/git-completion.bash
+    fpath=(~/.config/shell/zsh $fpath)
+    autoload -U compinit && compinit
     # make completions ignore stuff
     # FIXME: figure out how to make this work...
 
@@ -110,6 +94,27 @@ else
   PROMPT="%1~ %(!.#.$) "
 fi
 
+# Setup our environment and aliases
+# #################################
+
+export EDITOR=nvim
+export XDG_CONFIG_HOME=~/.config
+export XDG_CACHE_HOME=~/.cache
+export XDG_DATA_HOME=~/.local/share
+export LESS="-FRXK"
+[ -z "$BASH_VERSION" ] || export EXECIGNORE="$EXECIGNORE:*dll"
+[ -z "$ZSH_VERSION"  ] || export fignore=(dll $fignore)
+
+# Setup history for bash/zsh
+export HISTFILE="$XDG_CACHE_HOME/shell_history"
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTCONTROL=ignoredups
+[ -z "$ZSH_VERSION" ] || { setopt -h ; setopt HIST_IGNORE_DUPS ; }
+if [ ! -f "$HISTFILE" ]; then
+  touch "$HISTFILE"
+fi
+
 # do extra setup on remote sessions
 if [ -n "$SSH_CLIENT" ]; then
   # do not ask for passwords via guis
@@ -118,6 +123,11 @@ if [ -n "$SSH_CLIENT" ]; then
   # let's be explicit about logging out
   export IGNOREEOF=5
 fi
+
+# fix delete key on mac (must be combined with terminal app mapping delete key to same code)
+[[ "$OSTYPE" != "darwin"* ]] || [[ -n $TMUX ]] || stty erase '^?'
+# fix locale on OSX
+[[ "$OSTYPE" != "darwin"* ]] || export LANG="en_US.UTF-8"
 
 # setup functions/aliases after defining environment
 alias wget="wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\""
