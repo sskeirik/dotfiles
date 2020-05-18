@@ -24,8 +24,6 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 export PATH="$LOCAL_BUILD_BIN:$LOCAL_BIN:$PATH"
 
-# handle a stupid bug in wslbridge
-[ -z "$ZSH_VERSION" ] || export SHELL="/bin/zsh"
 
 # Setup history for bash/zsh
 export HISTFILE="$XDG_CACHE_HOME/shell_history"
