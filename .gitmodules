@@ -86,3 +86,6 @@
 [submodule "nvim/bundle/vim-pencil"]
 	path = nvim/bundle/vim-pencil
 	url = https://github.com/reedes/vim-pencil
+[submodule "shell/bash/vboxmanage-bash-completion"]
+	path = shell/bash/vboxmanage-bash-completion
+	url = https://github.com/gryf/vboxmanage-bash-completion

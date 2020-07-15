@@ -84,7 +84,9 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     # setup shell completions
     zstyle ':completion:*:*:git:*' script ~/.config/shell/bash/git-completion.bash
     fpath=(~/.config/shell/zsh $fpath)
-    autoload -U compinit && compinit
+    autoload -U +X compinit && compinit
+    autoload -U +X bashcompinit && bashcompinit
+    source ~/.config/shell/bash/vboxmanage-bash-completion/VBoxManage
     # make completions ignore stuff
     # FIXME: figure out how to make this work...
 
