@@ -23,6 +23,8 @@
 	ls = ls-files
 	wd = diff --color-words
 	wdc = diff --cached --color-words
+	bs = branch --sort=-committerdate \
+	     --format='%(align:25)%(color:green)%(committerdate:relative)%(color:reset)%(end) - %(align:30,left)%(color:yellow)%(refname:short)%(color:reset)%(end) - %(contents:subject)'
 	related = "!function git_related() { commit1=`git log -n 1 --format=\"%h\" $1` ; commit2=`git log -n 1 --format=\"%h\" $2` ; if git rev-list $commit1 | grep -q $commit2 ; then echo \"$2 is ancestor of $1\" ; elif git rev-list $commit2 | grep -q $commit1 ; then echo \"$1 is ancestor of $2\" ; else echo \"$1 unrelated to $2\" ; fi } ; git_related $1 $2 2>/dev/null"
 [pull]
 	ff = only
