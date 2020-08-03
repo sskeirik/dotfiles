@@ -2,7 +2,7 @@
 	name = Stephen Skeirik
 	email = stephen.skeirik@runtimeverification.com
 [alias]
-	ci = commit
+	ci = commit --verbose
 	co = checkout
 	d = diff --color-moved=blocks
 	dc = diff --cached --color-moved=blocks
