@@ -98,6 +98,7 @@ else
 endif
 
 " general vimtex configuration
+let g:tex_flavor = 'latex'
 " 0 never auto-open, 1 auto-open on error, 2 auto-open on warning
 let g:vimtex_quickfix_mode = 0
 " 0 never auto-close, or auto-close afte n events
