@@ -31,9 +31,6 @@
 [submodule "tmux/plugins/tmux-fingers"]
 	path = tmux/plugins/tmux-fingers
 	url = https://github.com/Morantron/tmux-fingers
-[submodule "tmux/plugins/tmux-onedark-theme"]
-	path = tmux/plugins/tmux-onedark-theme
-	url = https://github.com/odedlaz/tmux-onedark-theme
 [submodule "bash/base16-shell"]
 	path = shell/theme/base16-shell
 	url = https://github.com/chriskempson/base16-shell
