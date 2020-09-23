@@ -29,7 +29,7 @@
 [pull]
 	ff = only
 [credential]
-	helper = cache --timeout 3600
+	helper = store
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
