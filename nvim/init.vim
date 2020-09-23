@@ -127,6 +127,15 @@ if has("unix")
   endif
 endif
 
+" Use spaces instead of tabs for any files that have no tabs
+" near the beginning (in the first thousand lines)
+function! s:ExpandTabCheck()
+    let s:tab = search("\t", "n")", 1000)
+    if s:tab == 0
+	setlocal expandtab
+    endif
+endfunction
+
 " setup autocommands
 augroup MyCommands
   au!
@@ -136,7 +145,10 @@ augroup MyCommands
   au FileType     * RainbowParentheses
   " jump to last remembered position in file (except for git commits)
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != "gitcommit" | exe "normal! g'\"" | endif
+  " set tabs to spaces for any files with tabs
+  au BufEnter * call s:ExpandTabCheck()
 augroup END
+
 
 " mappings for Easy Align
 nmap ga <Plug>(EasyAlign)
