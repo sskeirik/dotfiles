@@ -58,6 +58,7 @@ set wildmode=longest,list,full                               "Make tab completio
 set wildmenu
 let g:netrw_home=expand('~/.cache/nvim/')                    "Move netrwhistory file to cache
 let g:polyglot_disabled = ['latex']                          "Disable polyglot latex plugin
+let g:vim_markdown_no_default_key_mappings = 1               "Disable polyglot markdown keybindings; why does this even come with bindings?
 
 " searching via incsearch
 set hlsearch
