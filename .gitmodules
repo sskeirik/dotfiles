@@ -86,3 +86,6 @@
 [submodule "shell/bash/vboxmanage-bash-completion"]
 	path = shell/bash/vboxmanage-bash-completion
 	url = https://github.com/gryf/vboxmanage-bash-completion
+[submodule "nvim/bundle/vim-which-key"]
+	path = nvim/bundle/vim-which-key
+	url = https://github.com/liuchengxu/vim-which-key
