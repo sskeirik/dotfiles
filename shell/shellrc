@@ -103,6 +103,9 @@ else
   PROMPT="%1~ %(!.#.$) "
 fi
 
+# set vi-mode for ZSH
+[ -z "$ZSH_VERSION" ] || bindkey -v
+
 # Setup our environment and aliases
 # #################################
 
