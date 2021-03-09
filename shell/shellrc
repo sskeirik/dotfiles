@@ -64,9 +64,6 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     source ~/.config/shell/minimalist-git-prompt.sh
     # PS1="\W \\$ "
 
-    # load fzf bindings (only makes sense under readline)
-    source ~/.config/shell/fzf/completion.bash
-    source ~/.config/shell/fzf/key-bindings.bash
   elif [ "$ZSH_VERSION" ]; then
 
     # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -81,8 +78,20 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     source ~/.config/shell/theme/zsh/powerlevel10k-config.zsh
     # force cursor blink
     echo -e -n "\x1b[\x31 q"
+  fi
+else
+  PS1="\W \\$ "
+  PROMPT="%1~ %(!.#.$) "
+fi
 
-    # setup shell completions
+# Initialize shell keybindings
+# ############################
+
+if [ "$BASH_VERSION" ]; then
+    # load fzf bindings (only makes sense under readline)
+    source ~/.config/shell/fzf/completion.bash
+    source ~/.config/shell/fzf/key-bindings.bash
+elif [ "$ZSH_VERSION" ]; then
     zstyle ':completion:*:*:git:*' script ~/.config/shell/bash/git-completion.bash
     fpath=(~/.config/shell/zsh $fpath)
     autoload -U +X compinit && compinit
@@ -97,10 +106,6 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     zle -N history-beginning-search-forward-end history-search-end
     bindkey "^[[A" history-beginning-search-backward-end
     bindkey "^[[B" history-beginning-search-forward-end
-  fi
-else
-  PS1="\W \\$ "
-  PROMPT="%1~ %(!.#.$) "
 fi
 
 # set vi-mode for ZSH
