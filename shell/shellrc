@@ -88,28 +88,29 @@ fi
 # ############################
 
 if [ "$BASH_VERSION" ]; then
-    # load fzf bindings (only makes sense under readline)
-    source ~/.config/shell/fzf/completion.bash
-    source ~/.config/shell/fzf/key-bindings.bash
+  # load fzf bindings (only makes sense under readline)
+  source ~/.config/shell/fzf/completion.bash
+  source ~/.config/shell/fzf/key-bindings.bash
 elif [ "$ZSH_VERSION" ]; then
-    zstyle ':completion:*:*:git:*' script ~/.config/shell/bash/git-completion.bash
-    fpath=(~/.config/shell/zsh $fpath)
-    autoload -U +X compinit && compinit
-    autoload -U +X bashcompinit && bashcompinit
-    source ~/.config/shell/bash/vboxmanage-bash-completion/VBoxManage
-    # make completions ignore stuff
-    # FIXME: figure out how to make this work...
+  # set vi-mode
+  bindkey -v
 
-    # make nice commandline search work
-    autoload -U history-search-end
-    zle -N history-beginning-search-backward-end history-search-end
-    zle -N history-beginning-search-forward-end history-search-end
-    bindkey "^[[A" history-beginning-search-backward-end
-    bindkey "^[[B" history-beginning-search-forward-end
+  # enable completion for git and vbox
+  zstyle ':completion:*:*:git:*' script ~/.config/shell/bash/git-completion.bash
+  fpath=(~/.config/shell/zsh $fpath)
+  autoload -U +X compinit && compinit
+  autoload -U +X bashcompinit && bashcompinit
+  source ~/.config/shell/bash/vboxmanage-bash-completion/VBoxManage
+
+  # make nice commandline search work
+  autoload -U history-search-end
+  zle -N history-beginning-search-backward-end history-search-end
+  zle -N history-beginning-search-forward-end history-search-end
+  bindkey -M emacs "^[[A" history-beginning-search-backward-end
+  bindkey -M emacs "^[[B" history-beginning-search-forward-end
+  bindkey -M viins "^[[A" history-beginning-search-backward-end
+  bindkey -M viins "^[[B" history-beginning-search-forward-end
 fi
-
-# set vi-mode for ZSH
-[ -z "$ZSH_VERSION" ] || bindkey -v
 
 # Setup our environment and aliases
 # #################################
