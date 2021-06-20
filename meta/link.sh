@@ -4,14 +4,18 @@
 # shell selection
 if [ "$1" = "bash" ]; then
   echo "bash selected; installing bash links..."
-  ln -s $HOME/.config/shell/shellrc  $HOME/.bashrc       2>/dev/null
-  ln -s $HOME/.config/shell/inputrc  $HOME/.inputrc      2>/dev/null
-  ln -s $HOME/.config/shell/profile  $HOME/.bash_profile 2>/dev/null
+  ln -s $HOME/.config/shell/shellrc  $HOME/.bashrc         2>/dev/null
+  ln -s $HOME/.config/shell/inputrc  $HOME/.inputrc        2>/dev/null
+  ln -s $HOME/.config/shell/profile  $HOME/.bash_profile   2>/dev/null
+  mkdir -p $HOME/.local/bin                                &>/dev/null
+  ln -s $HOME/.config/meta/ding      $HOME/.local/bin/ding 2>/dev/null
 # otherwise, ZSH
 elif [ "$1" = "zsh" ]; then
   echo "zsh selected, installing zsh links..."
-  ln -s $HOME/.config/shell/shellrc  $HOME/.zshrc    2>/dev/null
-  ln -s $HOME/.config/shell/profile  $HOME/.zprofile 2>/dev/null
+  ln -s $HOME/.config/shell/shellrc  $HOME/.zshrc          2>/dev/null
+  ln -s $HOME/.config/shell/profile  $HOME/.zprofile       2>/dev/null
+  mkdir -p $HOME/.local/bin                                &>/dev/null
+  ln -s $HOME/.config/meta/ding      $HOME/.local/bin/ding 2>/dev/null
 else
   echo "usage: link.sh (bash|zsh) [full]"
   exit 1

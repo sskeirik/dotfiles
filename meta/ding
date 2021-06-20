@@ -1,0 +1,15 @@
+#!/bin/bash
+
+WINDOWS_SOUND_PATH=C:\\WINDOWS\\Media\\notify.wav
+OTHER_SOUND_PATH=$HOME/.config/data/ding.mp3
+
+# if the subshell retunns true, we are in WSL
+if (cat /proc/version | grep -qi microsoft)
+then
+  exec powershell.exe -c "(New-Object Media.SoundPlayer '$WINDOWS_SOUND_PATH').PlaySync();" &>/dev/null &
+else
+  # -nodisp         - do not show visualization
+  # -autoexit       - exit after playing
+  # -loglevel quiet - do not print anything on the command line
+  exec ffplay -nodisp -autoexit -loglevel quiet "$OTHER_SOUND_PATH" &>/dev/null &
+fi
