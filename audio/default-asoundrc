@@ -7,3 +7,8 @@ ctl!.default {
   type hw
   card Audio
 }
+
+pcm!.default {
+  type plug
+  slave.pcm "hw:Audio"
+}
