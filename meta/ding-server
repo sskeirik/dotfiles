@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# if we are not on a remote host, listens on port $PORT for incoming TCP connections
+# when a new connection arrives, it forks and exec()'s ding
+
+PORT=7777
+LOCKFILE=/tmp/ding-server
+DING=$HOME/.local/bin/ding
+
+[ -n "$SSH_CLIENT" ] && exit
+
+# -L<LOCKFILE> - If lockfile exists, exits with error. If lockfile does not exist, creates it and continues, unlinks lockfile on exit.
+# -u           - Uses unidirectional mode. The first address is only used for reading, and the second address is only used for writing.
+exec socat -L"$LOCKFILE" -u "TCP-LISTEN:$PORT,fork" "EXEC:$DING"
