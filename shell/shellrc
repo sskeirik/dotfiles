@@ -30,8 +30,12 @@ if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE
   echo -ne "\033]0;\007"
   # start the session/session group
   if [ -z "$SSH_CLIENT" ]; then
+    # startup ding-server if needed
+    $HOME/meta/ding-server &
+
     # here, if we open multiple instances, they are linked to the same window set but with independent current window
-    tmux -f ~/.config/tmux/tmux.conf new-session -d -s main; exec tmux -f ~/.config/tmux/tmux.conf new-session -t main \; set-option destroy-unattached
+    tmux -f ~/.config/tmux/tmux.conf new-session -d -s main
+    exec tmux -f ~/.config/tmux/tmux.conf new-session -t main \; set-option destroy-unattached
   else
     # here, if we open multiple instances, they all run identically (don't want to accidentally leave sessions open on the server)
     exec tmux -f ~/.config/tmux/tmux.conf new-session -A -s remote
