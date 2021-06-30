@@ -6,20 +6,20 @@ OTHER_SOUND_PATH=$HOME/.config/data/ding.mp3
 
 # if we are running remotely, send the ding to the local computer ding-server via SSH tunnel on $PORT
 if [ -n "$SSH_CLIENT" ]; then
-  exec netcat localhost "$PORT" &>/dev/null <<< "" &
+  netcat localhost "$PORT" &>/dev/null <<< $'\n' &
 
 # if we are running locally, play the ding
 else
 
   # if uname -a contains microsoft, we are in WSL, play ding via powershell
   if (uname -a | grep -qi microsoft); then
-    exec powershell.exe -c "(New-Object Media.SoundPlayer '$WINDOWS_SOUND_PATH').PlaySync();" &>/dev/null &
+   powershell.exe -c "(New-Object Media.SoundPlayer '$WINDOWS_SOUND_PATH').PlaySync();" &>/dev/null &
 
   # otherwise, we are on linux/mac, play ding via ffplay
   else
     # -nodisp         - do not show visualization
     # -autoexit       - exit after playing
     # -loglevel quiet - do not print anything on the command line
-    exec ffplay -nodisp -autoexit -loglevel quiet "$OTHER_SOUND_PATH" &>/dev/null &
+    ffplay -nodisp -autoexit -loglevel quiet "$OTHER_SOUND_PATH" &>/dev/null &
   fi
 fi
