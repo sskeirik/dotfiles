@@ -11,4 +11,4 @@ DING=$HOME/.local/bin/ding
 
 # -L<LOCKFILE> - If lockfile exists, exits with error. If lockfile does not exist, creates it and continues, unlinks lockfile on exit.
 # -u           - Uses unidirectional mode. The first address is only used for reading, and the second address is only used for writing.
-exec socat -L"$LOCKFILE" -u "TCP-LISTEN:$PORT,fork" "EXEC:$DING"
+exec socat -L"$LOCKFILE" -u "TCP-LISTEN:$PORT,fork" "EXEC:$DING" &>/dev/null
