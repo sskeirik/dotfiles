@@ -6,7 +6,7 @@ OTHER_SOUND_PATH=$HOME/.config/data/ding.mp3
 
 # if we are running remotely, send the ding to the local computer ding-server via SSH tunnel on $PORT
 if [ -n "$SSH_CLIENT" ]; then
-  netcat localhost "$PORT" &>/dev/null <<< $'\n' &
+  exec netcat localhost "$PORT" &>/dev/null <<< $'\n' &
 
 # if we are running locally, play the ding
 else
