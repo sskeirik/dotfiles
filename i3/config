@@ -7,6 +7,9 @@
 #
 # Please see https://i4wm.org/docs/userguide.html for a complete reference!
 
+# start toggl on startup
+exec TogglDesktop
+
 # Setup borders and gaps
 hide_edge_borders smart
 default_border pixel 1
@@ -161,6 +164,8 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+for_window [title="Toggl Track"] floating enable
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
