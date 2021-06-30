@@ -31,7 +31,7 @@ if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE
   # start the session/session group
   if [ -z "$SSH_CLIENT" ]; then
     # startup ding-server if needed
-    $HOME/meta/ding-server &
+    $HOME/.config/meta/ding-server &
 
     # here, if we open multiple instances, they are linked to the same window set but with independent current window
     tmux -f ~/.config/tmux/tmux.conf new-session -d -s main
