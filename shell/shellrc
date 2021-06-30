@@ -203,9 +203,6 @@ function ts() {
     esac
 }
 
-# ding command using ffplay
-function ding() { ffplay -nodisp -autoexit -loglevel quiet ~/.config/data/ding.mp3 }
-
 # setx wrapper for setting environment variables
 # function setx() {
 # TODO: finish me
