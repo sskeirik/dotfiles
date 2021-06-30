@@ -1,9 +1,0 @@
-[Unit]
-Description=Server which emits local dings when receiving a connection on port 7777
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/socat -u TCP-LISTEN:7777,fork SYSTEM:%h/.local/bin/ding
-
-[Install]
-WantedBy=default.target
