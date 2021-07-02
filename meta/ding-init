@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# write a new port number to the port file if it doesn't exist
+# the port number is deterministically chosen based on the system name
+
+PORTFILE=$HOME/.cache/ding/port
+
+if [ -e "$PORTFILE" ]; then
+  head -c6 "$PORTFILE"
+  exit 1
+fi
+
+name=$(uname -a)                    # system name
+namehash=$(sha256sum - <<< "$name") # convert to bytes
+namehashprefix=${namehash:0:4}      # grab first 2 bytes in hex
+portnum=$(( 0x$namehashprefix ))    # convert hex to decimal number in 0-65535 range
+dingport=$(( $portnum / 4 + 49152)) # select ephemeral port in range 49152-65535
+
+mkdir -p $(dirname "$PORTFILE")
+echo "$dingport" > "$PORTFILE"
+
+echo "$dingport"
