@@ -29,8 +29,8 @@ font xft:Sarasa Mono TC 8
 floating_modifier $mod
 
 # start a terminal
-# bindsym $mod+Return exec alacritty
-bindsym $mod+Return exec st -f 'Sarasa Mono TC-11'
+bindsym $mod+Return exec alacritty
+# bindsym $mod+Return exec st -f 'Sarasa Mono TC-11'
 
 # kill focused window
 bindsym $mod+Shift+q kill
