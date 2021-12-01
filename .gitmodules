@@ -37,9 +37,6 @@
 [submodule "nvim/bundle/base16-vim"]
 	path = nvim/bundle/base16-vim
 	url = https://github.com/chriskempson/base16-vim
-[submodule "nvim/bundle/maude.vim"]
-	path = nvim/bundle/maude.vim
-	url = https://github.com/skeirik2/maude.vim
 [submodule "nvim/bundle/vim-matchup"]
 	path = nvim/bundle/vim-matchup
 	url = https://github.com/andymass/vim-matchup
@@ -49,7 +46,7 @@
 	url = https://github.com/sheerun/vim-polyglot
 [submodule "nvim/bundle/flygrep.vim"]
 	path = nvim/bundle/flygrep.vim
-	url = https://github.com/skeirik2/flygrep.vim
+	url = https://github.com/sskeirik/flygrep.vim
 [submodule "nvim/bundle/vim-gitgutter"]
 	path = nvim/bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
@@ -89,3 +86,6 @@
 [submodule "nvim/bundle/vim-which-key"]
 	path = nvim/bundle/vim-which-key
 	url = https://github.com/liuchengxu/vim-which-key
+[submodule "nvim/bundle/maude.vim"]
+	path = nvim/bundle/maude.vim
+	url = https://github.com/sskeirik/maude.vim
