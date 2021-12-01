@@ -110,7 +110,7 @@ function is_wsl_v2() {
 
 # autostart dockerd (requires nopasswd sudo for dockerd using default user on $DOCKER_DISTRO)
 DOCKER_DISTRO="Arch"
-if is_wsl_v2 "$DOCKER_DISTRO" && which dockerd &>/dev/null; then
+if [ -x "$WSL_EXE" ] && is_wsl_v2 "$DOCKER_DISTRO" && which dockerd &>/dev/null; then
   DOCKER_DIR=/mnt/wsl/shared-docker
   DOCKER_SOCK="$DOCKER_DIR/docker.sock"
   export DOCKER_HOST="unix://$DOCKER_SOCK"
