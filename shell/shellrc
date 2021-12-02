@@ -70,6 +70,8 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     # PS1="\W \\$ "
 
   elif [ "$ZSH_VERSION" ]; then
+    # force cursor blink
+    echo -e -n "\x1b[\x31 q"
 
     # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
     # Initialization code that may require console input (password prompts, [y/n]
@@ -81,8 +83,6 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
     # load powerlevel10k
     source ~/.config/shell/theme/zsh/powerlevel10k/powerlevel10k.zsh-theme
     source ~/.config/shell/theme/zsh/powerlevel10k-config.zsh
-    # force cursor blink
-    echo -e -n "\x1b[\x31 q"
   fi
 else
   PS1="\W \\$ "
