@@ -13,7 +13,7 @@ execute pathogen#infect()
 " Thanks to https://github.com/kristijanhusak/neovim-config
 let g:loaded_matchit = 1                                     "Do not load matchit, use matchup plugin
 
-let g:mapleader = ','                                        "Change leader to a comma
+let g:mapleader = ' '                                        "Change leader to a space
 
 set termguicolors                                            "use nice colors
 set title                                                    "change the terminal's title
@@ -177,3 +177,12 @@ execute "digraphs xs " . 0x2093
 " digraph for logical true
 execute "digraphs +T " . 0x22A4
 execute "digraphs rt " . 0x22A2
+
+" add lua configuration snippet
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
