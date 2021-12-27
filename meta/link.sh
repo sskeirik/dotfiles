@@ -25,8 +25,8 @@ echo "" # separate output
 
 # if full Linux installation is requested
 if [ "$2" = "full" ]; then
-  ln -s $HOME/.config/sound/default-asoundrc $HOME/.asoundrc 2>/dev/null
-  ln -s $HOME/.config/display/xinitrc        $HOME/.xinitrc  2>/dev/null
+  ln -s $HOME/.config/native/default-asoundrc $HOME/.asoundrc 2>/dev/null
+  ln -s $HOME/.config/native/xinitrc          $HOME/.xinitrc  2>/dev/null
   echo "For High-DPI screens, please make sure browsers are scaled properly"
   echo "For chromium: check config/display/chromium-flags.conf"
   echo "For firefox: do online search"
