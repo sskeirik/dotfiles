@@ -42,6 +42,14 @@ bindsym $mod+d exec dmenu_run
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+# manage volume/brightness
+# bindsym XF86AudioRaiseVolume exec
+# bindsym XF86AudioLowerVolume exec
+# bindsym XF86AudioMute exec
+# bindsym XF86AudioMicMute exec
+bindsym XF86MonBrightnessUp   exec brightnessctl -d intel_backlight set +10% # increase screen brightness
+bindsym XF86MonBrightnessDown exec brightnessctl -d intel_backlight set 10%- # decrease screen brightness
+
 # lock screen
 bindsym $mod+c exec --no-startup-id i3lock -efi "$HOME/.background.png"
 
