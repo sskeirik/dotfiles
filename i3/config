@@ -13,7 +13,7 @@
 # 3.  set natural scrolling in X
 exec TogglDesktop
 exec polybar personal
-exec xinput list-props 12 308
+exec xinput set-prop 12 308 1
 
 # Setup borders and gaps
 hide_edge_borders smart
