@@ -7,9 +7,13 @@
 #
 # Please see https://i4wm.org/docs/userguide.html for a complete reference!
 
-# start toggl on startup
+# startup tasks:
+# 1.  start toggl timer
+# 2.  start polybar
+# 3.  set natural scrolling in X
 exec TogglDesktop
 exec polybar personal
+exec xinput list-props 12 308
 
 # Setup borders and gaps
 hide_edge_borders smart
