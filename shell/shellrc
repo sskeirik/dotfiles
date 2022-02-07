@@ -19,8 +19,41 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 export PATH="$LOCAL_BIN:$PATH"
 
-# Load TMUX session as soon as possible
-# #####################################
+# Dockerd Autostart on WSL
+##########################
+
+WSL_EXE=/mnt/c/Windows/System32/wsl.exe
+
+function is_wsl_v2() {
+  # check that we have exactly one argument
+  [ $# -eq 1 ] || return 1
+  # build filter pattern
+  filter='^[ *] '"$1"' *(Running|Stopped) *2\r$'
+  # check for match:
+  # 0. set fail on error
+  # 1. run wsl.exe -l -v
+  # 2. convert to UTF-8
+  # 3. strip first line
+  # 4. match regex
+  ( set -euo pipefail && "$WSL_EXE" -l -v | iconv -f UTF-16 -t UTF-8 | tail -n +2 | grep -P "$filter" &>/dev/null )
+}
+
+# autostart dockerd (requires nopasswd sudo for dockerd using default user on $DOCKER_DISTRO)
+DOCKER_DISTRO="Arch"
+if [ -x "$WSL_EXE" ] && is_wsl_v2 "$DOCKER_DISTRO" && which dockerd &>/dev/null; then
+  DOCKER_DIR=/mnt/wsl/shared-docker
+  DOCKER_SOCK="$DOCKER_DIR/docker.sock"
+  export DOCKER_HOST="unix://$DOCKER_SOCK"
+  if [ ! -S "$DOCKER_SOCK" ]; then
+      mkdir -pm o=,ug=rwx "$DOCKER_DIR"
+      chgrp docker "$DOCKER_DIR"
+      "$WSL_EXE" -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
+  fi
+fi
+
+
+# TMUX session Autostart
+# ######################
 
 # startup tmux unless we don't need to
 if [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
@@ -86,38 +119,6 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
 else
   PS1="\W \\$ "
   PROMPT="%1~ %(!.#.$) "
-fi
-
-# WSL Helpers
-#############
-
-WSL_EXE=/mnt/c/Windows/System32/wsl.exe
-
-function is_wsl_v2() {
-  # check that we have exactly one argument
-  [ $# -eq 1 ] || return 1
-  # build filter pattern
-  filter='^[ *] '"$1"' *(Running|Stopped) *2\r$'
-  # check for match:
-  # 0. set fail on error
-  # 1. run wsl.exe -l -v
-  # 2. convert to UTF-8
-  # 3. strip first line
-  # 4. match regex
-  ( set -euo pipefail && "$WSL_EXE" -l -v | iconv -f UTF-16 -t UTF-8 | tail -n +2 | grep -P "$filter" &>/dev/null )
-}
-
-# autostart dockerd (requires nopasswd sudo for dockerd using default user on $DOCKER_DISTRO)
-DOCKER_DISTRO="Arch"
-if [ -x "$WSL_EXE" ] && is_wsl_v2 "$DOCKER_DISTRO" && which dockerd &>/dev/null; then
-  DOCKER_DIR=/mnt/wsl/shared-docker
-  DOCKER_SOCK="$DOCKER_DIR/docker.sock"
-  export DOCKER_HOST="unix://$DOCKER_SOCK"
-  if [ ! -S "$DOCKER_SOCK" ]; then
-      mkdir -pm o=,ug=rwx "$DOCKER_DIR"
-      chgrp docker "$DOCKER_DIR"
-      "$WSL_EXE" -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
-  fi
 fi
 
 # Initialize shell keybindings
