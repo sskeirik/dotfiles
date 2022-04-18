@@ -152,6 +152,7 @@ export EDITOR=nvim
 export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache
 export XDG_DATA_HOME=~/.local/share
+export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
 export LESS="-FRXK"
 [ -z "$BASH_VERSION" ] || export EXECIGNORE="$EXECIGNORE:*dll"
 [ -z "$ZSH_VERSION"  ] || export fignore=(dll $fignore)
@@ -234,6 +235,12 @@ function ts() {
         *)        echo "Unrecognized 'ts' command: '$command'" >&2
                   return 1 ;;
     esac
+}
+
+# start up jupyter notebook
+function jnb() {
+  NB_DIR=~/.local/share/jupyter/notebooks
+  (source ~/.venv/jupyter/bin/activate && mkdir -p "$NB_DIR" && jupyter notebook --notebook-dir "$NB_DIR")
 }
 
 # setx wrapper for setting environment variables
