@@ -37,3 +37,10 @@ unset DEBIAN_FRONTEND
 echo -e "$pw\n$pw" | passwd
 useradd -m -G sudo -s /bin/bash "$ME"
 echo -e "$pw\n$pw" | passwd "$ME"
+
+# install non-packaged binaries
+
+# install non-packaged binaries as user
+su - stephen << EOF
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+EOF
