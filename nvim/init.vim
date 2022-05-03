@@ -59,6 +59,8 @@ set wildmenu
 let g:netrw_home=expand('~/.cache/nvim/')                    "Move netrwhistory file to cache
 let g:polyglot_disabled = ['latex']                          "Disable polyglot latex plugin
 let g:vim_markdown_no_default_key_mappings = 1               "Disable polyglot markdown keybindings; why does this even come with bindings?
+let g:vim_markdown_math = 1                                  "Enable latex math highlighting in markdown
+let conceallevel = 2                                         "Hide syntax with the conceal attribute (useful for markdown editing)
 
 " searching via incsearch
 set hlsearch
