@@ -28,6 +28,7 @@
 	related = "!function git_related() { commit1=`git log -n 1 --format=\"%h\" $1` ; commit2=`git log -n 1 --format=\"%h\" $2` ; if git rev-list $commit1 | grep -q $commit2 ; then echo \"$2 is ancestor of $1\" ; elif git rev-list $commit2 | grep -q $commit1 ; then echo \"$1 is ancestor of $2\" ; else echo \"$1 unrelated to $2\" ; fi } ; git_related $1 $2 2>/dev/null"
 	rec  = "submodule foreach --recursive"
 	recg = "submodule foreach --recursive git"
+	stat = "!function git_stat() { git diff-tree --numstat "$1"~ "$1" | cut -f3 ; } ; git_stat $1"
 [pull]
 	ff = only
 [credential]
