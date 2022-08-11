@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+function fatal() {
+  echo "$1"
+  exit 1
+}
+
+function chk_shift() {
+  if [ "$#" -lt "$2" ]; then
+    fatal "Not enough arguments to process option \"$1\": expected $2, actual $(( $# - 1 ))"
+  fi
+}
+
+
+
+pattern=
+commitargs=()
+pathargs=()
+seendash=false
+while [ "$#" -gt 0 ]
+do
+  case "$1" in
+  -p) [ -n "$pattern" ] && fatal "The -p argument cannot appear twice"
+      $seendash && fatal "The -p argument must come before the argument separator"
+      chk_shift -p 2
+      pattern=$2
+      [ -z "$pattern" ] && fatal "The PAT argument in -p <PAT> must be non-empty"
+      shift 2
+      ;;
+
+  --) $seendash && fatal "The argument separator (--) cannot appear twice"
+      seendash=true
+      shift
+      ;;
+
+  *)  if $seendash; then
+        pathargs+=($1)
+      else
+        commitargs+=($1)
+      fi
+      shift
+      ;;
+  esac
+done
+
+if [ -z "$pattern" ]; then
+  fatal "usage: git grepdiff <commit args...> -p pattern [-- <path args...>]"
+fi
+
+files=$(git diff "${commitargs[@]}" --name-only -- "${pathargs[@]}" )
+
+# FIXME: the git diff output will contain +++ and --- in the chunk headers
+#        and the pattern may inadvertently match these chunk headers
+for file in $files
+do
+  while IFS= read -r line
+  do
+    echo $file:$line
+  done < <(git diff "${commitargs[@]}" -- $file)
+done | grep "$pattern"
