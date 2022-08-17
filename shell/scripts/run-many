@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# validate arguments
+( [[ ! $# -ge 2 ]] || [[ ! "$1" -ge 1 ]] ) && echo "usage: run-many <number> <command>" && exit 1
+
+num=$1; shift
+cmd=$@
+
+echo "For $num iterations, will execute: '$@'"
+# execute processes and record pids
+for (( i=0; i<$num; ++i))
+do
+  "$@" &>"output$i" &
+  pids[${i}]=$!
+  echo "Launched $i"
+done
+
+# wait for all pids
+i=0
+for pid in ${pids[*]}; do
+    echo "Waiting on instance $i with id $pid"
+    wait $pid
+    i=$((i + 1))
+done
