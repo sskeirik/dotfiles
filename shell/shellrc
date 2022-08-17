@@ -25,10 +25,10 @@ export PATH="$LOCAL_BIN:$PATH"
 WSL_EXE=/mnt/c/Windows/System32/wsl.exe
 
 function is_wsl_v2() {
-  # check that we have exactly one argument
-  [ $# -eq 1 ] || return 1
+  # check that WSL exe and distro name exists
+  ( [ -x "$WSL_EXE" ] && [ -n "$WSL_DISTRO_NAME" ] ) || return 1
   # build filter pattern
-  filter='^[ *] '"$1"' *(Running|Stopped) *2\r$'
+  filter='^[ *] '"$WSL_DISTRO_NAME"' *(Running|Stopped) *2\r$'
   # check for match:
   # 0. set fail on error
   # 1. run wsl.exe -l -v
@@ -40,7 +40,7 @@ function is_wsl_v2() {
 
 # autostart dockerd (requires nopasswd sudo for dockerd using default user on $DOCKER_DISTRO)
 DOCKER_DISTRO="Arch"
-if [ -x "$WSL_EXE" ] && is_wsl_v2 "$DOCKER_DISTRO" && which dockerd &>/dev/null; then
+if is_wsl_v2 && which dockerd &>/dev/null; then
   DOCKER_DIR=/mnt/wsl/shared-docker
   mkdir -pm o=,ug=rwx "$DOCKER_DIR" \
   && chgrp docker "$DOCKER_DIR" \
