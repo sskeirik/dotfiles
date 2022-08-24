@@ -1,0 +1,92 @@
+#!/usr/bin/bash
+
+set -euo pipefail
+
+# package install function
+function install() {
+  DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends --yes --quiet "$@"
+}
+
+function reinstall() {
+  DEBIAN_FRONTEND=noninteractive apt-get reinstall --no-install-recommends --yes --quiet "$@"
+}
+
+# setup timezone
+ln -s /usr/share/zoneinfo/America/New_York /etc/localtime
+
+# fetch latest versions of packages
+apt-get update
+
+# enable installing man pages
+sed -i 's:^path-exclude=/usr/share/man:#path-exclude=/usr/share/man:' /etc/dpkg/dpkg.cfg.d/excludes
+
+# setup manpages
+install             \
+  man               \
+  manpages          \
+  manpages-dev      \
+  manpages-posix    \
+  manpages-posix-dev
+
+# finish installing man
+rm -f /usr/bin/man
+dpkg-divert --quiet --remove --rename /usr/bin/man
+rm -f /usr/share/man/man1/sh.1.gz
+dpkg-divert --quiet --remove --rename /usr/share/man/man1/sh.1.gz
+
+# setup apt basics
+install apt-utils dialog
+
+# reinstall apt to get manpage
+reinstall apt
+
+# setup locale
+install locales
+sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+
+# install other standard packages
+install                      \
+  build-essential            \
+  curl                       \
+  docker.io                  \
+  file                       \
+  git                        \
+  less                       \
+  python3-dev                \
+  python3-pip                \
+  software-properties-common \
+  sudo                       \
+  ssh                        \
+  wget                       \
+  zsh
+
+# install neovim
+add-apt-repository ppa:neovim-ppa/stable \
+ && apt-get update                       \
+ && apt-get install neovim
+
+# setup sudoers
+echo -n "\n# Allow passwordless dockerd execution for sudo group\n%sudo ALL=(ALL) NOPASSWD: /usr/bin/dockerd\n" >> /etc/sudoers
+
+# add user
+useradd --create-home --groups docker,sudo --shell /usr/bin/zsh
+# chsh -s /usr/bin/zsh stephen
+# usermod -aG sudo docker stephen
+
+# run user setup in subshell
+function user_setup() {
+  su stephen
+  cd /home/stephen
+  git clone https://github.com/sskeirik/dotfiles
+  mv dotfiles .config
+  cd .config
+  git submodule update --init --recursive
+  ./meta/link.sh zsh
+}
+
+(user_setup)
+
+# reminder to user
+echo "Setup Finished!!!"
+echo "Post-Setup Actions"
+echo "1. Copy github credentials and SSH keys..."
