@@ -10,6 +10,8 @@ My current development environment uses the following components:
 - lightweight git aliases
 - zshell + lightweight async git status prompt
 
+See section [Fresh Installation](#fresh-installation) for information about quickly getting a new system up-to-speed.
+
 # Tour
 
 The most interesting bits to others would probably be:
@@ -52,3 +54,41 @@ from linux, so that most standard dircolors choices look quite bad.
 To rememdy this, I collected a bunch of color scripts I found online and modified a test script I
 found so that I could compare various choices. This script can be found under `dircolors/test`.
 
+## Fresh Installation
+
+### Installing a WSL Distribution
+
+If installing a new WSL distribution, my recommended approach is to use [LxRunOffline](https://github.com/DDoSolitary/LxRunOffline).
+To use LxRunOffline, first download the tool.
+Then, in an elevated Windows command prompt, run the following steps:
+
+1.  Install the distribution
+
+    ```cmd
+    LxRunOffline.exe i -n <distro_name> -d <distro_filesystem_directory> -f <distro_filesystem_tarball>
+    ```
+
+2.  Use `wsl` to set the version
+
+    ```cmd
+    wsl.exe --set-version <distro_name> 2
+    ```
+
+3.  Finally, once the system has been configured with a proper user, do:
+
+    ```cmd
+    LxRunOffline.exe su -n <distro_name> -v <uid>
+    ```
+
+    Note: `<uid>` is almost always `1000`.
+
+### Post-Installation Steps
+
+When installing on a fresh system, there are a couple post-installation steps:
+
+1.  After cloning, this repository should be moved to `$HOME/.config`
+2.  After cloning, run `git submodule update --init --recursive` to grab all submodules
+3.  Check the `meta/install` directory for both:
+
+    -   distribution specific install scripts
+    -   the `link` script which setups symlinks in `$HOME` for various configuration files
