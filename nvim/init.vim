@@ -14,7 +14,7 @@ execute pathogen#infect()
 let g:loaded_matchit = 1                                     "Do not load matchit, use matchup plugin
 
 let g:mapleader = ' '                                        "Change leader to a space
-
+set laststatus=3                                             "use a global status line
 set termguicolors                                            "use nice colors
 set title                                                    "change the terminal's title
 set number                                                   "Line numbers are good
