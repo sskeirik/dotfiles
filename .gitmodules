@@ -89,3 +89,6 @@
 [submodule "nvim/bundle/which-key.nvim"]
 	path = nvim/bundle/which-key.nvim
 	url = https://github.com/folke/which-key.nvim
+[submodule "utils/repren3"]
+	path = utils/repren3
+	url = https://github.com/k01ek/repren3
