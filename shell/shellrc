@@ -88,10 +88,10 @@ if [ -z $DEBUG ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && [ $TE
   stty -ixon <$TTY >$TTY
 
   # setup colorscheme from base16 shell
-  BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
-  [[ $- == *i* ]] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+  BASE16_SHELL="$HOME/.config/theme/base16-shell/"
+  [ -n "$PS1" ] && \
+      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+          source "$BASE16_SHELL/profile_helper.sh"
 
   # set dircolors
   if [ -e "$HOME/.config/dircolors/dircolors" ] ; then
