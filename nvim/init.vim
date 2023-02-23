@@ -81,9 +81,9 @@ filetype plugin indent on
 syntax on
 
 " source colorscheme file
-if filereadable(expand("~/.vimrc_background"))
-  " let base16colorspace=256
-  source ~/.vimrc_background
+if exists('$BASE16_THEME') && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+  let base16colorspace=256
+  colorscheme base16-$BASE16_THEME
 endif
 
 " disable ex mode
