@@ -92,3 +92,6 @@
 [submodule "utils/repren3"]
 	path = utils/repren3
 	url = https://github.com/k01ek/repren3
+[submodule "tmux/plugins/base16-tmux"]
+	path = tmux/plugins/base16-tmux
+	url = https://github.com/tinted-theming/base16-tmux
