@@ -3,9 +3,10 @@
 
 [[ $- != *i* ]] && return
 
-# Uncomment to enable debugging mode
-# ##################################
+# Uncomment to enable debugging mode/no tmux
+# ##########################################
 # DEBUG=1
+# NO_TMUX=1
 
 # Setup PATH so we can find bins
 # ##############################
@@ -55,22 +56,6 @@ if is_wsl_v2; then
   fi
 fi
 
-
-# Color Management
-# ################
-
-function color_shell() {
-  BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
-  [ -n "$PS1" ] && \
-      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-          source "$BASE16_SHELL/profile_helper.sh"
-}
-
-TMUX_COLORFILE="$HOME/.config/tmux/plugins/base16-tmux/colors/base16-${BASE16_THEME}.conf"
-function color_tmux() {
-  [ -f "$TMUX_COLORFILE" ] && tmux source-file "$TMUX_COLORFILE"
-}
-
 # TMUX session Autostart
 # ######################
 
@@ -78,7 +63,7 @@ STANDARD_TERM=false
 [ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && STANDARD_TERM=true
 
 # startup tmux unless we don't need to
-if $STANDARD_TERM && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
+if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
   # pretend we are xterm
   export TERM=xterm-256color
   # clear the terminal title
@@ -89,11 +74,8 @@ if $STANDARD_TERM && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
     export DING_PORT=$(~/.config/meta/ding-init)
     ~/.config/meta/ding-server &
 
-    # color shell
-    color_shell
-
     # here, if we open multiple instances, they are linked to the same window set but with independent current window
-    exec tmux -f ~/.config/tmux/tmux.conf new-session -t main \; set-option destroy-unattached \; if-shell "[ -f $TMUX_COLORFILE ]" "source-file $TMUX_COLORFILE"
+    exec tmux -f ~/.config/tmux/tmux.conf new-session -t main \; set-option destroy-unattached
   else
     # here, if we open multiple instances, they all run identically (don't want to accidentally leave sessions open on the server)
     exec tmux -f ~/.config/tmux/tmux.conf new-session -A -s remote
@@ -103,13 +85,32 @@ fi
 # initialize pretty shell colors (when in a compatible terminal)
 # ##############################################################
 
+function color_shell() {
+  BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
+  [ -n "$PS1" ] && \
+      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+          source "$BASE16_SHELL/profile_helper.sh"
+  export TMUX_COLORFILE="$HOME/.config/tmux/plugins/base16-tmux/colors/base16-${BASE16_THEME}.conf"
+}
+
+function color_tmux() {
+  ( [ ! -e ~/.base16_theme ] || [ -z $TMUX ] ) && return 0
+  color_shell
+  [ -f "$TMUX_COLORFILE" ] && tmux source-file "$TMUX_COLORFILE"
+}
+
 if $STANDARD_TERM; then
   # disable software control flow terminal shortcuts ctrl+S/ctrl+Q
   # but allow internal libraries to use this mechanism if they wish
   stty -ixon <$TTY >$TTY
 
-  # if we didn't start tmux, color shell here
-  [ -z $TMUX ] && color_shell
+  # handle colors
+  if [ -z $TMUX ]; then
+    color_shell
+  elif [ -z $TMUX_COLORS ]; then
+    color_tmux
+    tmux set-environment -g TMUX_COLORS true
+  fi
 
   # set dircolors
   if [ -e "$HOME/.config/dircolors/dircolors" ] ; then
