@@ -85,12 +85,18 @@ fi
 # initialize pretty shell colors (when in a compatible terminal)
 # ##############################################################
 
+function load_colors() {
+  BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
+  [ -n "$PS1" ] && \
+      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+          source "$BASE16_SHELL/profile_helper.sh"
+}
+
 function color_shell() {
   if [ $# -eq 0 ]; then
-    BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
-    [ -n "$PS1" ] && \
-        [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-            source "$BASE16_SHELL/profile_helper.sh"
+    theme_link="$HOME/.base16_theme"
+    [ ! -L "$theme_link" ] && echo "no theme found" && return 2
+    source "$theme_link"
     export TMUX_COLORFILE="$HOME/.config/tmux/plugins/base16-tmux/colors/base16-${BASE16_THEME}.conf"
   else
     theme=$1
