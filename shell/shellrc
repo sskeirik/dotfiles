@@ -86,11 +86,22 @@ fi
 # ##############################################################
 
 function color_shell() {
-  BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
-  [ -n "$PS1" ] && \
-      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-          source "$BASE16_SHELL/profile_helper.sh"
-  export TMUX_COLORFILE="$HOME/.config/tmux/plugins/base16-tmux/colors/base16-${BASE16_THEME}.conf"
+  if [ $# -eq 0 ]; then
+    BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
+    [ -n "$PS1" ] && \
+        [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+            source "$BASE16_SHELL/profile_helper.sh"
+    export TMUX_COLORFILE="$HOME/.config/tmux/plugins/base16-tmux/colors/base16-${BASE16_THEME}.conf"
+  else
+    theme=$1
+    theme_file="$HOME/.config/shell/theme/base16-shell/scripts/base16-$theme.sh"
+    if [ -f "$theme_file" ]; then
+      source "$theme_file"
+    else
+      echo "base16 theme $theme not found"
+      return 1
+    fi
+  fi
 }
 
 function color_tmux() {
