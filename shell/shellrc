@@ -92,28 +92,30 @@ function load_colors() {
           source "$BASE16_SHELL/profile_helper.sh"
 }
 
+function color_tmux() {
+  ([ -z $TMUX ] || ([ -n "$TMUX_COLORS" ] && [ $# -eq 0 ])) && return 0
+  [ -f "$TMUX_COLORFILE" ] && tmux source-file "$TMUX_COLORFILE"
+  tmux set-environment -g TMUX_COLORS true
+}
+
 function color_shell() {
   if [ $# -eq 0 ]; then
     theme_link="$HOME/.base16_theme"
-    [ ! -L "$theme_link" ] && echo "no theme found" && return 2
+    [ ! -L "$theme_link" ] && echo "no theme found" && return 1
     source "$theme_link"
-    export TMUX_COLORFILE="$HOME/.config/tmux/plugins/base16-tmux/colors/base16-${BASE16_THEME}.conf"
   else
     theme=$1
     theme_file="$HOME/.config/shell/theme/base16-shell/scripts/base16-$theme.sh"
     if [ -f "$theme_file" ]; then
       source "$theme_file"
+      reload_tmux=true
     else
       echo "base16 theme $theme not found"
       return 1
     fi
   fi
-}
-
-function color_tmux() {
-  ( [ ! -e ~/.base16_theme ] || [ -z $TMUX ] ) && return 0
-  color_shell
-  [ -f "$TMUX_COLORFILE" ] && tmux source-file "$TMUX_COLORFILE"
+  export TMUX_COLORFILE="$HOME/.config/tmux/plugins/base16-tmux/colors/base16-${BASE16_THEME}.conf"
+  color_tmux $reload_tmux
 }
 
 if $STANDARD_TERM; then
@@ -122,12 +124,7 @@ if $STANDARD_TERM; then
   stty -ixon <$TTY >$TTY
 
   # handle colors
-  if [ -z $TMUX ]; then
-    color_shell
-  elif [ -z $TMUX_COLORS ]; then
-    color_tmux
-    tmux set-environment -g TMUX_COLORS true
-  fi
+  color_shell
 
   # set dircolors
   if [ -e "$HOME/.config/dircolors/dircolors" ] ; then
