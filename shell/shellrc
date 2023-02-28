@@ -92,30 +92,39 @@ function load_colors() {
           source "$BASE16_SHELL/profile_helper.sh"
 }
 
-function color_tmux() {
-  ([ -z $TMUX ] || ([ -n "$TMUX_COLORS" ] && [ $# -eq 0 ])) && return 0
-  [ -f "$TMUX_COLORFILE" ] && tmux source-file "$TMUX_COLORFILE"
-  tmux set-environment -g TMUX_COLORS true
+function _color_tmux() {
+  tmux_needs_color=$1
+  colorfile=$2
+  if [ -n $TMUX ] && ($tmux_needs_color || ! $TMUX_COLOR_APPLIED) && [ -f "$colorfile" ] ; then
+    tmux source-file "$colorfile"
+    tmux set-environment -g TMUX_COLOR_APPLIED true
+    export TMUX_COLOR_APPLIED=true
+  fi
+  unset tmux_needs_color
+  unset colorfile
 }
 
 function color_shell() {
+  tmux_needs_color=false
+  theme_link="$HOME/.base16_theme"
   if [ $# -eq 0 ]; then
-    theme_link="$HOME/.base16_theme"
     [ ! -L "$theme_link" ] && echo "no theme found" && return 1
     source "$theme_link"
   else
     theme=$1
-    theme_file="$HOME/.config/shell/theme/base16-shell/scripts/base16-$theme.sh"
-    if [ -f "$theme_file" ]; then
-      source "$theme_file"
-      reload_tmux=true
+    shell_theme_file="$HOME/.config/shell/theme/base16-shell/scripts/base16-$theme.sh"
+    if [ -f "$shell_theme_file" ]; then
+      source "$shell_theme_file"
+      ln -sf "$shell_theme_file" "$theme_link"
+      tmux_needs_color=true
     else
       echo "base16 theme $theme not found"
       return 1
     fi
   fi
-  export TMUX_COLORFILE="$HOME/.config/tmux/plugins/base16-tmux/colors/base16-${BASE16_THEME}.conf"
-  color_tmux $reload_tmux
+  _color_tmux $tmux_needs_color "$HOME/.config/tmux/plugins/base16-tmux/colors/base16-$theme.conf"
+  unset nocolor_tmux
+  unset theme_link
 }
 
 if $STANDARD_TERM; then
