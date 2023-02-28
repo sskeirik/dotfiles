@@ -105,6 +105,7 @@ function _color_tmux() {
 }
 
 function color_shell() {
+  ! $STANDARD_TERM && return 1
   tmux_needs_color=false
   theme_link="$HOME/.base16_theme"
   if [ $# -eq 0 ]; then
@@ -249,19 +250,6 @@ alias diff='git diff --color-moved=blocks --no-index'
 alias g='git '
 # alias mux="PATH=$SAFEPATH tmuxinator "
 
-# run a command with elevated permissions
-function elevate() {
-    pushd $(pwd)
-    cd /mnt/c/
-    powershell.exe -Command "Start-Process cmd -ArgumentList  \"/c\",\"$1 2>&1\" -Verb RunAs"
-    popd
-}
-
-# open a file
-if [[ "$OSTYPE" != "darwin"* ]]; then
-  function open() { explorer.exe $1; }
-fi
-
 # create new github repo
 function ghrepo() { curl -u 'skeirik2' https://api.github.com/user/repos -d '{"name":"$1"}'; }
 
@@ -297,3 +285,44 @@ function jnb() {
 # function setx() {
 # TODO: finish me
 # }
+
+# set os light-dark theme
+function sunrise() {
+  is_wsl_v2 && _win_lightmode true
+  color_shell google-light
+}
+
+function sunset() {
+  is_wsl_v2 && _win_lightmode false
+  color_shell gruvbox-dark-hard
+}
+
+# Setup WSL-specific Functions
+# ############################
+
+# set os mode to light or dark
+function _win_lightmode() {
+  case "$1" in
+    true)  light=1 ;;
+    false) light=0 ;;
+    *)     echo "usage: win_lightmode <true|false>" && return 1 ;;
+  esac
+  (powershell.exe -Command\
+  "Start-Transaction;"\
+  "Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme    -Value $light -Type Dword -Force -UseTransaction;"\
+  "Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value $light -Type Dword -Force -UseTransaction;"\
+  "Complete-Transaction" >/dev/null 2>&1 &)
+}
+
+# run a command with elevated permissions
+function win_elevate() {
+    pushd $(pwd)
+    cd /mnt/c/
+    powershell.exe -Command "Start-Process cmd -ArgumentList  \"/c\",\"$1 2>&1\" -Verb RunAs"
+    popd
+}
+
+# open a file
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  function win_open() { explorer.exe $1; }
+fi
