@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cmd=/mnt/c/Windows/System32/clip.exe
+[ $# -ne 0 ] && "$cmd" '/?'
+"$cmd"
