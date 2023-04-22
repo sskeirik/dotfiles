@@ -16,7 +16,7 @@ else
 
   # if uname -a contains microsoft, we are in WSL, play ding via powershell
   if (uname -a | grep -qi microsoft); then
-   powershell.exe -c "(New-Object Media.SoundPlayer '$WINDOWS_SOUND_PATH').PlaySync();" &>/dev/null &
+   /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -c "(New-Object Media.SoundPlayer '$WINDOWS_SOUND_PATH').PlaySync();" &>/dev/null &
 
   # otherwise, we are on linux/mac, play ding via ffplay
   else
