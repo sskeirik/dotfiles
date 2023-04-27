@@ -300,6 +300,8 @@ function sunset() {
 # Setup WSL-specific Functions
 # ############################
 
+alias powershell="/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
+
 # set os mode to light or dark
 function _win_lightmode() {
   case "$1" in
@@ -307,7 +309,7 @@ function _win_lightmode() {
     false) light=0 ;;
     *)     echo "usage: win_lightmode <true|false>" && return 1 ;;
   esac
-  (powershell.exe -Command\
+  (powershell -Command\
   "Start-Transaction;"\
   "Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme    -Value $light -Type Dword -Force -UseTransaction;"\
   "Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value $light -Type Dword -Force -UseTransaction;"\
@@ -318,11 +320,11 @@ function _win_lightmode() {
 function win_elevate() {
     pushd $(pwd)
     cd /mnt/c/
-    powershell.exe -Command "Start-Process cmd -ArgumentList  \"/c\",\"$1 2>&1\" -Verb RunAs"
+    powershell -Command "Start-Process cmd -ArgumentList  \"/c\",\"$1 2>&1\" -Verb RunAs"
     popd
 }
 
 # open a file
 if [[ "$OSTYPE" != "darwin"* ]]; then
-  function win_open() { explorer.exe $1; }
+  function win_open() { /mnt/c/Windows/explorer.exe $1; }
 fi
