@@ -67,7 +67,7 @@ endif
 function! s:ExpandTabCheck()
     let s:tab = search("\t", "n")", 1000)
     if s:tab == 0
-	setlocal expandtab
+      setlocal expandtab
     endif
 endfunction
 
