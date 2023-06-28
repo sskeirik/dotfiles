@@ -139,6 +139,9 @@ vim.g.vim_markdown_math                    = 1                               -- 
 -- initialize lua plugins
 require("which-key").setup { }
 require("gitsigns").setup()
+require("colorscheme-file").setup {
+  path = vim.fn.expand('~/.base16_vim')
+}
 
 -- source legacy vimscript config file
 vim.cmd('source ~/.config/nvim/legacy-config.vim')

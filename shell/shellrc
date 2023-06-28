@@ -108,6 +108,7 @@ function color_shell() {
   ! $STANDARD_TERM && return 1
   tmux_needs_color=false
   theme_link="$HOME/.base16_theme"
+  theme_vim="$HOME/.base16_vim"
   if [ $# -eq 0 ]; then
     [ ! -L "$theme_link" ] && echo "no theme found" && return 1
     source "$theme_link"
@@ -117,6 +118,7 @@ function color_shell() {
     if [ -f "$shell_theme_file" ]; then
       source "$shell_theme_file"
       ln -sf "$shell_theme_file" "$theme_link"
+      echo "base16-$BASE16_THEME" > "$theme_vim"
       tmux_needs_color=true
     else
       echo "base16 theme $theme not found"

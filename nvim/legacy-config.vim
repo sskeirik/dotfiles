@@ -15,12 +15,6 @@ let &undodir = undo_path
 filetype plugin indent on
 syntax on
 
-" source colorscheme file
-if exists('$BASE16_THEME') && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
-  let base16colorspace=256
-  colorscheme base16-$BASE16_THEME
-endif
-
 " configure terminal mode and external command execution
 :tnoremap <C-[> <C-\><C-n>
 " configure for windows with 64-bit git-bash
