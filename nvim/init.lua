@@ -1,16 +1,50 @@
--- NB: If indentation is screwy, check all of the following options:
---     cindent
---     smartindent
---     autoindent
---     indentexpr
-
--- TODO: consider org-mode/notetaking style plugin
---       possibilities include:
---       [1] vimwiki
---       [2] vim-orgmode
+-- # Plugin Loading
 --
---       investigate ninja-feet plugin for movement to
---       beginning/end of text objects
+-- Plugins will be autoloaded when their absolute path matches the followings shape:
+--
+-- <runtimepath>/pack/*/start/<plugin-root-directory>
+--
+-- Plugins can be loaded using `:packadd` when their absolute path matches the following shape:
+--
+-- <runtimepath>/pack/*/opt/<plugin-root-directory>
+--
+-- When doing a Lua `require('mod')`, neovim will search in the following locations:
+--
+-- 1.  <runtimepath>/mod.lua
+-- 2.  <runtimepath>/lua/mod.lua
+-- 3.  <runtimepath>/lua/mod/init.lua
+-- 4.  <runtimepath>/pack/*/start/*/mod.lua
+-- 5.  <runtimepath>/pack/*/start/*/lua/mod.lua
+-- 6.  <runtimepath>/pack/*/start/*/lua/mod/init.lua
+-- 7.  the standard Lua package lookup locations
+--
+-- where:
+--
+-- 1.  <runtimepath> refers to any directory on the runtimepath
+-- 2.  asterisk (*) refers to any single directory component name
+-- 3.  <plugin-root-directory> refers to the plugin root directory
+--
+-- NOTE: The runtimepath variable specifies the vim file searchpath.
+--       The package.path and package.cpath variables define Lua file searchpath.
+--       Neovim automatically prepends vim runtimepath-derived prefixes to its builtin Lua interpreter package search path to obtain the behavior above.
+--
+-- # Indentation
+--
+-- If auto-indentation is screwy, check all of the following options:
+--
+-- 1.  cindent
+-- 2.  smartindent
+-- 3.  autoindent
+-- 4.  indentexpr
+
+-- # Potential Improvements
+--
+-- 1.  Consider org-mode/notetaking style plugin: possibilities include:
+--
+--     -   vimwiki
+--     -   vim-orgmode
+--
+-- 2.  Investigate ninja-feet plugin for movement to beginning/end of text objects
 
 -- header/footer visual options
 vim.opt.laststatus    = 3               -- use a global statusline
