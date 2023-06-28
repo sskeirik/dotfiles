@@ -1,5 +1,3 @@
-execute pathogen#infect()
-
 " NB: If help isn't working, run :Helptags
 " NB: If indentation is screwy, check all of the following options:
 "     cindent

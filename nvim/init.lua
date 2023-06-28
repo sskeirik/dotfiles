@@ -89,8 +89,7 @@ vim.g.vim_markdown_no_default_key_mappings = 1                               -- 
 vim.g.vim_markdown_math                    = 1                               -- enable latex math highlighting in markdown
 
 -- load plugins
-vim.opt.packpath = { vim.fn.expand('~/.config/nvim/bundle'), unpack(vim.opt.packpath) }
--- require "which-key" { }
+require("which-key")
 
 -- source legacy vimscript config file
 vim.cmd('source ~/.config/nvim/legacy-config.vim')

@@ -1,32 +1,32 @@
 [submodule "nvim/bundle/vim-fugitive"]
-	path = nvim/bundle/vim-fugitive
+	path = nvim/pack/bundle/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
 [submodule "nvim/bundle/vim-surround"]
-	path = nvim/bundle/vim-surround
+	path = nvim/pack/bundle/start/vim-surround
 	url = https://github.com/tpope/vim-surround
 [submodule "nvim/bundle/vim-easy-align"]
-	path = nvim/bundle/vim-easy-align
+	path = nvim/pack/bundle/start/vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align
 [submodule "nvim/bundle/vim-commentary"]
-	path = nvim/bundle/vim-commentary
+	path = nvim/pack/bundle/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
 [submodule "nvim/bundle/vim-easymotion"]
-	path = nvim/bundle/vim-easymotion
+	path = nvim/pack/bundle/start/vim-easymotion
 	url = https://github.com/easymotion/vim-easymotion
 [submodule "nvim/bundle/undotree"]
-	path = nvim/bundle/undotree
+	path = nvim/pack/bundle/start/undotree
 	url = https://github.com/mbbill/undotree
 [submodule "nvim/bundle/vim-unimpaired"]
-	path = nvim/bundle/vim-unimpaired
+	path = nvim/pack/bundle/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
 [submodule "nvim/bundle/vim-repeat"]
-	path = nvim/bundle/vim-repeat
+	path = nvim/pack/bundle/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat
 [submodule "nvim/bundle/goyo.vim"]
-	path = nvim/bundle/goyo.vim
+	path = nvim/pack/bundle/start/goyo.vim
 	url = https://github.com/junegunn/goyo.vim
 [submodule "nvim/bundle/rainbow_parentheses.vim"]
-	path = nvim/bundle/rainbow_parentheses.vim
+	path = nvim/pack/bundle/start/rainbow_parentheses.vim
 	url = https://github.com/junegunn/rainbow_parentheses.vim
 [submodule "tmux/plugins/tmux-fingers"]
 	path = tmux/plugins/tmux-fingers
@@ -35,56 +35,56 @@
 	path = shell/theme/base16-shell
 	url = https://github.com/chriskempson/base16-shell
 [submodule "nvim/bundle/base16-vim"]
-	path = nvim/bundle/base16-vim
+	path = nvim/pack/bundle/start/base16-vim
 	url = https://github.com/chriskempson/base16-vim
 [submodule "nvim/bundle/vim-matchup"]
-	path = nvim/bundle/vim-matchup
+	path = nvim/pack/bundle/start/vim-matchup
 	url = https://github.com/andymass/vim-matchup
 	ignore = untracked
 [submodule "nvim/bundle/flygrep.vim"]
-	path = nvim/bundle/flygrep.vim
+	path = nvim/pack/bundle/start/flygrep.vim
 	url = https://github.com/sskeirik/flygrep.vim
 [submodule "nvim/bundle/vim-gitgutter"]
-	path = nvim/bundle/vim-gitgutter
+	path = nvim/pack/bundle/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
 [submodule "nvim/bundle/vim-searchindex"]
-	path = nvim/bundle/vim-searchindex
+	path = nvim/pack/bundle/start/vim-searchindex
 	url = https://github.com/google/vim-searchindex.git
 [submodule "nvim/bundle/incsearch.vim"]
-	path = nvim/bundle/incsearch.vim
+	path = nvim/pack/bundle/start/incsearch.vim
 	url = https://github.com/haya14busa/incsearch.vim
 [submodule "nvim/bundle/vim-highlightedyank"]
-	path = nvim/bundle/vim-highlightedyank
+	path = nvim/pack/bundle/start/vim-highlightedyank
 	url = https://github.com/machakann/vim-highlightedyank
 [submodule "nvim/vimagit"]
 	path = nvim/vimagit
 	url = https://github.com/jreybert/vimagit
 [submodule "nvim/bundle/targets.vim"]
-	path = nvim/bundle/targets.vim
+	path = nvim/pack/bundle/start/targets.vim
 	url = https://github.com/wellle/targets.vim
 [submodule "nvim/bundle/vim-abolish"]
-	path = nvim/bundle/vim-abolish
+	path = nvim/pack/bundle/start/vim-abolish
 	url = https://github.com/tpope/vim-abolish
 [submodule "nvim/bundle/vstar.vim"]
-	path = nvim/bundle/vstar.vim
+	path = nvim/pack/bundle/start/vstar.vim
 	url = https://github.com/TheDerkus/vstar.vim
 [submodule "shell/zsh/powerlevel10k"]
 	path = shell/theme/zsh/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k
 [submodule "nvim/bundle/vimtex"]
-	path = nvim/bundle/vimtex
+	path = nvim/pack/bundle/start/vimtex
 	url = https://github.com/lervag/vimtex.git
 [submodule "nvim/bundle/vim-pencil"]
-	path = nvim/bundle/vim-pencil
+	path = nvim/pack/bundle/start/vim-pencil
 	url = https://github.com/reedes/vim-pencil
 [submodule "shell/bash/vboxmanage-bash-completion"]
 	path = shell/bash/vboxmanage-bash-completion
 	url = https://github.com/gryf/vboxmanage-bash-completion
 [submodule "nvim/bundle/maude.vim"]
-	path = nvim/bundle/maude.vim
+	path = nvim/pack/bundle/start/maude.vim
 	url = https://github.com/sskeirik/maude.vim
 [submodule "nvim/bundle/which-key.nvim"]
-	path = nvim/bundle/which-key.nvim
+	path = nvim/pack/bundle/start/which-key.nvim
 	url = https://github.com/folke/which-key.nvim
 [submodule "utils/repren3"]
 	path = utils/repren3
