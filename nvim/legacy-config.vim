@@ -1,20 +1,3 @@
-" NB: If help isn't working, run :Helptags
-" NB: If indentation is screwy, check all of the following options:
-"     cindent
-"     smartindent
-"     autoindent
-"     indentexpr
-
-" TODO: consider org-mode/notetaking style plugin
-"       possibilities include:
-"       [1] vimwiki
-"       [2] vim-orgmode
-"
-"       investigate ninja-feet plugin for movement to
-"       beginning/end of text objects
-
-" Thanks to https://github.com/kristijanhusak/neovim-config
-
 " searching via incsearch
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)

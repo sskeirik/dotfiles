@@ -1,3 +1,17 @@
+-- NB: If indentation is screwy, check all of the following options:
+--     cindent
+--     smartindent
+--     autoindent
+--     indentexpr
+
+-- TODO: consider org-mode/notetaking style plugin
+--       possibilities include:
+--       [1] vimwiki
+--       [2] vim-orgmode
+--
+--       investigate ninja-feet plugin for movement to
+--       beginning/end of text objects
+
 -- header/footer visual options
 vim.opt.laststatus    = 3               -- use a global statusline
 vim.opt.showcmd       = true            -- show incomplete commands on statusline
