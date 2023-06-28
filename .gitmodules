@@ -92,3 +92,6 @@
 [submodule "nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
+[submodule "nvim/pack/bundle/start/colorscheme-file.nvim"]
+	path = nvim/pack/bundle/start/colorscheme-file.nvim
+	url = https://github.com/eriedaberrie/colorscheme-file.nvim
