@@ -44,9 +44,6 @@
 [submodule "nvim/bundle/flygrep.vim"]
 	path = nvim/pack/bundle/start/flygrep.vim
 	url = https://github.com/sskeirik/flygrep.vim
-[submodule "nvim/bundle/vim-gitgutter"]
-	path = nvim/pack/bundle/start/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter
 [submodule "nvim/bundle/vim-searchindex"]
 	path = nvim/pack/bundle/start/vim-searchindex
 	url = https://github.com/google/vim-searchindex.git
@@ -92,3 +89,6 @@
 [submodule "tmux/plugins/base16-tmux"]
 	path = tmux/plugins/base16-tmux
 	url = https://github.com/tinted-theming/base16-tmux
+[submodule "nvim/pack/bundle/start/gitsigns.nvim"]
+	path = nvim/pack/bundle/start/gitsigns.nvim
+	url = https://github.com/lewis6991/gitsigns.nvim
