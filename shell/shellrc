@@ -74,8 +74,18 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
     export DING_PORT=$(~/.config/meta/ding-init)
     ~/.config/meta/ding-server &
 
-    # here, if we open multiple instances, they are linked to the same window set but with independent current window
-    exec tmux -f ~/.config/tmux/tmux.conf new-session -t main \; set-option destroy-unattached
+    # abort if a session already exists
+    tmux_group="main"
+    if tmux list-sessions -F "#{session_group}" 2>/dev/null | grep "^$tmux_group" 1>/dev/null 2>/dev/null; then
+      echo "=================================="
+      echo "Existing session found. Exiting..."
+      echo "=================================="
+      sleep 5
+      exit
+    fi
+
+    # no session exists, open new session
+    exec tmux -f ~/.config/tmux/tmux.conf new-session -t "$tmux_group" \; set-option destroy-unattached
   else
     # here, if we open multiple instances, they all run identically (don't want to accidentally leave sessions open on the server)
     exec tmux -f ~/.config/tmux/tmux.conf new-session -A -s remote
