@@ -102,8 +102,8 @@ vim.g.polyglot_disabled                    = { 'latex' }                     -- 
 vim.g.vim_markdown_no_default_key_mappings = 1                               -- disable polyglot markdown keybindings; why does this even come with bindings?
 vim.g.vim_markdown_math                    = 1                               -- enable latex math highlighting in markdown
 
--- load plugins
-require("which-key")
+-- initialize lua plugins
+require("which-key").setup { }
 
 -- source legacy vimscript config file
 vim.cmd('source ~/.config/nvim/legacy-config.vim')
