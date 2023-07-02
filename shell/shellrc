@@ -303,13 +303,13 @@ function jnb() {
 
 # set os light-dark theme
 function sunrise() {
-  is_wsl_v2 && _win_lightmode true
+  is_wsl_v2 && _win_lightmode true >/dev/null 2>&1
   color_shell google-light
 }
 
 function sunset() {
   is_wsl_v2 && _win_lightmode false
-  color_shell gruvbox-dark-hard
+  color_shell gruvbox-dark-hard >/dev/null 2>&1
 }
 
 # Setup WSL-specific Functions
@@ -328,7 +328,7 @@ function _win_lightmode() {
   "Start-Transaction;"\
   "Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme    -Value $light -Type Dword -Force -UseTransaction;"\
   "Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value $light -Type Dword -Force -UseTransaction;"\
-  "Complete-Transaction" >/dev/null 2>&1 &)
+  "Complete-Transaction" &)
 }
 
 # run a command with elevated permissions
