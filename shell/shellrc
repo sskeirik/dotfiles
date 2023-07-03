@@ -72,7 +72,7 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
   if [ -z "$SSH_CLIENT" ]; then
     # startup ding-server if needed
     export DING_PORT=$(~/.config/meta/ding-init)
-    ~/.config/meta/ding-server &
+    (~/.config/meta/ding-server &) &>/dev/null
 
     # set SSH_AUTH_SOCK
     export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
@@ -80,11 +80,12 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
     # abort if a session already exists
     tmux_group="main"
     if tmux list-sessions -F "#{session_group}" 2>/dev/null | grep "^$tmux_group" 1>/dev/null 2>/dev/null; then
-      echo "=================================="
-      echo "Existing session found. Exiting..."
-      echo "=================================="
-      sleep 5
-      exit
+      echo "================================================"
+      echo "Existing session found. Hit enter to continue..."
+      echo "================================================"
+      unset REPLY
+      read -t 3
+      [ -z ${REPLY+z} ] && exit
     fi
 
     # no session exists, open new session
