@@ -27,9 +27,14 @@ WSL_EXE=/mnt/c/Windows/System32/wsl.exe
 
 function is_wsl_v2() {
   # check that WSL exe and distro name exists
-  ( [ -x "$WSL_EXE" ] && [ -n "$WSL_DISTRO_NAME" ] ) || return 1
+  wsl_distro_file="$HOME/.wsl-distro"
+  local wsl_distro="$WSL_DISTRO_NAME"
+  if [ -z "$wsl_distro" ] && [ -f "$wsl_distro_file" ]; then
+    wsl_distro=$(cat "$wsl_distro_file")
+  fi
+  ( [ -x "$WSL_EXE" ] && [ -n "$wsl_distro" ] ) || return 1
   # build filter pattern
-  filter='^[ *] '"$WSL_DISTRO_NAME"' *(Running|Stopped) *2\r$'
+  filter='^[ *] '"$wsl_distro"' *(Running|Stopped) *2\r$'
   # check for match:
   # 0. set fail on error
   # 1. run wsl.exe -l -v
@@ -42,19 +47,6 @@ function is_wsl_v2() {
 function daemon_needs_start() {
   which "$1" &>/dev/null && ! pgrep -U0 -x "$1" &>/dev/null ;
 }
-
-# WSLv2 Daemon Management (requires nopasswd sudo for running daemons using default user)
-if is_wsl_v2; then
-  if daemon_needs_start dockerd; then
-    DOCKER_DIR=/mnt/wsl/shared-docker
-    mkdir -pm o=,ug=rwx "$DOCKER_DIR" \
-    && chgrp docker "$DOCKER_DIR" \
-    && "$WSL_EXE" -d $WSL_DISTRO_NAME sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
-  fi
-  if daemon_needs_start nix-daemon; then
-    "$WSL_EXE" -d $WSL_DISTRO_NAME sh -c "nohup sudo -b nix-daemon < /dev/null > /dev/null 2>&1"
-  fi
-fi
 
 # TMUX session Autostart
 # ######################
