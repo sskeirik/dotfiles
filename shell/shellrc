@@ -71,9 +71,13 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
 
     # abort if a session already exists
     tmux_group="main"
-    if tmux list-sessions -F "#{session_group}" 2>/dev/null | grep "^$tmux_group" 1>/dev/null 2>/dev/null; then
+    tmux_sessions=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | grep "^$tmux_group")
+    if [ -n "$tmux_sessions" ]; then
+      tmux_cmd=(tmux -f ~/.config/tmux/tmux.conf new-session -t "$tmux_group" \; set-option destroy-unattached)
+      for session in $tmux_sessions; do tmux_cmd+=(\; kill-session -t "$session"); done
       echo "================================================"
-      echo "Existing session found. Hit enter to continue..."
+      echo "Existing session found. Hit enter to continue and execute the following command..."
+      echo "${tmux_cmd[@]}"
       echo "================================================"
       unset REPLY
       read -t 3
@@ -81,7 +85,7 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
     fi
 
     # no session exists, open new session
-    exec tmux -f ~/.config/tmux/tmux.conf new-session -t "$tmux_group" \; set-option destroy-unattached
+    exec "${tmux_cmd[@]}"
   else
     # here, if we open multiple instances, they all run identically (don't want to accidentally leave sessions open on the server)
     exec tmux -f ~/.config/tmux/tmux.conf new-session -A -s remote
