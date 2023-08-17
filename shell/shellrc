@@ -69,11 +69,13 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
     # set SSH_AUTH_SOCK
     export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
-    # abort if a session already exists
+    # setup tmux command
     tmux_group="main"
+    tmux_cmd=(tmux -f ~/.config/tmux/tmux.conf new-session -t "$tmux_group" \; set-option destroy-unattached)
+
+    # abort if previous sessions exist, kill old sessions if we continue
     tmux_sessions=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | grep "^$tmux_group")
     if [ -n "$tmux_sessions" ]; then
-      tmux_cmd=(tmux -f ~/.config/tmux/tmux.conf new-session -t "$tmux_group" \; set-option destroy-unattached)
       for session in $tmux_sessions; do tmux_cmd+=(\; kill-session -t "$session"); done
       echo "================================================"
       echo "Existing session found. Hit enter to continue and execute the following command..."
