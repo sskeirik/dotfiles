@@ -3,13 +3,14 @@ set -euo pipefail
 
 # define packages to be installed
 PKGS=(                                         \
+  gpg-agent software-properties-common         \
+  sudo                                         \
+  man-db                                       \
   python3-dev python3-pip python3-venv         \
   curl wget openssl ca-certificates            \
   git                                          \
-  sudo                                         \
-  man-db                                       \
-  gpg-agent software-properties-common         \
   ssh                                          \
+  unzip                                        \
 )
 # define extras to be installed
 EXTRAS=( \
