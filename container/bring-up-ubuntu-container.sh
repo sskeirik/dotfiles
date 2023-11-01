@@ -16,9 +16,9 @@ PKGS=(                                         \
 
 # create user if needed
 if grep -E "^$ME\$" &>/dev/null <<< $USERS; then
-  echo "User exists. Continuing..."
+  echo "User '$ME' exists. Continuing..."
 else
-  echo "User does not exist. Creating..."
+  echo "User '$ME' does not exist. Creating..."
 
   # set passwd
   read -p "Enter your password: " -s pw
