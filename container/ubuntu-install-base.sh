@@ -11,7 +11,7 @@ PKGS=(                                         \
   git                                          \
   ssh                                          \
   unzip                                        \
-  htop tree ripgrep fd-find                    \
+  htop tree ripgrep fd-find direnv             \
 )
 # define extras to be installed
 EXTRAS=(         \
