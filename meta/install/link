@@ -24,6 +24,9 @@ else
 fi
 
 echo "" # separate output
+echo "WSLv2 systemd systems may need to run:"
+echo "sudo sh -c 'echo :WSLInterop:M::MZ::/init:PF > /usr/lib/binfmt.d/WSLInterop.conf'"
+echo "" # separate output
 
 # if full Linux installation is requested
 if [ "$2" = "full" ]; then
