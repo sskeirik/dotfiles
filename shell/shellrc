@@ -176,6 +176,9 @@ if $STANDARD_TERM; then
     # load powerlevel10k
     source ~/.config/shell/theme/zsh/powerlevel10k/powerlevel10k.zsh-theme
     source ~/.config/shell/theme/zsh/powerlevel10k-config.zsh
+
+    # enable direnv
+    eval "$(direnv hook zsh)"
   fi
 else
   PS1="\W \\$ "
