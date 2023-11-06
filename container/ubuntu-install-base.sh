@@ -11,10 +11,12 @@ PKGS=(                                         \
   git                                          \
   ssh                                          \
   unzip                                        \
+  htop tree ripgrep fd-find                    \
 )
 # define extras to be installed
-EXTRAS=( \
-  neovim \
+EXTRAS=(         \
+  neovim         \
+  rename-fd-find \
 )
 
 if [ $EUID -ne 0 ]; then
@@ -35,4 +37,5 @@ apt-get --no-install-recommends --assume-yes install "${PKGS[@]}"
 add-apt-repository --yes ppa:neovim-ppa/stable
 apt-get update
 apt-get --no-install-recommends --assume-yes install neovim
+ln -s $(which fdfind) ~/.local/bin/fd
 unset DEBIAN_FRONTEND
