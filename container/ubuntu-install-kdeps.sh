@@ -3,6 +3,8 @@ set -euox pipefail
 
 # define packages to be installed
 PKGS=(                    \
+  autoconf                \
+  libtool                 \
   bison                   \
   build-essential         \
   cmake                   \
@@ -15,7 +17,10 @@ PKGS=(                    \
   libgmp-dev              \
   libjemalloc-dev         \
   libmpfr-dev             \
+  libncurses-dev          \
+  libprocps               \
   libsecp256k1-dev        \
+  libssl-dev              \
   libyaml-dev             \
   libz3-dev               \
   clang-15                \
@@ -34,3 +39,6 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update
 sudo apt-get --no-install-recommends --assume-yes install "${PKGS[@]}"
 unset DEBIAN_FRONTEND
+
+# install stack for haskell backend
+curl -sSL https://get.haskellstack.org/ | sh
