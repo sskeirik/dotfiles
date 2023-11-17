@@ -173,12 +173,12 @@ if $STANDARD_TERM; then
       source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
     fi
 
+    # enable direnv
+    eval "$(direnv hook zsh)"
+
     # load powerlevel10k
     source ~/.config/shell/theme/zsh/powerlevel10k/powerlevel10k.zsh-theme
     source ~/.config/shell/theme/zsh/powerlevel10k-config.zsh
-
-    # enable direnv
-    eval "$(direnv hook zsh)"
   fi
 else
   PS1="\W \\$ "
