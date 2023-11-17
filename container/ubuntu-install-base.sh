@@ -72,5 +72,5 @@ sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 install "${PKGS[@]}"
 ( add-apt-repository -L | rg "$NEOVIM_PPA" ) || { add-apt-repository --yes ppa:"$NEOVIM_PPA" ; update }
 install neovim
-ln -s $(which fdfind) ~/.local/bin/fd
-unset DEBIAN_FRONTEND
+FD_BIN=$(which fdfind >/dev/null)
+test -z "$FD_BIN" || ln -s "$FD_BIN" "$(dirname "$FD_BIN")/fd" # needed because ancient binary uses this name
