@@ -4,17 +4,17 @@ set -euo pipefail
 NEOVIM_PPA=neovim-ppa/unstable
 
 # define packages to be installed
-PKGS=(                                         \
-  build-essential                              \
-  gpg-agent software-properties-common         \
-  sudo                                         \
-  docker.io                                    \
-  python3-dev python3-pip python3-venv         \
-  curl wget openssl ca-certificates            \
-  git                                          \
-  ssh                                          \
-  unzip                                        \
-  zsh file htop tree ripgrep fd-find direnv    \
+PKGS=(                                           \
+  build-essential                                \
+  gpg-agent software-properties-common           \
+  sudo                                           \
+  docker.io                                      \
+  python3-dev python3-pip python3-venv           \
+  curl wget openssl ca-certificates              \
+  git                                            \
+  ssh                                            \
+  unzip                                          \
+  zsh file htop tree gawk ripgrep fd-find direnv \
 )
 # define extras to be installed
 EXTRAS=(         \
