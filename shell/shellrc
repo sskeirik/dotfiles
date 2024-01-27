@@ -320,17 +320,30 @@ function sunset() {
 alias powershell="/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
 
 # set os mode to light or dark
+LightProp='HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize'
+function _win_getlightmode() {
+  powershell -Command \
+  "[int] (\$(Get-ItemProperty -Path $LightProp -Name SystemUsesLightTheme).SystemUsesLightTheme"\
+  "-and   \$(Get-ItemProperty -Path $LightProp -Name AppsUsesLightTheme).AppsUsesLightTheme )" | \
+  rev | cut -c2- | rev
+}
+function _winreg_setdword() {
+  path=$1; name=$2; val=$3; shift 3
+  echo "Set-ItemProperty -Path $path -Name $name -Value $val -Type Dword $@"
+}
 function _win_lightmode() {
   case "$1" in
     true)  light=1 ;;
     false) light=0 ;;
     *)     echo "usage: win_lightmode <true|false>" && return 1 ;;
   esac
-  (powershell -Command\
-  "Start-Transaction;"\
-  "Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme    -Value $light -Type Dword -Force -UseTransaction;"\
-  "Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value $light -Type Dword -Force -UseTransaction;"\
-  "Complete-Transaction" &)
+  ( [ $(_win_getlightmode) -eq $light ] ) && return 0
+  powershell -Command \
+  'Start-Transaction;'\
+  "$(_winreg_setdword $LightProp SystemUsesLightTheme $light -Force -UseTransaction);"\
+  "$(_winreg_setdword $LightProp AppsUsesLightTheme   $light -Force -UseTransaction);"\
+  'Complete-Transaction;'\
+  #'Stop-Process -Id $(Get-Process explorer).Id'
 }
 
 # run a command with elevated permissions
