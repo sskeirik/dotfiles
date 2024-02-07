@@ -174,7 +174,7 @@ if $STANDARD_TERM; then
     fi
 
     # enable direnv
-    eval "$(direnv hook zsh)"
+    which direnv &>/dev/null && eval "$(direnv hook zsh)"
 
     # load powerlevel10k
     source ~/.config/shell/theme/zsh/powerlevel10k/powerlevel10k.zsh-theme
