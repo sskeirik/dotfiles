@@ -147,6 +147,9 @@ if $STANDARD_TERM; then
   # but allow internal libraries to use this mechanism if they wish
   stty -ixon <$TTY >$TTY
 
+  # normalize terminal escape sequences (ensures up-arrow/down-arrow is emitted as ^[[A
+  tput rmkx
+
   # handle colors
   color_shell
 
@@ -204,15 +207,13 @@ elif [ "$ZSH_VERSION" ]; then
   source ~/.config/shell/bash/vboxmanage-bash-completion/VBoxManage
 
   # make nice commandline search work
-  # NOTE: the array terminfo contains control sequences corresponding to certain keys
-  #       in particular, kcuu1 and kcud1 correspond to the up and down keys
   autoload -U history-search-end
   zle -N history-beginning-search-backward-end history-search-end
   zle -N history-beginning-search-forward-end history-search-end
-  bindkey -M emacs "${terminfo[kcuu1]}" history-beginning-search-backward-end
-  bindkey -M emacs "${terminfo[kcud1]}" history-beginning-search-forward-end
-  bindkey -M viins "${terminfo[kcuu1]}" history-beginning-search-backward-end
-  bindkey -M viins "${terminfo[kcud1]}" history-beginning-search-forward-end
+  bindkey -M emacs "^[[A" history-beginning-search-backward-end
+  bindkey -M emacs "^[[B" history-beginning-search-forward-end
+  bindkey -M viins "^[[A" history-beginning-search-backward-end
+  bindkey -M viins "^[[B" history-beginning-search-forward-end
 fi
 
 # Setup our environment and aliases
