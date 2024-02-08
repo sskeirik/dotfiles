@@ -203,7 +203,12 @@ elif [ "$ZSH_VERSION" ]; then
   autoload -U +X bashcompinit && bashcompinit
   source ~/.config/shell/bash/vboxmanage-bash-completion/VBoxManage
 
-  # make nice commandline search work
+  # make nice commandline search work using up/down arrow key
+  # NOTE: duplicate keybindings are needed to support correct
+  #       functionality when smkx/rmkx capabilities are active
+  # NOTE: some distros autoset smkx/rmkx capabilities automatically
+  #       when the ZSH line editor (zle) is invoked in the system
+  #       config file --- usually located at /etc/zsh/zshrc
   autoload -U history-search-end
   zle -N history-beginning-search-backward-end history-search-end
   zle -N history-beginning-search-forward-end history-search-end
