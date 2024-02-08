@@ -147,9 +147,6 @@ if $STANDARD_TERM; then
   # but allow internal libraries to use this mechanism if they wish
   stty -ixon <$TTY >$TTY
 
-  # normalize terminal escape sequences (ensures up-arrow/down-arrow is emitted as ^[[A
-  tput rmkx
-
   # handle colors
   color_shell
 
@@ -214,6 +211,10 @@ elif [ "$ZSH_VERSION" ]; then
   bindkey -M emacs "^[[B" history-beginning-search-forward-end
   bindkey -M viins "^[[A" history-beginning-search-backward-end
   bindkey -M viins "^[[B" history-beginning-search-forward-end
+  bindkey -M emacs "^[OA" history-beginning-search-backward-end
+  bindkey -M emacs "^[OB" history-beginning-search-forward-end
+  bindkey -M viins "^[OA" history-beginning-search-backward-end
+  bindkey -M viins "^[OB" history-beginning-search-forward-end
 fi
 
 # Setup our environment and aliases
