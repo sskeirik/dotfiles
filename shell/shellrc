@@ -20,34 +20,6 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 export PATH="$LOCAL_BIN:$PATH"
 
-# Daemon Autostart on WSL
-#########################
-
-WSL_EXE=/mnt/c/Windows/System32/wsl.exe
-
-function is_wsl_v2() {
-  # check that WSL exe and distro name exists
-  wsl_distro_file="$HOME/.wsl-distro"
-  local wsl_distro="$WSL_DISTRO_NAME"
-  if [ -z "$wsl_distro" ] && [ -f "$wsl_distro_file" ]; then
-    wsl_distro=$(cat "$wsl_distro_file")
-  fi
-  ( [ -x "$WSL_EXE" ] && [ -n "$wsl_distro" ] ) || return 1
-  # build filter pattern
-  filter='^[ *] '"$wsl_distro"' *(Running|Stopped) *2\r$'
-  # check for match:
-  # 0. set fail on error
-  # 1. run wsl.exe -l -v
-  # 2. convert to UTF-8
-  # 3. strip first line
-  # 4. match regex
-  ( set -euo pipefail && "$WSL_EXE" -l -v | iconv -f UTF-16 -t UTF-8 | tail -n +2 | grep -P "$filter" &>/dev/null )
-}
-
-function daemon_needs_start() {
-  which "$1" &>/dev/null && ! pgrep -U0 -x "$1" &>/dev/null ;
-}
-
 # TMUX session Autostart
 # ######################
 
@@ -332,6 +304,27 @@ function sunset() {
 
 # Setup WSL-specific Functions
 # ############################
+
+WSL_EXE=/mnt/c/Windows/System32/wsl.exe
+
+function is_wsl_v2() {
+  # check that WSL exe and distro name exists
+  wsl_distro_file="$HOME/.wsl-distro"
+  local wsl_distro="$WSL_DISTRO_NAME"
+  if [ -z "$wsl_distro" ] && [ -f "$wsl_distro_file" ]; then
+    wsl_distro=$(cat "$wsl_distro_file")
+  fi
+  ( [ -x "$WSL_EXE" ] && [ -n "$wsl_distro" ] ) || return 1
+  # build filter pattern
+  filter='^[ *] '"$wsl_distro"' *(Running|Stopped) *2\r$'
+  # check for match:
+  # 0. set fail on error
+  # 1. run wsl.exe -l -v
+  # 2. convert to UTF-8
+  # 3. strip first line
+  # 4. match regex
+  ( set -euo pipefail && "$WSL_EXE" -l -v | iconv -f UTF-16 -t UTF-8 | tail -n +2 | grep -P "$filter" &>/dev/null )
+}
 
 alias powershell="/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
 
