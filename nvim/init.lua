@@ -181,7 +181,7 @@ require("gitsigns").setup {
   end
 }
 require("colorscheme-file").setup {
-  path = vim.fn.expand('~/.base16_vim')
+  path = vim.fn.expand('~/.base16_theme_id')
 }
 
 -- source legacy vimscript config file
