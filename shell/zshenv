@@ -1,0 +1,2 @@
+# this file exists only to prevent keyboard remapping on ubuntu systems... yuck
+export DEBIAN_PREVENT_KEYBOARD_CHANGES=true

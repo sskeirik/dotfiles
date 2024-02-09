@@ -1,7 +1,13 @@
-# If not interactive or already loaded without force, return
-# ##########################################################
+# FILE LOAD ORDER
+# bash(login):       /etc/profile, then first of ~/.bash_profile, ~/.bash_login, ~/.profile
+# bash(interactive): /etc/bash.bashrc, ~/.bashrc
+# zsh(login):        /etc/zsh/zshenv, ~/.zshenv, /etc/zsh/zprofile, ~/.zprofile, /etc/zsh/zshrc, ~/.zshrc, /etc/zsh/zlogin, ~/.zlogin
+# zsh(interactive):  /etc/zsh/zshenv, /etc/zsh/zshrc, ~/.zshrc
 
-([[ $- != *i* ]] || ([ -n "$SHELL_LOADED" ] && [ -z "$FORCE_LOAD_SHELL" ])) && return
+# If not running interactively, don't do anything
+# ###############################################
+
+[[ $- != *i* ]] && return
 
 # Uncomment to enable debugging mode/no tmux
 # ##########################################
@@ -65,13 +71,6 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
     exec tmux -f ~/.config/tmux/tmux.conf new-session -A -s remote
   fi
 fi
-
-# set shell rcfile reload guard after all recursive invocations
-# #############################################################
-export SHELL_LOADED=true
-
-# initialize pretty shell colors (when in a compatible terminal)
-# ##############################################################
 
 function _color_tmux() {
   tmux_needs_color=$1
