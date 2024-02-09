@@ -1,7 +1,7 @@
-# If not running interactively, don't do anything
-# ###############################################
+# If not interactive or already loaded without force, return
+# ##########################################################
 
-[[ $- != *i* ]] && return
+([[ $- != *i* ]] || ([ -n "$SHELL_LOADED" ] && [ -z "$FORCE_LOAD_SHELL" ])) && return
 
 # Uncomment to enable debugging mode/no tmux
 # ##########################################
@@ -93,6 +93,10 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
     exec tmux -f ~/.config/tmux/tmux.conf new-session -A -s remote
   fi
 fi
+
+# set shell rcfile reload guard after all recursive invocations
+# #############################################################
+export SHELL_LOADED=true
 
 # initialize pretty shell colors (when in a compatible terminal)
 # ##############################################################
