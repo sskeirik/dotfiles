@@ -73,13 +73,6 @@ export SHELL_LOADED=true
 # initialize pretty shell colors (when in a compatible terminal)
 # ##############################################################
 
-function load_colors() {
-  BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
-  [ -n "$PS1" ] && \
-      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-          source "$BASE16_SHELL/profile_helper.sh"
-}
-
 function _color_tmux() {
   tmux_needs_color=$1
   colorfile=$2
@@ -253,43 +246,14 @@ alias claer='clear '
 alias pypy='pypy3 '
 alias diff='git diff --color-moved=blocks --no-index'
 alias g='git '
-# alias mux="PATH=$SAFEPATH tmuxinator "
 
-# create new github repo
-function ghrepo() { curl -u 'skeirik2' https://api.github.com/user/repos -d '{"name":"$1"}'; }
-
-# find maude modules defined in code in given subdirectory
-function mmods() { rg "^\S*^f?mod" * | cut -d' ' -f2; }
-
-# look-up files in a git repo with ext respecting ignore
-function fbe() { rg --files -g '*'"$1"; }
-
-# tmux session shortcut from Everett
-function ts() {
-    command="$1" ; shift
-    session="$1"
-    case "$command" in
-        n|new)    tmux new-session -s "$session" ;;
-        a|attach) [ "$session" == "" ] && { echo "Usage: ts attach <session>"; return 1; } || tmux attach -t "$session" ;;
-        d|detach) tmux detach;;
-        k|kill)   [ "$session" == "" ] && { echo "Usage: ts kill <session>"; return 1; } || tmux kill-session  -t "$session" ;;
-        l|ls)     tmux list-sessions ;;
-        '')       tmux list-sessions ;;
-        *)        echo "Unrecognized 'ts' command: '$command'" >&2
-                  return 1 ;;
-    esac
+# load theme aliases for manual perusal
+function load_colors() {
+  BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
+  [ -n "$PS1" ] && \
+      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+          source "$BASE16_SHELL/profile_helper.sh"
 }
-
-# start up jupyter notebook
-function jnb() {
-  NB_DIR=~/.local/share/jupyter/notebooks
-  (source ~/.venv/jupyter/bin/activate && mkdir -p "$NB_DIR" && jupyter notebook --notebook-dir "$NB_DIR")
-}
-
-# setx wrapper for setting environment variables
-# function setx() {
-# TODO: finish me
-# }
 
 # set os light-dark theme
 function sunrise() {
