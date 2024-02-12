@@ -257,11 +257,16 @@ function load_colors() {
 # set os light-dark theme
 function sunrise() {
   is_wsl_v2 && _win_lightmode true >/dev/null 2>&1
-  color_shell google-light
+  color_shell google-light >/dev/null 2>&1
+}
+
+function cloudy() {
+  is_wsl_v2 && _win_lightmode false >/dev/null 2>&1
+  color_shell material >/dev/null 2>&1
 }
 
 function sunset() {
-  is_wsl_v2 && _win_lightmode false
+  is_wsl_v2 && _win_lightmode false >/dev/null 2>&1
   color_shell gruvbox-dark-hard >/dev/null 2>&1
 }
 
