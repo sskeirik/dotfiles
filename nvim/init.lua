@@ -1,10 +1,34 @@
+-- # Vimscript-to-Lua
+--
+-- ## Options and Variables
+--
+-- :set       <opt> = <val>   => vim.opt.<opt>        = <val>
+--                               vim.o.<opt>          = <val>
+-- :setglobal <opt> = <val>   => vim.opt_global.<opt> = <val>
+--                               vim.go.<opt>         = <val>
+-- :setlocal  <opt> = <val>   => vim.opt_local.<opt>  = <val>
+--                               vim.wo.<opt>         = <val> -- local to window
+--                               vim.bo.<opt>         = <val> -- local to buffer
+-- :let <scope>:<var> = <val> => vim.<scope>.<var>    = <val> -- see scopes below
+-- :unlet <scope>:<var>       => vim.<scope>.<var>    = nil   -- see scopes below
+--
+-- where scope is one of: g (global), t (tab-page), w (window), b (buffer), v (special)
+--
+-- ## Commands and Functions
+--
+-- - Execute entire snippet <snippet>:           vim.cmd(<snippet>)
+-- - If single <cmd>, also can write:            vim.cmd.<cmd>(<args>)
+-- - Vimscript built-in or user function <func>: vim.fn.<func>(<args>)
+-- - If <func> has special characters, use:      vim.fn[<func>](<args>)
+-- - Can also write:                             vim.call(<func>,<args>)
+--
 -- # Plugin Loading
 --
 -- Plugins will be autoloaded when their absolute path matches the followings shape:
 --
 -- <runtimepath>/pack/*/start/<plugin-root-directory>
 --
--- Plugins can be loaded using `:packadd` (or `vim.fn.packadd()`) when their absolute path matches the following shape:
+-- Plugins can be loaded using `vim.cmd.packadd(<plugin-root-directory>)` when their absolute path matches the following shape:
 --
 -- <runtimepath>/pack/*/opt/<plugin-root-directory>
 --
