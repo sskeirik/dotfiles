@@ -257,7 +257,7 @@ function load_colors() {
 # set os light-dark theme
 function sunrise() {
   is_wsl_v2 && _win_lightmode true >/dev/null 2>&1
-  color_shell google-light >/dev/null 2>&1
+  color_shell atelier-sulphurpool-light >/dev/null 2>&1
 }
 
 function cloudy() {
