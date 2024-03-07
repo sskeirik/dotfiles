@@ -47,9 +47,6 @@
 [submodule "nvim/bundle/vim-searchindex"]
 	path = nvim/pack/bundle/start/vim-searchindex
 	url = https://github.com/google/vim-searchindex.git
-[submodule "nvim/bundle/incsearch.vim"]
-	path = nvim/pack/bundle/start/incsearch.vim
-	url = https://github.com/haya14busa/incsearch.vim
 [submodule "nvim/bundle/vim-highlightedyank"]
 	path = nvim/pack/bundle/start/vim-highlightedyank
 	url = https://github.com/machakann/vim-highlightedyank

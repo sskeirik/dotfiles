@@ -1,8 +1,3 @@
-" searching via incsearch
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
 " move undo directory under cache
 set undofile
 let undo_path = expand('~/.cache/nvim/undo/')
