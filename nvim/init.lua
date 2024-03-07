@@ -89,8 +89,9 @@ vim.opt.termguicolors = true            -- use nice colors
 vim.opt.fileencoding  = "utf-8"         -- always use utf-8 encoding on write
 
 -- keymap options
-vim.keymap.set('n',        'Q',  '<Nop>')             -- disable ex mode
-vim.keymap.set({'n', 'v'}, 'ga', '<Plug>(EasyAlign)') -- setup EasyAlign with ga
+vim.keymap.set('n',        'Q',     '<Nop>')             -- disable ex mode
+vim.keymap.set({'n', 'v'}, 'ga',    '<Plug>(EasyAlign)') -- setup EasyAlign with ga
+vim.keymap.set('t',        '<C-[>', '<C-\\><C-n>')       -- ??? port terminal mode binding
 
 -- digraph options
 ---- subscript digraphs

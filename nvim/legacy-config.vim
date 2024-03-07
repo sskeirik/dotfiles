@@ -10,8 +10,6 @@ let &undodir = undo_path
 filetype plugin indent on
 syntax on
 
-" configure terminal mode and external command execution
-:tnoremap <C-[> <C-\><C-n>
 " configure for windows with 64-bit git-bash
 if has("win32")
   :nnoremap <Leader>c :tabnew<CR>:term C:\Progra~1\Git\bin\bash<CR>i
