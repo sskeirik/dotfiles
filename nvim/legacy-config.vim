@@ -6,10 +6,6 @@ if !isdirectory(undo_path)
 endif
 let &undodir = undo_path
 
-" set highligting and indentation
-filetype plugin indent on
-syntax on
-
 " configure for windows with 64-bit git-bash
 if has("win32")
   :nnoremap <Leader>c :tabnew<CR>:term C:\Progra~1\Git\bin\bash<CR>i
