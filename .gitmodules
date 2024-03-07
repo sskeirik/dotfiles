@@ -92,3 +92,6 @@
 [submodule "nvim/pack/bundle/start/colorscheme-file.nvim"]
 	path = nvim/pack/bundle/start/colorscheme-file.nvim
 	url = https://github.com/eriedaberrie/colorscheme-file.nvim
+[submodule "nvim/pack/bundle/opt/everforest"]
+	path = nvim/pack/bundle/opt/everforest
+	url = https://github.com/sainnhe/everforest.git

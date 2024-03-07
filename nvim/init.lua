@@ -4,7 +4,7 @@
 --
 -- <runtimepath>/pack/*/start/<plugin-root-directory>
 --
--- Plugins can be loaded using `:packadd` when their absolute path matches the following shape:
+-- Plugins can be loaded using `:packadd` (or `vim.fn.packadd()`) when their absolute path matches the following shape:
 --
 -- <runtimepath>/pack/*/opt/<plugin-root-directory>
 --
@@ -191,6 +191,9 @@ require("gitsigns").setup {
 require("colorscheme-file").setup {
   path = vim.fn.expand('~/.base16_theme_id')
 }
+
+-- load everforest colorscheme
+vim.cmd.packadd('everforest')
 
 -- source legacy vimscript config file
 vim.cmd('source ~/.config/nvim/legacy-config.vim')
