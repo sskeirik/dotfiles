@@ -6,15 +6,6 @@ if !isdirectory(undo_path)
 endif
 let &undodir = undo_path
 
-" configure for windows with 64-bit git-bash
-if has("win32")
-  :nnoremap <Leader>c :tabnew<CR>:term C:\Progra~1\Git\bin\bash<CR>i
-  let shell='cmd.exe'
-  let shellcmdflag='/c "C:\Progra~1\Git\bin\bash -c"'
-else
-  :nnoremap <Leader>c :tabnew<CR>:term<CR>i
-endif
-
 " general vimtex configuration
 let g:tex_flavor = 'latex'
 " 0 never auto-open, 1 auto-open on error, 2 auto-open on warning
