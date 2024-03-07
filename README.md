@@ -4,11 +4,11 @@ If you're looking for yet-another-dotfile repo, you've come to the right place!
 My current development environment uses the following components:
 
 - Windows Subsystem for Linux
-- wsltty (mintty + wslbridge)
+- Microsoft Terminal or wsltty
 - tmux
-- neovim (plugins managed by pathogen)
+- neovim
 - lightweight git aliases
-- zshell + lightweight async git status prompt
+- zshell + powerlevel10k
 
 See section [Fresh Installation](#fresh-installation) for information about quickly getting a new system up-to-speed.
 
@@ -32,8 +32,6 @@ This is useful for nested tmux sessions, because:
 2. It allows the user to work in a nested tmux session without typing the prefix-key twice every time a tmux-command
    is used remotely.
 
-I highly recommend the plugin `tmux-onedark-theme` which looks amazing, IMO. 
-
 ## Shell
 
 Underneath the `/shell` directory I have a unified shell init file `shellrc` for bash and zsh usage.
@@ -46,13 +44,10 @@ I recently switched to `powerlevel10k` with `purepower` configured as my prompt 
 
 ## Dircolors
 
-Honestly, dircolors configuration is somewhat arcane.
-I had to dig for quite awhile to understand how it works now (and it used to work).
-The frustration is excaberated by WSL, because of wonky permission mappings when accessing the windows filesystem
-from linux, so that most standard dircolors choices look quite bad.
-
-To rememdy this, I collected a bunch of color scripts I found online and modified a test script I
-found so that I could compare various choices. This script can be found under `dircolors/test`.
+Dircolors is a system to configure color pretty-printing when listing files using the `ls` command.
+Unfortunately, due to wonky permission mappings, when accessing the windows filesystem from linux, most standard dircolors choices look quite bad.
+To rememdy this, I collected a variety of free color scripts and modified a free test script so that I could compare various choices.
+This script can be found under `dircolors/test`.
 
 ## Fresh Installation
 
@@ -74,7 +69,13 @@ Then, in an elevated Windows command prompt, run the following steps:
     wsl.exe --set-version <distro_name> 2
     ```
 
-3.  Finally, once the system has been configured with a proper user, do:
+3.  (Recommended) Set systemd emulation in `/etc/wsl.conf` to make working with standard Linux services easier:
+
+    ```cmd
+    wsl.exe -d <distro_name> -e bash -c "echo -e '[boot]\nsystemd=true' >> /etc/wsl.conf"
+    ```
+
+4.  Finally, once the system has been configured with a proper user, set the default user for subsequent WSL invocations:
 
     ```cmd
     LxRunOffline.exe su -n <distro_name> -v <uid>
