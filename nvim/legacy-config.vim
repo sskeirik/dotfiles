@@ -1,11 +1,3 @@
-" move undo directory under cache
-set undofile
-let undo_path = expand('~/.cache/nvim/undo/')
-if !isdirectory(undo_path)
-  call system('mkdir -p ' . undo_path)
-endif
-let &undodir = undo_path
-
 " general vimtex configuration
 let g:tex_flavor = 'latex'
 " 0 never auto-open, 1 auto-open on error, 2 auto-open on warning
