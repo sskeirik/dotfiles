@@ -10,6 +10,9 @@ My current development environment uses the following components:
 - lightweight git aliases
 - zshell + powerlevel10k
 
+Note that this configuration is fairly opinionated and most of it is not well documented.
+This configuration makes heavy use of git submodules --- be sure to run `git submodule update --init --recursive` after installation.
+
 See section [Fresh Installation](#fresh-installation) for information about quickly getting a new system up-to-speed.
 
 # Tour
@@ -38,9 +41,6 @@ Underneath the `/shell` directory I have a unified shell init file `shellrc` for
 I configure terminal colors using the `base16-shell` repo and associated shell scripts;
 the great thing is that this solution does not depend on `Xresources` or any other non-shell config file.
 As long as your terminal supports changing colors by escape codes, this method will work.
-
-Previously, I used a minimalist git prompt I found and modified from a blog online, but because it lagged on large repos,
-I recently switched to `powerlevel10k` with `purepower` configured as my prompt because the `git status` is asynchronous.
 
 ## Dircolors
 
