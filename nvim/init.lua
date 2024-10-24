@@ -213,7 +213,8 @@ require("gitsigns").setup {
   end
 }
 require("colorscheme-file").setup {
-  path = vim.fn.expand('~/.base16_theme_id')
+  path   = vim.fn.expand('~/.base16_theme_id'),
+  silent = true
 }
 
 -- load everforest colorscheme
