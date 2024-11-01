@@ -106,8 +106,12 @@ vim.opt.timeoutlen    = 1000            -- faster command timeout on escape
 vim.opt.ttimeoutlen   = 0               --
 
 -- color options
-vim.opt.background    = 'light'         -- tells vim what the terminal background color is
 vim.opt.termguicolors = true            -- use nice colors
+-- NOTE: the following command mysteriously causes neovim to
+-- re-insert previously deleted lines into the current buffer
+-- when opening neovim for the first time --- it's so weird
+-- and I have NO IDEA what causes it
+-- vim.opt.background = 'light'         -- tells vim what the terminal background color is
 
 -- file options
 vim.opt.fileencoding  = "utf-8"         -- always use utf-8 encoding on write
