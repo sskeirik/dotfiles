@@ -148,13 +148,6 @@ vim.opt.history       = 500            -- store N lines of :cmdline history
 vim.opt.path:append({ '**' })          -- search paths recursively when use find-family of commands
 vim.opt.grepprg       = 'rg --vimgrep' -- use ripgrep for vim grep command
 
--- move undo directory under cache
-local undodir = vim.fs.normalize('~/.cache/nvim/undo/')
-if not vim.fn.isdirectory(undodir) then
-  vim.system('mkdir -p '..undodir)
-end
-vim.opt.undodir = undodir
-
 -- documented unset options
 vim.opt.lazyredraw     = false          -- disable redrawing when exeucting macros
 vim.opt.linebreak      = false          -- when wrapping long lines, break on words (useful for prose editing)
