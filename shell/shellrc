@@ -90,7 +90,7 @@ function color_shell() {
   theme_link="$HOME/.base16_theme"
   theme_name="$HOME/.base16_theme_id"
   if [ $# -eq 0 ]; then
-    [ ! -L "$theme_link" ] && echo "no theme found" && return 1
+    [ ! -L "$theme_link" ] && return 1
     source "$theme_link"
     theme=$(cat "$theme_name")
   else
