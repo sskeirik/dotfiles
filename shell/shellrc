@@ -84,6 +84,7 @@ function _color_tmux() {
   unset colorfile
 }
 
+# NOTE: do NOT redirect stdout when invoking this program or else this WILL not work
 function color_shell() {
   ! $STANDARD_TERM && return 1
   tmux_needs_color=false
@@ -255,20 +256,27 @@ function load_colors() {
           source "$BASE16_SHELL/profile_helper.sh"
 }
 
+# Set OS, tmux, and shell themes
+# ##############################
+# NOTE: setting win11 light/dark mode via registry key is broken
+#       so that part is commented out
+# NOTE: color shell output is not redirected or else it breaks
+#       the script which uses escape codes
+
 # set os light-dark theme
 function sunrise() {
-  is_wsl_v2 && _win_lightmode true >/dev/null 2>&1
-  color_shell atelier-sulphurpool-light >/dev/null 2>&1
+  # is_wsl_v2 && _win_lightmode true >/dev/null 2>&1
+  color_shell atelier-sulphurpool-light
 }
 
 function cloudy() {
-  is_wsl_v2 && _win_lightmode false >/dev/null 2>&1
-  color_shell material >/dev/null 2>&1
+  # is_wsl_v2 && _win_lightmode false >/dev/null 2>&1
+  color_shell material
 }
 
 function sunset() {
-  is_wsl_v2 && _win_lightmode false >/dev/null 2>&1
-  color_shell gruvbox-dark-hard >/dev/null 2>&1
+  # is_wsl_v2 && _win_lightmode false >/dev/null 2>&1
+  color_shell gruvbox-dark-hard
 }
 
 # Setup WSL-specific Functions
