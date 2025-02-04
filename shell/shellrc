@@ -334,10 +334,42 @@ function _win_lightmode() {
 
 # run a command with elevated permissions
 function win_elevate() {
+    [ $# -lt 1 ] && return 1
     pushd $(pwd)
     cd /mnt/c/
     powershell -Command "Start-Process cmd -ArgumentList  \"/c\",\"$1 2>&1\" -Verb RunAs"
     popd
+}
+
+# create/load a python virtualenv
+function pyenv() {
+  local VENV_DIR=~/.venv
+  local USAGE="usage: $0 mk   <env_name>\n""       $0 load <env_name>\n""       $0 ls"
+  # parse args
+  [ $# -lt 1 ] && { echo "$USAGE"; return 1; }
+  cmd=$1; shift
+  venv="@@@"
+  case "$cmd" in
+    mk|load)
+      [ $# -lt 1 ] && { echo "$USAGE"; return 1; }
+      venv_name="$1"
+      venv="$VENV_DIR/$venv_name"; shift ;;
+    ls) ;;
+    *) echo "$USAGE"; return 1 ;;
+  esac
+
+  ([ $# -ne 0 ] || [ -z "$venv" ]) && { echo "$USAGE"; return 1; }
+  # exec command
+  case "$cmd" in
+    mk)
+      python3 -m venv "$venv" ;;
+    load)
+      [ ! -f "$venv/bin/activate" ] && { echo "virtualenv '$venv' does not have activation script"; return 1; }
+      echo "# call as eval \$(pyenv load \"$venv_name\")"
+      echo "source $venv/bin/activate" ;;
+    ls)
+      echo "virtualenvs:"; ls "$VENV_DIR" ;;
+  esac
 }
 
 # open a file
