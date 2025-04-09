@@ -360,6 +360,7 @@ function pyenv() {
 
   ([ $# -ne 0 ] || [ -z "$venv" ]) && { echo "$USAGE"; return 1; }
   # exec command
+  mkdir -p "$VENV_DIR"
   case "$cmd" in
     mk)
       python3 -m venv "$venv" ;;
