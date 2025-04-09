@@ -366,8 +366,8 @@ function pyenv() {
       python3 -m venv "$venv" ;;
     load)
       [ ! -f "$venv/bin/activate" ] && { echo "virtualenv '$venv' does not have activation script"; return 1; }
-      echo "# call as eval \$(pyenv load \"$venv_name\")"
-      echo "source $venv/bin/activate" ;;
+      echo "source $venv/bin/activate"
+      echo "# call as eval \$(pyenv load \"$venv_name\")" ;;
     ls)
       echo "virtualenvs:"; ls "$VENV_DIR" ;;
   esac
