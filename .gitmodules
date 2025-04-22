@@ -95,3 +95,6 @@
 [submodule "nvim/pack/bundle/opt/everforest"]
 	path = nvim/pack/bundle/opt/everforest
 	url = https://github.com/sainnhe/everforest.git
+[submodule "nvim/pack/bundle/start/nvim-treesitter"]
+	path = nvim/pack/bundle/start/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
