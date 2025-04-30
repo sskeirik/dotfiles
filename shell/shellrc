@@ -38,14 +38,16 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
   export TERM=xterm-256color
   # clear the terminal title
   echo -ne "\033]0;\007"
+
+  # set SSH_AUTH_SOCK if needed
+  SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
+  [ -S "$SSH_AUTH_SOCK" ] && export SSH_AUTH_SOCK
+
   # start the session/session group
   if [ -z "$SSH_CLIENT" ]; then
     # startup ding-server if needed
     export DING_PORT=$(~/.config/meta/ding-init)
     (~/.config/meta/ding-server &) &>/dev/null
-
-    # set SSH_AUTH_SOCK
-    export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
     # setup tmux command
     tmux_group="main"
