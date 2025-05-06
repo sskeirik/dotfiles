@@ -1,6 +1,6 @@
 [user]
 	name = Stephen Skeirik
-	email = stephen.skeirik@runtimeverification.com
+	email = stephen.skeirik@pi2.network
 [alias]
 	ci = commit --verbose
 	co = checkout
@@ -22,6 +22,7 @@
         l = log --first-parent
 	pl = log --pretty='%C(auto)%h %<(10,trunc)%Cred%an%C(auto) %d %s'
 	ls = ls-files
+	ss = log -1 --stat
 	wd = diff --color-words
 	wdc = diff --cached --color-words
 	md = diff --color-moved --color-moved-ws=ignore-all-space
