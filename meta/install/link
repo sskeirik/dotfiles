@@ -9,6 +9,7 @@ if [ "$1" = "bash" ]; then
   ln -s $HOME/.config/shell/profile  $HOME/.bash_profile   2>/dev/null
   mkdir -p $HOME/.local/bin                                &>/dev/null
   ln -s $HOME/.config/meta/ding      $HOME/.local/bin/ding 2>/dev/null
+  ln -s $HOME/.config/meta/run-tmate $HOME/.local/bin/tmate 2>/dev/null
   systemctl --user enable ssh-agent.service
 # otherwise, ZSH
 elif [ "$1" = "zsh" ]; then
@@ -18,6 +19,7 @@ elif [ "$1" = "zsh" ]; then
   ln -s $HOME/.config/shell/zshenv   $HOME/.zshenv         2>/dev/null
   mkdir -p $HOME/.local/bin                                &>/dev/null
   ln -s $HOME/.config/meta/ding      $HOME/.local/bin/ding 2>/dev/null
+  ln -s $HOME/.config/meta/run-tmate $HOME/.local/bin/tmate 2>/dev/null
 else
   echo "usage: link.sh (bash|zsh) [full]"
   exit 1

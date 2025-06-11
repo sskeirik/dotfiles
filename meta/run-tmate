@@ -1,0 +1,1 @@
+exec env -u TMUX TMATE=true /usr/bin/tmate

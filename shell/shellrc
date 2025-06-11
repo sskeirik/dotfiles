@@ -75,6 +75,7 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
 fi
 
 function _color_tmux() {
+  [ -n $TMATE ] && return 0
   tmux_needs_color=$1
   colorfile=$2
   tmux_color_applied=$(tmux show-environment TMUX_COLOR_APPLIED 2>/dev/null)
