@@ -14,7 +14,8 @@
 	f = fetch
 	fa = fetch --all
 	g = grep
-	last = log -n 1
+	last = log -1
+	lastchanged = log -1 --pretty= --name-only
 	pushf = push --force-with-lease
 	smu = submodule update --init --recursive --progress
 	hist = log --abbrev-commit --decorate --date=relative --graph --topo-order \
@@ -29,11 +30,14 @@
 	mdc = diff --cached --color-moved --color-moved-ws=ignore-all-space
 	bs = branch --sort=-committerdate \
 	     --format='%(align:25)%(color:green)%(committerdate:relative)%(color:reset)%(end) - %(align:30,left)%(color:yellow)%(refname:short)%(color:reset)%(end) - %(contents:subject)'
-	related = "!git_related() { commit1=`git log -n 1 --format=\"%h\" $1` ; commit2=`git log -n 1 --format=\"%h\" $2` ; if git rev-list $commit1 | grep -q $commit2 ; then echo \"$2 is ancestor of $1\" ; elif git rev-list $commit2 | grep -q $commit1 ; then echo \"$1 is ancestor of $2\" ; else echo \"$1 unrelated to $2\" ; fi } ; git_related $1 $2 2>/dev/null"
-	rec  = "submodule foreach --recursive"
-	recg = "submodule foreach --recursive git"
-	stat = "!stat() { git log -1 --pretty= --numstat "$@" | cut -f3 ; } ; stat $1"
-	unchanged = "!unchanged() { comm -23 <(git ls-files "$@" | sort) <(git diff --name-only "$@" | sort) ; } ; unchanged $@"
+	rec  = submodule foreach --recursive
+	recg = submodule foreach --recursive git
+	unchanged = "!f() { l=$(git ls-files | sort); r=$(git diff --name-only | sort); comm -23 /dev/fd/3 /dev/fd/4 3<<EOF 4<<EOF\n$l\nEOF\n$r\nEOF\n }; f"
+	argq = "!f() { [ \"$1\" -ne \"$2\" ] && { printf \"usage $3\\n\"; exit 1; } }; f"
+	is-ancestor = "!f() { git argq $# 2 'is-ancestor <rev1> <rev2>'; git merge-base --is-ancestor \"$@\"; }; f"
+	related = "!f() { { [ $# -ne 2 ] || l=$(! git rev-to-hash \"$1\") || r=$(! git rev-to-hash \"$2\"); } && { echo 'usage: git related <rev1> <rev2>'; exit 1; }; if [ \"$l\" = \"$r\" ]; then echo \"$1 == $2\"; elif git is-ancestor $l $r; then echo \"$1 < $2\"; elif git is-ancestor $r $l; then echo \"$2 < $1\"; else echo \"$1 unrelated to $2\"; fi }; f"
+	rev-to-hash = "!f() { git argq $# 1 'rev-to-hash: <rev>'; git rev-parse --verify --end-of-options \"$1\" 2>/dev/null; }; f"
+	hash-to-rev = "!f() { git argq $# 1 'hash-to-rev <hash>'; git for-each-ref --points-at=\"$1\"; }; f"
 [pull]
 	ff = only
 [credential]
