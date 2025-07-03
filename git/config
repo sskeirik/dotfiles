@@ -39,6 +39,8 @@
 	hash-to-rev = "!f() { git argq $# 1 'hash-to-rev <hash>'; git for-each-ref --points-at=\"$1\"; }; f"
 [pull]
 	ff = only
+[push]
+	recurseSubmodules = check
 [credential]
 	helper = store
 [filter "lfs"]
