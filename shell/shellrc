@@ -128,15 +128,21 @@ if $STANDARD_TERM; then
     eval "$(dircolors -b $HOME/.config/dircolors/dircolors)"
   fi
 
-  # shell specific stuff
-  if [ "$BASH_VERSION" ]; then
-    source ~/.config/shell/minimalist-git-prompt.sh
-  elif [ "$ZSH_VERSION" ]; then
-    # force cursor blink
-    echo -e -n "\x1b[\x31 q"
+  # enable direnv
+  which direnv &>/dev/null && eval "$(direnv hook zsh)"
 
-    # enable direnv
-    which direnv &>/dev/null && eval "$(direnv hook zsh)"
+  # force cursor blink
+  echo -e -n "\x1b[\x31 q"
+
+  # setup starship prompt if available
+  if which starship &>/dev/null; then
+    if [ "$BASH_VERSION" ]; then
+      eval "$(starship init bash)"
+    elif [ "$ZSH_VERSION" ]; then
+      eval "$(starship init zsh)"
+    fi
+  else
+    echo "starship not found: prompt disabled"
   fi
 else
   PS1="\W \\$ "
