@@ -130,11 +130,7 @@ if $STANDARD_TERM; then
 
   # shell specific stuff
   if [ "$BASH_VERSION" ]; then
-    # setup fancy prompt
-    # slow on DrvFS
     source ~/.config/shell/minimalist-git-prompt.sh
-    # PS1="\W \\$ "
-
   elif [ "$ZSH_VERSION" ]; then
     # force cursor blink
     echo -e -n "\x1b[\x31 q"
