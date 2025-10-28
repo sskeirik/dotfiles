@@ -24,6 +24,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   PATH="/usr/local/bin/:$PATH"
   [[ -x /usr/libexec/java_home ]] && /usr/libexec/java_home &>/dev/null && export JAVA_HOME=`/usr/libexec/java_home`
 fi
+# add rustup binaries to path
+[[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$LOCAL_BIN:$PATH"
 
 # TMUX session Autostart
