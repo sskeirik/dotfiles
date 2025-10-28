@@ -31,9 +31,6 @@
 [submodule "tmux/plugins/tmux-fingers"]
 	path = tmux/plugins/tmux-fingers
 	url = https://github.com/Morantron/tmux-fingers
-[submodule "bash/base16-shell"]
-	path = shell/theme/base16-shell
-	url = https://github.com/chriskempson/base16-shell
 [submodule "nvim/bundle/vim-matchup"]
 	path = nvim/pack/bundle/start/vim-matchup
 	url = https://github.com/andymass/vim-matchup
@@ -74,9 +71,6 @@
 [submodule "utils/repren3"]
 	path = utils/repren3
 	url = https://github.com/k01ek/repren3
-[submodule "tmux/plugins/base16-tmux"]
-	path = tmux/plugins/base16-tmux
-	url = https://github.com/tinted-theming/base16-tmux
 [submodule "nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
@@ -92,3 +86,9 @@
 [submodule "nvim/pack/bundle/start/tinted-nvim"]
 	path = nvim/pack/bundle/start/tinted-nvim
 	url = https://github.com/tinted-theming/tinted-nvim
+[submodule "tmux/plugins/tinted-tmux"]
+	path = tmux/plugins/tinted-tmux
+	url = https://github.com/tinted-theming/tinted-tmux
+[submodule "shell/theme/tinted-shell"]
+	path = shell/theme/tinted-shell
+	url = https://github.com/tinted-theming/tinted-shell

@@ -73,11 +73,11 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
 fi
 
 function _color_tmux() {
-  [ -n $TMATE ] && return 0
+  [ -n "$TMATE" ] && return 0
   tmux_needs_color=$1
   colorfile=$2
   tmux_color_applied=$(tmux show-environment TMUX_COLOR_APPLIED 2>/dev/null)
-  if [ -n $TMUX ] && ($tmux_needs_color || [ -z "$tmux_color_applied" ]) && [ -f "$colorfile" ] ; then
+  if [ -n "$TMUX" ] && ($tmux_needs_color || [ -z "$tmux_color_applied" ]) && [ -f "$colorfile" ] ; then
     tmux source-file "$colorfile"
     tmux set-environment TMUX_COLOR_APPLIED true
   fi
@@ -88,28 +88,35 @@ function _color_tmux() {
 # NOTE: do NOT redirect stdout when invoking this program or else this WILL not work
 function color_shell() {
   ! $STANDARD_TERM && return 1
-  tmux_needs_color=false
-  theme_link="$HOME/.base16_theme"
-  theme_name="$HOME/.base16_theme_id"
+  tmux_needs_color=true
+  theme_link="$HOME/.shell_theme"
+  theme_name_file="$HOME/.shell_theme_id"
   if [ $# -eq 0 ]; then
     [ ! -L "$theme_link" ] && return 1
     source "$theme_link"
-    theme=$(cat "$theme_name")
+    theme=$(cat "$theme_name_file")
   else
-    theme="base16-$1"
-    shell_theme_file="$HOME/.config/shell/theme/base16-shell/scripts/$theme.sh"
+    theme="$1"
+    shell_theme_file="$HOME/.config/shell/theme/tinted-shell/scripts/$theme.sh"
     if [ -f "$shell_theme_file" ]; then
       source "$shell_theme_file"
       ln -sf "$shell_theme_file" "$theme_link"
-      echo "base16-$BASE16_THEME" > "$theme_name"
+      if [ -n "$BASE16_THEME" ]; then
+        echo "base16-$BASE16_THEME" > "$theme_name_file"
+      elif [ -n "$BASE24_THEME" ]; then
+        echo "base24-$BASE24_THEME" > "$theme_name_file"
+      else
+        echo "Theme name not found"
+        return 1
+      fi
       tmux_needs_color=true
     else
-      echo "base16 theme $theme not found"
+      echo "shell theme $theme not found"
       return 1
     fi
     unset shell_theme_file
   fi
-  _color_tmux $tmux_needs_color "$HOME/.config/tmux/plugins/base16-tmux/colors/$theme.conf"
+  _color_tmux $tmux_needs_color "$HOME/.config/tmux/plugins/tinted-tmux/colors/$theme.conf"
   unset tmux_needs_color
   unset theme_link
   unset theme_name
@@ -247,10 +254,10 @@ alias g='git '
 
 # load theme aliases for manual perusal
 function load_colors() {
-  BASE16_SHELL="$HOME/.config/shell/theme/base16-shell/"
+  TINTED_SHELL="$HOME/.config/shell/theme/tinted-shell/"
   [ -n "$PS1" ] && \
-      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-          source "$BASE16_SHELL/profile_helper.sh"
+      [ -s "$TINTED_SHELL/profile_helper.sh" ] && \
+          source "$TINTED_SHELL/profile_helper.sh"
 }
 
 # Set OS, tmux, and shell themes
