@@ -1,40 +1,55 @@
 #!/bin/bash
 # Config file installation script
 
+set -euo pipefail
+
+function run() { echo "$@"; "$@" 2>/dev/null; }
+function append() { local out="$1"; shift; echo "echo $@ >> $out"; echo "$@" >> "$out"; }
+
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+  echo "usage: $0 <bash|zsh> [full]"
+  exit 1
+fi
+
 # shell selection
-if [ "$1" = "bash" ]; then
-  echo "bash selected; installing bash links..."
-  ln -s $HOME/.config/shell/shellrc  $HOME/.bashrc         2>/dev/null
-  ln -s $HOME/.config/shell/inputrc  $HOME/.inputrc        2>/dev/null
-  ln -s $HOME/.config/shell/profile  $HOME/.bash_profile   2>/dev/null
-  mkdir -p $HOME/.local/bin                                &>/dev/null
-  ln -s $HOME/.config/meta/ding      $HOME/.local/bin/ding 2>/dev/null
-  ln -s $HOME/.config/meta/run-tmate $HOME/.local/bin/tmate 2>/dev/null
-  systemctl --user enable ssh-agent.service
-# otherwise, ZSH
-elif [ "$1" = "zsh" ]; then
-  echo "zsh selected, installing zsh links..."
-  ln -s $HOME/.config/shell/shellrc  $HOME/.zshrc          2>/dev/null
-  ln -s $HOME/.config/shell/profile  $HOME/.zprofile       2>/dev/null
-  ln -s $HOME/.config/shell/zshenv   $HOME/.zshenv         2>/dev/null
-  mkdir -p $HOME/.local/bin                                &>/dev/null
-  ln -s $HOME/.config/meta/ding      $HOME/.local/bin/ding 2>/dev/null
-  ln -s $HOME/.config/meta/run-tmate $HOME/.local/bin/tmate 2>/dev/null
+if [ "$1" = "bash" ] || [ "$1" = "zsh" ]; then
+  if [ "$1" = "bash" ]; then
+    echo "==== bash setup"
+    run ln -s $HOME/.config/shell/shellrc  $HOME/.bashrc
+    run ln -s $HOME/.config/shell/inputrc  $HOME/.inputrc
+    run ln -s $HOME/.config/shell/profile  $HOME/.bash_profile
+  elif [ "$1" = "zsh" ]; then
+    echo "==== zsh setup"
+    run ln -s $HOME/.config/shell/shellrc  $HOME/.zshrc    || true
+    run ln -s $HOME/.config/shell/profile  $HOME/.zprofile || true
+    run ln -s $HOME/.config/shell/zshenv   $HOME/.zshenv   || true
+  fi
+  echo "==== shared shell setup"
+  run run mkdir -p $HOME/.local/bin
+  run ln -s $HOME/.config/meta/ding      $HOME/.local/bin/ding  || true
+  run ln -s $HOME/.config/meta/run-tmate $HOME/.local/bin/tmate || true
+  echo "==== writing ssh-agent configuration"
+  run mkdir -pm 700 "$HOME/.ssh"
+  append "$HOME/.ssh/config" "AddKeysToAgent yes"
+  run chmod 600 "$HOME/.ssh/config"
+  echo "==== enabling ssh-agent service"
+  run systemctl --user enable ssh-agent.service
+  run systemctl --user start ssh-agent.service
 else
   echo "usage: link.sh (bash|zsh) [full]"
   exit 1
-  systemctl --user enable ssh-agent.service
 fi
 
 echo "" # separate output
-echo "WSLv2 systemd systems may need to run:"
+echo "WSLv2 with systemd: may need following cmd to support windows binary exec:"
 echo "sudo sh -c 'echo :WSLInterop:M::MZ::/init:PF > /usr/lib/binfmt.d/WSLInterop.conf'"
 echo "" # separate output
 
 # if full Linux installation is requested
-if [ "$2" = "full" ]; then
-  ln -s $HOME/.config/native/default-asoundrc $HOME/.asoundrc 2>/dev/null
-  ln -s $HOME/.config/native/xinitrc          $HOME/.xinitrc  2>/dev/null
+if [ $# -eq 2 ] && [ "$2" = "full" ]; then
+  echo "==== full setup"
+  run ln -s $HOME/.config/native/default-asoundrc $HOME/.asoundrc || true
+  run ln -s $HOME/.config/native/xinitrc          $HOME/.xinitrc  || true
   echo "For High-DPI screens, please make sure browsers are scaled properly"
   echo "For chromium: check config/display/chromium-flags.conf"
   echo "For firefox: do online search"
