@@ -165,7 +165,6 @@ elif [ "$ZSH_VERSION" ]; then
   fpath=(~/.config/shell/zsh $fpath)
   autoload -U +X compinit && compinit
   autoload -U +X bashcompinit && bashcompinit
-  source ~/.config/shell/bash/vboxmanage-bash-completion/VBoxManage
 
   # make nice commandline search work using up/down arrow key
   # NOTE: duplicate keybindings are needed to support correct
