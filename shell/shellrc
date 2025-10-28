@@ -39,10 +39,6 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
   # clear the terminal title
   echo -ne "\033]0;\007"
 
-  # set SSH_AUTH_SOCK if needed
-  SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
-  [ -S "$SSH_AUTH_SOCK" ] && export SSH_AUTH_SOCK
-
   # start the session/session group
   if [ -z "$SSH_CLIENT" ]; then
     # startup ding-server if needed
@@ -215,6 +211,11 @@ if [ -n "$SSH_CLIENT" ]; then
   export GIT_ASKPASS=
   # let's be explicit about logging out
   export IGNOREEOF=5
+# on local sessions, setup ssh-agent
+else
+  # set SSH_AUTH_SOCK if needed
+  SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
+  [ -S "$SSH_AUTH_SOCK" ] && export SSH_AUTH_SOCK
 fi
 
 # fix delete key on mac (must be combined with terminal app mapping delete key to same code)
