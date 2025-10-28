@@ -209,10 +209,15 @@ require("gitsigns").setup {
     map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
 }
-require("colorscheme-file").setup {
-  path   = vim.fn.expand('~/.base16_theme_id'),
-  silent = true
-}
+-- require("colorscheme-file").setup {
+--   path   = vim.fn.expand('~/.base16_theme_id'),
+--   silent = true
+-- }
+-- TODO: extract highlight loader plugin; fix colorscheme detection
+-- TODO: integrate nvim templates into my templater
+require('tinted-colorscheme').setup('base24-ayu-dark', {
+  supports = { tinty = false, live_reload = false },
+})
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the listed parsers MUST always be installed)
   ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
