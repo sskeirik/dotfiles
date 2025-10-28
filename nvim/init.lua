@@ -102,8 +102,8 @@ vim.opt.splitbelow    = true            -- horizontal splits open on the bottom
 
 -- input device options
 vim.opt.mouse         = "a"             -- always enable mouse
-vim.opt.timeoutlen    = 1000            -- faster command timeout on escape
-vim.opt.ttimeoutlen   = 0               --
+-- vim.opt.timeoutlen    = 1000            -- faster command timeout on escape
+-- vim.opt.ttimeoutlen   = 0               --
 
 -- color options
 vim.opt.termguicolors = true            -- use nice colors
