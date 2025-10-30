@@ -270,17 +270,17 @@ function load_colors() {
 # set os light-dark theme
 function sunrise() {
   # is_wsl_v2 && _win_lightmode true >/dev/null 2>&1
-  color_shell classic-light
+  color_shell base16-google-light
 }
 
 function cloudy() {
   # is_wsl_v2 && _win_lightmode false >/dev/null 2>&1
-  color_shell material
+  color_shell base16-material
 }
 
 function sunset() {
   # is_wsl_v2 && _win_lightmode false >/dev/null 2>&1
-  color_shell gruvbox-dark-hard
+  color_shell base24-gruvbox-dark
 }
 
 # Setup WSL-specific Functions
