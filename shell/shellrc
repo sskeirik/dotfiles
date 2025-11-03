@@ -26,6 +26,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 # add rustup binaries to path
 [[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
+# update path with nix, if installed
+source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh 2>/dev/null || true
+# add local binaries to path
 export PATH="$LOCAL_BIN:$PATH"
 
 # TMUX session Autostart
