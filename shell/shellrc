@@ -123,6 +123,8 @@ function color_shell() {
   unset tmux_needs_color
   unset theme_link
   unset theme_name
+  unset BASE16_THEME
+  unset BASE24_THEME
 }
 
 if $STANDARD_TERM; then
