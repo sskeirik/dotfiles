@@ -20,6 +20,7 @@
 	smu = submodule update --init --recursive --progress
 	hist = log --abbrev-commit --decorate --date=relative --graph --topo-order \
 	       --format=format:'%C(bold green)%h%C(reset) - %<(60)%C(green)%s%C(reset) - %C(blue)%an%C(reset)%C(bold yellow)%d%C(reset)'
+	bhist = "!f() { git argq $# 2 'bhist <branch-head1> <branch-head2>'; git hist \"$1\" \"$2\" ^\"$(git merge-base \"$1\" \"$2\")~\" --; }; f"
         l = log --first-parent
 	pl = log --pretty='%C(auto)%h %<(10,trunc)%Cred%an%C(auto) %d %s'
 	ls = ls-files
