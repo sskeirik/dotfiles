@@ -195,6 +195,7 @@ export XDG_DATA_HOME=~/.local/share
 export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
 export LESS="-FRXK"
 export LESSCHARSET="utf-8"
+export GOPATH="$XDG_CACHE_HOME/go"
 [ -z "$BASH_VERSION" ] || export EXECIGNORE="$EXECIGNORE:*dll"
 [ -z "$ZSH_VERSION"  ] || export fignore=(dll $fignore)
 
