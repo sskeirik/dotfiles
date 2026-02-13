@@ -110,12 +110,12 @@ function color_shell() {
       elif [ -n "$BASE24_THEME" ]; then
         echo "base24-$BASE24_THEME" > "$theme_name_file"
       else
-        echo "Theme name not found"
+        echo "Theme name not found" >&2
         return 1
       fi
       tmux_needs_color=true
     else
-      echo "shell theme $theme not found"
+      echo "shell theme $theme not found" >&2
       return 1
     fi
     unset shell_theme_file
@@ -155,7 +155,7 @@ if $STANDARD_TERM; then
       eval "$(starship init zsh)"
     fi
   else
-    echo "starship not found: prompt disabled"
+    echo "starship not found: prompt disabled" >&2
   fi
 else
   PS1="\W \\$ "
@@ -260,10 +260,19 @@ alias g='git '
 
 # load theme aliases for manual perusal
 function load_colors() {
-  TINTED_SHELL="$HOME/.config/shell/theme/tinted-shell/"
-  [ -n "$PS1" ] && \
-      [ -s "$TINTED_SHELL/profile_helper.sh" ] && \
-          source "$TINTED_SHELL/profile_helper.sh"
+  SHELL_COLORS="$HOME/.config/shell/theme/tinted-shell/scripts"
+  if [ -n "$PS1" ] && [ -d "$SHELL_COLORS" ]; then
+    for script_path in "$SHELL_COLORS"/*.sh
+    do
+      script_name=${script_path##*/}
+      theme_name=${script_name%.sh}
+      function_name=${theme_name/-/_}
+      alias $function_name="color_shell \"${theme_name}\""
+    done
+  else
+    echo "Could not find shell colors directory: $SHELL_COLORS" >&2
+    return 1
+  fi
 }
 
 # Set OS, tmux, and shell themes

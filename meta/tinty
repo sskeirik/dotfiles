@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "Stub for tinty to avoid runtime error when using tinted-nvim" >&2
