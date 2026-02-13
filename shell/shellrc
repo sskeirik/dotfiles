@@ -24,8 +24,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   PATH="/usr/local/bin/:$PATH"
   [[ -x /usr/libexec/java_home ]] && /usr/libexec/java_home &>/dev/null && export JAVA_HOME=`/usr/libexec/java_home`
 fi
-# add rustup binaries to path
-[[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
+# add language specific binaries to path
+[[ -d "$HOME/.cargo/bin"    ]] && PATH="$HOME/.cargo/bin:$PATH"
+[[ -d "$HOME/.dotnet/tools" ]] && PATH="$HOME/.dotnet/tools:$PATH"
 # update path with nix, if installed
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh 2>/dev/null || true
 # add local binaries to path
