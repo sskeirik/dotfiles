@@ -41,19 +41,19 @@ else
   exit 1
 fi
 
-echo "" # separate output
-echo "WSLv2 with systemd: may need following cmd to support windows binary exec:"
-echo "sudo sh -c 'echo :WSLInterop:M::MZ::/init:PF > /usr/lib/binfmt.d/WSLInterop.conf'"
-echo "" # separate output
-
-# if full Linux installation is requested
-if [ $# -eq 2 ] && [ "$2" = "full" ]; then
+# in WSLv2 mode, let linux exec windows binaries
+if grep -qi "microsoft-standard-WSL2" /proc/version 2>/dev/null; then
+  sudo sh -c 'echo :WSLInterop:M::MZ::/init:PF > /usr/lib/binfmt.d/WSLInterop.conf'
+  run ln -s $HOME/.config/meta/win32yank.exe $HOME/.local/bin/win32yank.exe || true
+# in full mode, install graphics/sound configs
+elif [ $# -eq 2 ] && [ "$2" = "full" ]; then
   echo "==== full setup"
   run ln -s $HOME/.config/native/default-asoundrc $HOME/.asoundrc || true
   run ln -s $HOME/.config/native/xinitrc          $HOME/.xinitrc  || true
   echo "For High-DPI screens, please make sure browsers are scaled properly"
   echo "For chromium: check config/display/chromium-flags.conf"
   echo "For firefox: do online search"
+# otherwise, ignore this step
 else
   echo "Console installations will not link graphics/sound config files"
   echo "For full installation, re-run with as:"

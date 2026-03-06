@@ -165,6 +165,24 @@ vim.g.polyglot_disabled                    = { 'latex' }                     -- 
 vim.g.vim_markdown_no_default_key_mappings = 1                               -- disable polyglot markdown keybindings; why does this even come with bindings?
 vim.g.vim_markdown_math                    = 1                               -- enable latex math highlighting in markdown
 
+-- sync clipboard in WSL-mode
+if vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+    name = 'win32yank',
+    copy  = { ['+'] = 'win32yank.exe -i --crlf', ['*'] = 'win32yank.exe -i --crlf' },
+    paste = { ['+'] = 'win32yank.exe -o --lf',   ['*'] = 'win32yank.exe -o --lf'   },
+    cache_enabled = 0,
+  }
+end
+-- prefix clipboard command with leader for system-synchronized copy/paste
+vim.keymap.set({'n', 'v'}, '<leader>y', '"+y'   )
+vim.keymap.set({'n', 'v'}, '<leader>d', '"+d'   )
+vim.keymap.set({'n', 'v'}, '<leader>p', '"+p'   )
+vim.keymap.set({'n', 'v'}, '<leader>P', '"+P'   )
+vim.keymap.set({'n'     }, '<leader>Y', '"+Y'   )
+--- paste in insert mode using ctrl+V
+vim.keymap.set({'i'     }, '<C-v>',     '<C-r>+')
+
 -- initialize lua plugins
 require("which-key").setup { }
 require("gitsigns").setup {
