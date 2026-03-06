@@ -260,5 +260,86 @@ require'nvim-treesitter.configs'.setup {
 -- load everforest colorscheme
 vim.cmd.packadd('everforest')
 
--- source legacy vimscript config file
-vim.cmd('source ~/.config/nvim/legacy-config.vim')
+-- vimtex configuration
+vim.g.tex_flavor = 'latex'
+-- 0 = never auto-open, 1 = auto-open on error, 2 = on warning
+vim.g.vimtex_quickfix_mode = 0
+-- 0 = never auto-close, or auto-close after n keystrokes
+vim.g.vimtex_quickfix_autoclose_after_keystrokes = 0
+
+-- Windows: configure for 64-bit SumatraPDF
+if vim.fn.has('win32') == 1 then
+  vim.g.vimtex_compiler_progname = 'nvr'
+  vim.g.vimtex_view_method = 'general'
+  vim.g.vimtex_view_general_viewer = 'C:\\Progra~1\\SumatraPDF\\SumatraPDF.exe'
+  vim.g.vimtex_view_general_options_latexmk = '-reuse-instance'
+  vim.g.vimtex_view_general_options = table.concat({
+    '-reuse-instance -forward-search @tex @line @pdf',
+    ' -inverse-search "nvr --servername ' .. vim.v.servername,
+    ' --remote-send \\"^<C-\\^>^<C-n^>',
+    ':drop \\%f^<CR^>:\\%l^<CR^>:normal\\! zzzv^<CR^>',
+    ':execute \'drop \' . fnameescape(\'\\%f\')^<CR^>',
+    ':\\%l^<CR^>:normal\\! zzzv',
+    ':call remote_foreground(\'' .. vim.v.servername .. '\')^<CR^>^<CR^>\\""'
+  })
+end
+
+-- macOS: configure vimtex viewer
+if vim.fn.has('unix') == 1 then
+  local uname = vim.fn.system('uname')
+  if uname == 'Darwin\n' then
+    vim.g.vimtex_view_method = 'general'
+  end
+end
+
+-- Autocommands
+local augroup = vim.api.nvim_create_augroup('MyCommands', { clear = true })
+
+-- In the Command Window, <F5> runs the current line then reopens
+-- the window on that line
+vim.api.nvim_create_autocmd('CmdwinEnter', {
+  group = augroup,
+  pattern = '*',
+  callback = function()
+    vim.keymap.set('n', '<F5>',
+      ':let g:CmdWindowLineMark=line(".")<CR><CR>q::<C-R>=CmdWindowLineMark<CR><CR>',
+      { buffer = true }
+    )
+  end,
+})
+
+-- Enable rainbow parentheses on filetype detection
+vim.api.nvim_create_autocmd('FileType', {
+  group = augroup,
+  pattern = '*',
+  command = 'RainbowParentheses',
+})
+
+-- Jump to last known cursor position (skip git commits)
+vim.api.nvim_create_autocmd('BufReadPost', {
+  group = augroup,
+  pattern = '*',
+  callback = function()
+    local mark = vim.fn.line("'\"")
+    if mark > 1
+      and mark <= vim.fn.line('$')
+      and vim.bo.filetype ~= 'gitcommit'
+    then
+      vim.cmd("normal! g'\"")
+    end
+  end,
+})
+
+-- Use spaces instead of tabs if file has no tabs
+local function expand_tab_check()
+  local tab = vim.fn.search('\t', 'n')
+  if tab == 0 then
+    vim.opt_local.expandtab = true
+  end
+end
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = augroup,
+  pattern = '*',
+  callback = expand_tab_check,
+})
