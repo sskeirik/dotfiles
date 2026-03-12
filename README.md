@@ -20,8 +20,9 @@ See section [Fresh Installation](#fresh-installation) for information about quic
 The most interesting bits to others would probably be:
 
 1. My tmux config files
-2. My shell config files
-3. My dircolors config files
+2. My clipboard configuration
+3. My shell config files
+4. My dircolors config files
 
 ## Tmux
 
@@ -35,7 +36,14 @@ This is useful for nested tmux sessions, because:
 2. It allows the user to work in a nested tmux session without typing the prefix-key twice every time a tmux-command
    is used remotely.
 
-Aside from the above, on WSLv2 installations, the tmux copy/paste-buffer is synced with the Windows clipboard using [win32yank](https://github.com/equalsraf/win32yank).
+## Clipboard
+
+Managing the clipboard can be quite frustrating when several tools have their own notion of clipboard.
+In my personal computing environments, my window manager (either X/Wayland or Windows Desktop), terminal multiplexer (tmux), and editor (neovim) all have separate clipboards.
+
+To make this a bit more hospitable, for WSLv2 installations, I include configuration directives for tmux and neovim that sync their contents with the system clipboard using [win32yank](https://github.com/equalsraf/win32yank).
+
+A similar trick could be performed on Linux, but I haven't yet completed this integration as I'm still daily driving WSLv2 for work.
 
 ## Shell
 
