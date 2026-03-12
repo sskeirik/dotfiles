@@ -4,11 +4,11 @@ If you're looking for yet-another-dotfile repo, you've come to the right place!
 My current development environment uses the following components:
 
 - Windows Subsystem for Linux
-- Microsoft Terminal or wsltty
+- Microsoft Terminal
 - tmux
 - neovim
 - lightweight git aliases
-- zshell + powerlevel10k
+- zshell + [starship](https://github.com/starship/starship) with one of the default starship themes
 
 Note that this configuration is fairly opinionated and most of it is not well documented.
 This configuration makes heavy use of git submodules --- be sure to run `git submodule update --init --recursive` after installation.
@@ -35,11 +35,13 @@ This is useful for nested tmux sessions, because:
 2. It allows the user to work in a nested tmux session without typing the prefix-key twice every time a tmux-command
    is used remotely.
 
+Aside from the above, on WSLv2 installations, the tmux copy/paste-buffer is synced with the Windows clipboard using [win32yank](https://github.com/equalsraf/win32yank).
+
 ## Shell
 
 Underneath the `/shell` directory I have a unified shell init file `shellrc` for bash and zsh usage.
-I configure terminal colors using the `base16-shell` repo and associated shell scripts;
-the great thing is that this solution does not depend on `Xresources` or any other non-shell config file.
+I configure terminal colors using a modified version of [tinted-shell](https://github.com/tinted-theming/tinted-shell) (the popular spin-off of [base16-shell](https://github.com/chriskempson/base16-shell)) because I find the [tinty](https://github.com/tinted-theming/tinty) tool recommended by tinted theming to be a bit too heavyweight.
+The great thing is that this solution does not depend on `Xresources` or any other non-shell config file.
 As long as your terminal supports changing colors by escape codes, this method will work.
 
 ## Dircolors
