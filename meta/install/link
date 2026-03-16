@@ -46,6 +46,7 @@ fi
 if grep -qi "microsoft-standard-WSL2" /proc/version 2>/dev/null; then
   sudo sh -c 'echo :WSLInterop:M::MZ::/init:PF > /usr/lib/binfmt.d/WSLInterop.conf'
   run ln -s $HOME/.config/meta/win32yank.exe $HOME/.local/bin/win32yank.exe || true
+  run ln -s $HOME/.config/meta/clip $HOME/.local/bin/clip || true
 # in full mode, install graphics/sound configs
 elif [ $# -eq 2 ] && [ "$2" = "full" ]; then
   echo "==== full setup"

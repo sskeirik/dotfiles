@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ -t 0 ]; then
+  exec win32yank.exe -o
+else
+  exec win32yank.exe -i <&0
+fi
