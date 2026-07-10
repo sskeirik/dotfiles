@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#
+# xdg-open — open a path or URL with its default Windows handler, from WSL
+#            or fallback to standard xdg-open on non-WSL linux
+#
+set -euo pipefail
+
+# Fall through to the real opener on native Linux only
+if ! grep -qi microsoft /proc/version 2>/dev/null && [[ -z ${WSL_INTEROP:-} ]]; then
+    exec /usr/bin/env xdg-open "$@"
+fi
+
+launch() {
+    # Start-Process gives real exit codes and handles UNC + URLs cleanly
+    /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -Command Start-Process -- "$1"
+}
+
+# Handle argument arity
+[[ $# -ge 1 ]] || { echo "Usage: ${0##*/} <path|url>" >&2; exit 2; }
+input=$1
+
+# Parse arguments
+case "$input" in
+    http://* | https://*)
+        # Web URL — pass straight through, no path conversion
+        exec_launch=$input
+        launch "$exec_launch"
+        exit $?
+        ;;
+    file://*)
+        # Strip scheme, drop optional "localhost", URL-decode into a path
+        p=${input#file://}
+        p=${p#localhost}
+        printf -v p '%b' "${p//%/\\x}"   # %20 -> \x20 -> space, etc
+        p=${p#/[A-Za-z]:}                # tolerate file:///C:/... just in case
+        input=$p
+        ;;
+esac
+
+# From here it's a path (WSL or Windows), convert to unix path temporarily
+if [[ $input == *'\'* ]] || [[ $input =~ ^[A-Za-z]: ]]; then
+    wsl_path=$(wslpath -u "$input")
+else
+    wsl_path=$input
+fi
+
+# Perform existence check
+[[ -e $wsl_path ]] || { echo "${0##*/}: no such path: $input" >&2; exit 1; }
+
+# Convert back to windows path
+win_path=$(wslpath -w "$(realpath -- "$wsl_path")")
+
+# Open with default windows handler
+launch "$win_path"
