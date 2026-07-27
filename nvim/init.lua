@@ -348,6 +348,33 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
+-- Configure Goyo
+-- on enter/leave, toggle the following
+-- 1. limelight  - highlight current line,
+-- 2. vim-pencil - line-wrap/break, h/j/k/l line move behavior
+-- 3. gitsigns   - git diff signs in vim gutter
+local goyo_group = vim.api.nvim_create_augroup("GoyoConfig", { clear = true })
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "GoyoEnter",
+  group = goyo_group,
+  callback = function()
+    vim.cmd("Limelight")  -- highlight current line
+    vim.cmd("PencilSoft") -- line-wrapping/breaking
+    require("gitsigns").toggle_signs(false)
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "GoyoLeave",
+  group = goyo_group,
+  callback = function()
+    vim.cmd("Limelight!") -- disable highlight
+    vim.cmd("PencilOff")  -- disable line-wrapping/breaking
+    require("gitsigns").toggle_signs(true)
+  end,
+})
+
 -- Use spaces instead of tabs if file has no tabs
 local function expand_tab_check()
   local tab = vim.fn.search('\t', 'n')

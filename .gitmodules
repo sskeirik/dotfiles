@@ -92,3 +92,6 @@
 [submodule "shell/theme/tinted-shell"]
 	path = shell/theme/tinted-shell
 	url = https://github.com/tinted-theming/tinted-shell
+[submodule "nvim/pack/bundle/start/limelight.vim"]
+	path = nvim/pack/bundle/start/limelight.vim
+	url = https://github.com/junegunn/limelight.vim
