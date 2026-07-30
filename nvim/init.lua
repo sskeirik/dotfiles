@@ -229,6 +229,9 @@ require("gitsigns").setup {
 }
 -- TODO: extract highlight loader plugin from tinted-nvim
 -- TODO: integrate nvim templates into my templater
+require("tinted-nvim").setup {
+  apply_scheme_on_startup = false,
+}
 require("colorscheme-file").setup {
   path   = vim.fn.expand('~/.shell_theme_id'),
   silent = true
