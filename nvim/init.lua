@@ -286,6 +286,21 @@ require'nvim-treesitter.configs'.setup {
 -- load everforest colorscheme
 vim.cmd.packadd('everforest')
 
+vim.api.nvim_create_user_command("Paste", function(opts)
+  -- Use the system clipboard. Swap for (") to use the unnamed register (last yank/delete)
+  local reg = '+'
+
+  if opts.range > 0 then
+    -- Called from visual mode (e.g. :'<,'>Paste): replace the selection
+    -- with the register contents, without clobbering the register.
+    vim.cmd('normal! gv"_d')
+    vim.cmd('normal! "' .. reg .. 'P')
+  else
+    -- Normal mode: insert at the cursor position
+    vim.cmd('normal! "' .. reg .. 'p')
+  end
+end, { range = true, desc = "Paste register at cursor (normal or visual)" })
+
 -- vimtex configuration
 vim.g.tex_flavor = 'latex'
 -- 0 = never auto-open, 1 = auto-open on error, 2 = on warning
