@@ -103,3 +103,14 @@ When installing on a fresh system, there are a couple post-installation steps:
 
     -   distribution specific install scripts
     -   the `link` script which setups symlinks in `$HOME` for various configuration files
+
+## Known Issues
+
+1. In the current setup, rendering issues may occur when switching between the standard prompt
+   and the line editor when using a multi-line prompt that includes nerdfont symbols; in particular,
+   you may see duplicate copies of text in your prompt. If this is the case, likely:
+
+   - your prompt is using nerdfont (NF) symbols
+   - your terminal emulator is NOT configured to use a font with NF support.
+
+   To resolve this issue, configure your terminal emulator to use a font with NF support.
