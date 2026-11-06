@@ -236,52 +236,42 @@ require("colorscheme-file").setup {
   path   = vim.fn.expand('~/.shell_theme_id'),
   silent = true
 }
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+-- Update to neovim built-in treesitter support
+-- NOTE: this depends on the tree-sitter CLI tool to function
+local ts = require("nvim-treesitter")
+ts.setup({})
+ts.install({ "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" })
+-- highlight = { enable, disable = function(...) }  +  auto_install = true
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    local buf = args.buf
+    local lang = vim.treesitter.language.get_lang(args.match)
+    if not lang then return end
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+    -- disable list (parser names, as before)
+    if vim.list_contains({ 'latex' }, lang) then return end
 
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
+    -- max filesize
+    local name = vim.api.nvim_buf_get_name(buf)
+    local ok, stats = pcall(vim.uv.fs_stat, name)
+    if ok and stats and stats.size > 100 * 1024 then return end
 
-  -- List of parsers to ignore installing (or "all")
-  -- ignore_install = { "javascript" },
+    local function start()
+      if vim.api.nvim_buf_is_valid(buf) then
+        pcall(vim.treesitter.start, buf, lang)
+      end
+    end
 
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-  highlight = {
-    enable = true,
-
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    -- disable = { "c", "rust" },
-    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-    disable = function(lang, buf)
-        local disabled_langs = { "latex" }
-        if vim.tbl_contains(disabled_langs, lang) then
-            return true
-        end
-
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
-    end,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
+    if vim.list_contains(ts.get_installed(), lang) then
+      start()
+    elseif vim.list_contains(ts.get_available(), lang) then
+      -- auto_install: build the parser, then start highlighting
+      ts.install(lang):await(function()
+        vim.schedule(start)
+      end)
+    end
+  end,
+})
 
 -- load everforest colorscheme
 vim.cmd.packadd('everforest')
