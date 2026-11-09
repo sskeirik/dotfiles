@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+USAGE="usage: git yearly [branch-or-commit]"
+
+die() { echo "$*" >&2; exit 1; }
+
+use_pager=1
+
+[ $# -le 1 ] || die "$USAGE"
+
+if [ $# -eq 0 ]; then
+  rev=$(git rev-parse --verify --quiet "HEAD^{commit}") ||
+    die "error: could not find current commit; are you in a git repository with commits?"
+else
+  rev=$(git rev-parse --verify --quiet "$1^{commit}") ||
+    die "error: could not resolve '$1' to a commit"
+fi
+
+# Decide on color and paging once, while stdout is still the real terminal.
+color=0
+pager=""
+if [ -t 1 ]; then
+  [ -z "${NO_COLOR:-}" ] && color=1
+  if [ "$use_pager" -eq 1 ]; then
+    pager=$(git var GIT_PAGER 2>/dev/null || true)
+    [ "$pager" = cat ] && pager=""
+  fi
+fi
+
+run() {
+  set -o pipefail   # keep failure detection inside this stage
+  git log --format='%cd %h %s' --date=format:%Y "$rev" |
+    sort -s -n -r -k1,1 |
+    awk -v color="$color" '
+      BEGIN {
+        if (color) {
+          ESC = sprintf("%c", 27)
+          year_c = ESC "[1;34m"   # bold blue
+          hash_c = ESC "[33m"     # yellow
+          msg_c  = ESC "[32m"     # green
+          reset  = ESC "[0m"
+        }
+      }
+      $1 != year {
+        year = $1
+        print year_c year reset
+      }
+      {
+        hash = $2
+        $1 = ""; $2 = ""
+        sub(/^  /, "")
+        print hash_c hash reset " " msg_c $0 reset
+      }
+    '
+}
+
+if [ -n "$pager" ]; then
+  # Same defaults git uses: quit if one screen, pass colors, don't clear screen.
+  export LESS="${LESS:-FRX}"
+  set +o pipefail   # pager's exit status decides; ignore SIGPIPE when user quits early
+  run | sh -c "$pager"
+else
+  run
+fi

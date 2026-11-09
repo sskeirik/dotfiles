@@ -1,6 +1,6 @@
 [user]
 	name = Stephen Skeirik
-	email = stephen.skeirik@pi2.network
+	email = skeiriksr@ornl.gov
 [alias]
 	ci = commit --verbose
 	co = checkout
@@ -38,6 +38,7 @@
 	related = "!f() { { [ $# -ne 2 ] || l=$(! git rev-to-hash \"$1\") || r=$(! git rev-to-hash \"$2\"); } && { echo 'usage: git related <rev1> <rev2>'; exit 1; }; if [ \"$l\" = \"$r\" ]; then echo \"$1 == $2\"; elif git merge-base --is-ancestor $l $r; then echo \"$1 < $2\"; elif git merge-base --is-ancestor $r $l; then echo \"$2 < $1\"; else echo \"$1 unrelated to $2\"; fi }; f"
 	rev-to-hash = "!f() { git argq $# 1 'rev-to-hash: <rev>'; git rev-parse --verify --end-of-options \"$1\" 2>/dev/null; }; f"
 	hash-to-rev = "!f() { git argq $# 1 'hash-to-rev <hash>'; git for-each-ref --points-at=\"$1\"; }; f"
+	yearly = "!bash ~/.config/git/subcommands/git-yearly"
 [pull]
 	ff = only
 [push]
