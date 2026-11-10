@@ -10,7 +10,8 @@ My current development environment uses the following components:
 - lightweight git aliases
 - zshell + [starship](https://github.com/starship/starship) with one of the default starship themes
 
-Note that this configuration is fairly opinionated and most of it is not well documented.
+**Note:** this configuration is _quite_ opinionated and, unfortunately, not well documented.
+
 This configuration makes heavy use of git submodules --- be sure to run `git submodule update --init --recursive` after installation.
 
 See section [Fresh Installation](#fresh-installation) for information about quickly getting a new system up-to-speed.
@@ -110,7 +111,16 @@ When installing on a fresh system, there are a couple post-installation steps:
    and the line editor when using a multi-line prompt that includes nerdfont symbols; in particular,
    you may see duplicate copies of text in your prompt. If this is the case, likely:
 
-   - your prompt is using nerdfont (NF) symbols
-   - your terminal emulator is NOT configured to use a font with NF support.
+   1. your prompt is using nerdfont (NF) symbols, and;
+   2. one of the of the following is true;
+      - your terminal emulator is NOT configured to use a font with NF support.
+      - your locale/terminal does not support UTF-8
+      - your locale is inconsistent between your terminal, multiplexer (e.g. tmux), or shell
+      - your terminal, multiplexer, or shell report different widths for uncommon characters/emojis (e.g. NF symbols)
 
-   To resolve this issue, configure your terminal emulator to use a font with NF support.
+   To resolve this issue, ensure that:
+
+   1. You have configured your terminal emulator to use a font with NF support;
+   2. You have set your locale to support UTF-8 (e.g. LANG=en_US.UTF-8);
+   3. The locale setting is consistently observed by all layers of stack that can observe it.
+      Though, note that, Windows Terminal does not honor WSL locales and always assumes UTF-8.
