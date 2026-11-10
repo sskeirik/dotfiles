@@ -18,7 +18,7 @@
 # ##############################
 LOCAL_BIN=~/.local/bin
 WINDOWS_BIN=/mnt/c/bin
-if [[ $(uname -r)] == ^*Microsoft$ ]]; then
+if [[ $(uname -r) == *[Mm]icrosoft* ]]; then
   PATH="$WINDOWS_BIN:$PATH"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   PATH="/usr/local/bin/:$PATH"
@@ -36,10 +36,10 @@ export PATH="$LOCAL_BIN:$PATH"
 # ######################
 
 STANDARD_TERM=false
-[ -z $DEBUG ] && [ $TERM != "linux" ] && [ -z $INSIDE_EMACS ] && [ -z $VSCODE_IPC_HOOK_CLI ] && STANDARD_TERM=true
+[ -z "$DEBUG" ] && [ "$TERM" != "linux" ] && [ -z "$INSIDE_EMACS" ] && [ -z "$VSCODE_IPC_HOOK_CLI" ] && STANDARD_TERM=true
 
 # startup tmux unless we don't need to
-if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)" ]; then
+if $STANDARD_TERM && [ -z "$NO_TMUX" ] && [ -z "$TMUX" ] && [ -x "$(command -v tmux)" ]; then
   # pretend we are xterm
   export TERM=xterm-256color
   # clear the terminal title
@@ -63,9 +63,7 @@ if $STANDARD_TERM && [ -z $NO_TMUX ] && [ -z $TMUX ] && [ -x "$(command -v tmux)
       echo "Existing session found. Hit enter to continue and execute the following command..."
       echo "${tmux_cmd[@]}"
       echo "================================================"
-      unset REPLY
-      read -t 3
-      [ -z ${REPLY+z} ] && exit
+      read -t 3 || exit
     fi
 
     # no session exists, open new session
@@ -92,7 +90,7 @@ function _color_tmux() {
 # NOTE: do NOT redirect stdout when invoking this program or else this WILL not work
 function color_shell() {
   ! $STANDARD_TERM && return 1
-  tmux_needs_color=true
+  tmux_needs_color=false
   theme_link="$HOME/.shell_theme"
   theme_name_file="$HOME/.shell_theme_id"
   if [ $# -eq 0 ]; then
@@ -123,47 +121,10 @@ function color_shell() {
   _color_tmux $tmux_needs_color "$HOME/.config/tmux/plugins/tinted-tmux/colors/$theme.conf"
   unset tmux_needs_color
   unset theme_link
-  unset theme_name
+  unset theme
   unset BASE16_THEME
   unset BASE24_THEME
 }
-
-if $STANDARD_TERM; then
-  # disable software control flow terminal shortcuts ctrl+S/ctrl+Q
-  # but allow internal libraries to use this mechanism if they wish
-  stty -ixon <$TTY >$TTY
-
-  # handle colors
-  color_shell
-
-  # set dircolors
-  if [ -e "$HOME/.config/dircolors/dircolors" ] ; then
-    eval "$(dircolors -b $HOME/.config/dircolors/dircolors)"
-  fi
-
-  # enable direnv
-  which direnv &>/dev/null && eval "$(direnv hook zsh)"
-
-  # force cursor blink
-  echo -e -n "\x1b[\x31 q"
-
-  # setup starship prompt if available
-  if which starship &>/dev/null; then
-    if [ "$BASH_VERSION" ]; then
-      eval "$(unshare -cn starship init bash)"
-    elif [ "$ZSH_VERSION" ]; then
-      eval "$(unshare -cn starship init zsh)"
-      PROMPT='$(unshare -cn "/usr/local/bin/starship" prompt --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="${STARSHIP_CMD_STATUS:-}" --pipestatus="${STARSHIP_PIPE_STATUS[*]:-}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
-      RPROMPT='$(unshare -cn "/usr/local/bin/starship" prompt --right --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="${STARSHIP_CMD_STATUS:-}" --pipestatus="${STARSHIP_PIPE_STATUS[*]:-}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
-      PROMPT2="$(unshare -cn /usr/local/bin/starship prompt --continuation)"
-    fi
-  else
-    echo "starship not found: prompt disabled" >&2
-  fi
-else
-  PS1="\W \\$ "
-  PROMPT="%1~ %(!.#.$) "
-fi
 
 # Initialize shell keybindings
 # ############################
@@ -175,6 +136,7 @@ if [ "$BASH_VERSION" ]; then
 elif [ "$ZSH_VERSION" ]; then
   # set vi-mode
   bindkey -v
+  KEYTIMEOUT=1
 
   # enable completion for git and vbox
   zstyle ':completion:*:*:git:*' script ~/.config/shell/bash/git-completion.bash
@@ -204,6 +166,7 @@ fi
 # Setup our environment and aliases
 # #################################
 
+export LANG="en_US.UTF-8"
 export EDITOR=nvim
 export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache
@@ -241,8 +204,6 @@ fi
 
 # fix delete key on mac (must be combined with terminal app mapping delete key to same code)
 [[ "$OSTYPE" != "darwin"* ]] || [[ -n $TMUX ]] || stty erase '^?'
-# fix locale on OSX
-[[ "$OSTYPE" != "darwin"* ]] || export LANG="en_US.UTF-8"
 
 # setup functions/aliases after defining environment
 alias wget="wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\""
@@ -381,4 +342,42 @@ function pyenv() {
 # open a file
 if [[ "$OSTYPE" != "darwin"* ]]; then
   function win_open() { /mnt/c/Windows/explorer.exe $1; }
+fi
+
+# setup direnv
+if command -v direnv &>/dev/null; then
+  [ -n "$ZSH_VERSION" ] && eval "$(direnv hook zsh)"
+  [ -n "$BASH_VERSION" ] && eval "$(direnv hook bash)"
+fi
+
+# setup prompt
+if $STANDARD_TERM; then
+  # disable software control flow terminal shortcuts ctrl+S/ctrl+Q
+  # but allow internal libraries to use this mechanism if they wish
+  stty -ixon
+
+  # handle colors
+  color_shell
+
+  # set dircolors
+  if [ -e "$HOME/.config/dircolors/dircolors" ] ; then
+    eval "$(dircolors -b $HOME/.config/dircolors/dircolors)"
+  fi
+
+  # force cursor blink
+  echo -e -n "\x1b[\x31 q"
+
+  # setup starship prompt if available
+  if which starship &>/dev/null; then
+    if [ "$BASH_VERSION" ]; then
+      eval "$(starship init bash)"
+    elif [ "$ZSH_VERSION" ]; then
+      eval "$(starship init zsh)"
+    fi
+  else
+    echo "starship not found: prompt disabled" >&2
+  fi
+else
+  PS1="\W \\$ "
+  PROMPT="%1~ %(!.#.$) "
 fi
